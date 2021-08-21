@@ -12,7 +12,7 @@
 <body>
 <?php require('../header-1.php'); ?>
 <!-- content -->
-<div class="mt-1">
+<div class="">
     <?php require('./content.php'); ?>
 </div>
 
