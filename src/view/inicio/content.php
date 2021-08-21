@@ -1,9 +1,11 @@
 <div class="container">
     <!-- header -->
-    <div class="mt-1">
-        <?php require('./header.php'); ?>
+    <div class="mt-2">
+        <h2 class="p-4 mr-4 mt-1" style="color: #333333">
+            <a href="#" class="link-header">Empresa</a> | <a href="#" class="link-header"> Persona </a>
+        </h2>
+        <hr class="hr-header">
     </div>
-
 
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
@@ -19,7 +21,7 @@
                 <div class="row">
                     <div class="mb-3 col-lg-4">
                         <label for="exampleInputEmail1" class="form-label">Tipo</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" name="tipo" id="tipo">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -28,7 +30,7 @@
                     </div>
                     <div class="mb-3 col-lg-4">
                         <label for="exampleInputEmail1" class="form-label">Número de RUC*</label>
-                        <input type="email" class="form-control col-6" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="text" class="form-control col-6" id="rut" name="rut" aria-describedby="emailHelp">
                     </div>
                     <div class="col-lg-4 mt-4" style="">
                         <button type="submit" class="btn btn-siguiente">Siguiente</button>
