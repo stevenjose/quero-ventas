@@ -1,6 +1,6 @@
-<div class="container" style="">
+<div class="container">
     <!-- header -->
-    <div class="mt-2">
+    <div class="mt-1">
         <?php require('./header.php'); ?>
     </div>
 

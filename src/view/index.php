@@ -11,11 +11,8 @@
 </head>
 <body>
 <?php require('./header-1.php'); ?>
-<div class="mt-4" style="margin-top: 100px">
-
-</div>
 <!-- content -->
-<div class="mt-4">
+<div class="mt-1">
     <?php require('./content.php'); ?>
 </div>
 
