@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Contacto
-                            contable/tesoreria/facturacion*</label>
+                            contable/tesorería/facturación*</label>
                         <input type="text" class="form-control col-6" id="contacto" name="contacto" required>
                     </div>
                     <div class="mb-3 col-lg-6">
@@ -72,7 +72,7 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Documento de identifiación*</label>
+                        <label for="exampleInputEmail1" class="form-label">Documento de identificación*</label>
                         <input type="text" class="form-control col-6" id="re_dni" name="re_dni" required>
                     </div>
                     <div class="mb-3 col-lg-6">
@@ -94,12 +94,13 @@
                 <h4>Participantes</h4>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Cantidad de incripciones a comprar*</label>
+                        <label for="exampleInputEmail1" class="form-label">Cantidad de inscripciones a comprar*</label>
                         <input type="number" class="form-control col-6" id="cant_inc" name="cant_inc" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Total*</label>
                         <input type="number" class="form-control col-6" id="total" name="total" required>
+                        <div id="emailHelp" class="form-text text-danger">US$58.00 por participante inc. IGV</div>
                     </div>
                 </div>
                 <h4>Ingresar datos del participante</h4>
@@ -149,6 +150,11 @@
                 </div>
                 <hr>
                 <h4>Ingresar datos de inscritos por cantidad indicada</h4>
+                <div class="row">
+                    <div class="mb-3 col-lg-12">
+                        <input type="text" class="form-control col-6" id="cant_inscritos" name="cant_inscritos" required>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente float-end">Con Tarjeta de Crédito</button>
