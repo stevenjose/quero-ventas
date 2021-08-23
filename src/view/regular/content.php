@@ -1,8 +1,7 @@
 <?php
     include_once('../../repository/paises.php');
-    $paises = new Pais();
-    $paises_data = $paises->getData();
-
+    $country = new Pais();
+    $country_data = $country->getData();
 ?>
 <div class="container mb-4">
     <!-- header -->
@@ -56,7 +55,7 @@
                         <label  class="form-label">Pais</label>
                         <select class="form-select form-control" aria-label="Default select example" name="pais" id="pais" required>
                             <option selected value="null">Seleccione una opción del menu</option>
-                            <?php foreach ($paises_data as $pais) { ?>
+                            <?php foreach ($country_data as $pais) { ?>
                             <option value="<?php echo $pais['id']?>" ><?php echo $pais['nombre']?></option>
                             <?php } ?>
                         </select>
