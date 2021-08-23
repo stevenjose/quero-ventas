@@ -116,6 +116,7 @@ class MysqlDB
 }
 
 /* Probar conexion */
+/*
 $conex = new MysqlDB();
 $conex->connect();
 $consulta = [];
@@ -127,4 +128,4 @@ try {
 } catch (Exception $e) {
     print $e;
 }
-print_r($consulta);
+print_r($consulta);*/
