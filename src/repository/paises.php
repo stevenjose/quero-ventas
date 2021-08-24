@@ -11,7 +11,7 @@ class Pais {
     }
     public function getData(): array
     {
-        $sql="SELECT * FROM paises";
+        $sql="SELECT * FROM country";
         $consulta = [];
         try {
             if (isset($this)) {
