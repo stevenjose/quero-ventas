@@ -15,6 +15,24 @@
             <hr>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <h4>Registros</h4>
+        </div>
+        <div class="col-lg-2">
+            <a href="./src/view/estudiante/index.php" class="btn btn-primary"> Estuadiante </a>
+        </div>
+        <div class="col-lg-2">
+            <a href="" class="btn btn-primary"> Regular </a>
+        </div>
+        <div class="col-lg-2">
+            <a href="" class="btn btn-primary"> Empresa </a>
+        </div>
+        <div class="col-lg-2">
+            <a href="" class="btn btn-primary"> Asociados </a>
+        </div>
+    </div>
+    <hr>
     <div class="row mt-4">
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <form>
