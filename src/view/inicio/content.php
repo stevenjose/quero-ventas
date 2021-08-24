@@ -1,3 +1,24 @@
+<?php require_once __DIR__."/../../repository/inicio_page.php"; ?>
+
+<?php 
+
+$inicio = new Inicio; 
+
+$document_type = $inicio->getDocumentType();
+$user = null;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {
+    $user = $inicio->getUser($_POST["tipo"],$_POST["documentNumber"]);
+  }
+}
+
+
+
+?>
+
+
+
 <div class="container">
     <!-- header -->
     <div class="mt-2">
@@ -35,20 +56,20 @@
     <hr>
     <div class="row mt-4">
         <div class="col-12 col-lg-12 col-md-12 mb-4">
-            <form>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="row">
                     <div class="mb-3 col-lg-4">
-                        <label for="exampleInputEmail1" class="form-label">Tipo</label>
-                        <select class="form-select" aria-label="Default select example" name="tipo" id="tipo">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <select require class="form-select" aria-label="Default select example" name="tipo" id="tipo">
                             <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <?php foreach ($document_type as &$value) { ?>
+                            <option value="<?php  echo $value["id"] ?>"><?php  echo $value["name"] ?></option>
+                            <?php  }?>
                         </select>
                     </div>
                     <div class="mb-3 col-lg-4">
-                        <label for="exampleInputEmail1" class="form-label">Número de RUC*</label>
-                        <input type="text" class="form-control col-6" id="rut" name="rut" aria-describedby="emailHelp">
+                        <label for="documentNumber" class="form-label">Número de RUC*</label>
+                        <input type="text" class="form-control col-6" id="documentNumber" name="documentNumber" require aria-describedby="emailHelp">
                     </div>
                     <div class="col-lg-4 mt-4" style="">
                         <button type="submit" class="btn btn-siguiente">Siguiente</button>
@@ -68,28 +89,36 @@
                     <thead>
                     <tr class="tbl" style="border-radius-topright: 15px" >
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">TIPO</th>
+                        <th scope="col">INDIVIDUAL</th>
+                        <th scope="col">COPERATIVO</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr style="background-color: brown; color: white">
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>PREVENTA*</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td><?php  
+                        if($user != null)
+                             echo $user[0]["name"] 
+                        
+                        ?></td>
+                        <td colspan="2"><?php  
+                        if($user != null)
+                             echo $user[0]["total"] 
+                        
+                        ?></td>
+                        
                     </tr>
                     <tr>
                         <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                        
+                        
                     </tr>
                     </tbody>
                 </table>

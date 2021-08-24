@@ -1,0 +1,45 @@
+<?php
+//echo __DIR__."/../../db/conexion.php";
+require_once __DIR__."/../../db/conexion.php";
+
+class Inicio {
+    private $db;
+
+    function __construct() {
+        $this->db = new MysqlDB();
+        $this->db->connect();
+    }
+    public function getDocumentType(): array
+    {
+        $sql="SELECT * FROM document_type";
+        $consulta = [];
+        try {
+            if (isset($this)) {
+                $consulta = $this->db->getData($sql);
+            }
+        } catch (Exception $e) {
+            print $e;
+        }
+        return $consulta;
+    }
+
+    public function getUser($documentType, $documentNumber): array
+    {
+        $sql = "";
+        if($documentType == "4")
+           $sql="SELECT * FROM person WHERE id_document_type = '".$documentType."' AND document_number = '".$documentNumber."'";
+        else 
+           $sql="SELECT * FROM company WHERE id_document_type = '".$documentType."' AND document_number = '".$documentNumber."'";; 
+
+        $consulta = [];
+        try {
+            if (isset($this)) {
+                $consulta = $this->db->getData($sql);
+            }
+        } catch (Exception $e) {
+            print $e;
+        }
+        return $consulta;
+    }
+}
+
