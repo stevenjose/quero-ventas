@@ -25,20 +25,18 @@ DROP TABLE IF EXISTS `company`;
 CREATE TABLE `company` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
-  `document` varchar(50) DEFAULT NULL,
+  `document_number` varchar(50) DEFAULT NULL,
   `id_document_type` int DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
   `activity` varchar(50) DEFAULT NULL,
   `billing` varchar(50) DEFAULT NULL,
   `id_county` int DEFAULT NULL,
-  `id_company_type` int DEFAULT NULL,
   `participants_number` int DEFAULT NULL,
   `total` double DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `company_company_type_id_fk` (`id_company_type`),
   KEY `company_document_type_id_fk` (`id_document_type`),
   CONSTRAINT `company_document_type_id_fk` FOREIGN KEY (`id_document_type`) REFERENCES `document_type` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +45,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
+INSERT INTO `company` (`id`, `name`, `document_number`, `id_document_type`, `address`, `activity`, `billing`, `id_county`, `participants_number`, `total`) VALUES (1,'TPT','777777',2,'PERU','CARNE','2345',1,2,774);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,6 +147,7 @@ CREATE TABLE `person` (
   `column_9` int DEFAULT NULL,
   `company_name` int DEFAULT NULL,
   `id_person_type` int DEFAULT NULL,
+  `total` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `person_email_uindex` (`email`),
   KEY `person_id_document_type_fk` (`id_document_type`),
@@ -198,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-24 20:41:17
+-- Dump completed on 2021-08-24 23:23:08
