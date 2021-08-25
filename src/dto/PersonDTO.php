@@ -6,6 +6,7 @@ class PersonDTO
     private $name;
     private $last_name;
     private $email;
+    private $city;
     private $document_number;
     private $phone_number;
     private $id_document_type;
@@ -191,5 +192,20 @@ class PersonDTO
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
 
 }

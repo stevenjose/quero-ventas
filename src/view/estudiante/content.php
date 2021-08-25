@@ -81,11 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label" required>Ciudad</label>
-                        <select class="form-select" aria-label="Default select example" name="tipo" id="tipo">
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <input type="text" class="form-control col-6" id="city" name="city" required value="Caracas">
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Centro de estudios*</label>
@@ -105,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="number" class="form-control col-6" id="total" name="total">
+                        <input type="number" class="form-control col-6" id="total" name="total" required>
                         <div id="emailHelp" class="form-text text-danger">US$30.00 inc IGV</div>
                     </div>
                 </div>
@@ -139,25 +135,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 CCI BBVA Dólares: 125 25648 2683356 542
                             </div>
                         </div>
-                        <form>
+                        <form id="payment" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
-                                <input type="text" class="form-control" id="entidad-bancaria" required>
+                                <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
                             </div>
                             <div class="mb-3">
                                 <label for="message-text" class="col-form-label">Número de operación*:</label>
-                                <input type="number" class="form-control" id="num-ope"></input>
+                                <input type="number" class="form-control" id="reference" name="reference"></input>
                             </div>
                             <div class="mb-3">
                                 <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
-                                <input type="file" class="form-control" id="num-ope"></input>
+                                <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
                             </div>
                         </form>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -170,22 +168,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
     var form = document.getElementById('form-estudiante');
+
     form.onsubmit = (e) => {
         e.preventDefault();
-        console.log('envio de form');
-        let name = form.elements[0];
-        console.log(form.elements);
-        console.log(name.value);
         myModal.show();
     }
 
+
     var exampleModal = document.getElementById('guardar');
     exampleModal.addEventListener("click", ()=>{
-        console.log('click aca');
-        login();
+        let bank = document.getElementById('entidad_bancaria').value;
+        let reference = document.getElementById('reference').value;
+        let num_voucher = document.getElementById('num_voucher').value;
+        console.log('NUM VOUCHER',num_voucher);
+        if(bank && reference && num_voucher){
+            personCreate(bank, reference, num_voucher);
+        }else{
+            if(!bank){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Entidad bancaria es requerida',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(!reference){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Número de operación',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+
+            if(!num_voucher){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Voucher bancaria es requerido',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+        }
+
     });
 
-    const login = async () => {
+    const personCreate = async (bank, reference, num_voucher) => {
         const response = await fetch('../../controllers/person.php', {
             method: 'POST',
             body: new URLSearchParams({
@@ -193,7 +224,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'apellidos': document.getElementById('apellidos').value,
                 'dni': document.getElementById('dni').value,
                 'email': document.getElementById('email').value,
-                'celular':document.getElementById('celular').value
+                'city' : document.getElementById('city').value,
+                'celular':document.getElementById('celular').value,
+                'total': document.getElementById('total').value,
+                'bank' : bank,
+                'reference': reference,
+                'num_voucher': num_voucher
             })
         });
         const resp = await response.json();
@@ -220,6 +256,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 timer: 2500
             });
         }
-
     }
 </script>
