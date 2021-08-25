@@ -1,20 +1,13 @@
 <?php require_once __DIR__."/../../repository/inicio_page.php"; ?>
-
-<?php 
-
-$inicio = new Inicio; 
-
+<?php
+$inicio = new Inicio;
 $document_type = $inicio->getDocumentType();
 $user = null;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {
     $user = $inicio->getUser($_POST["tipo"],$_POST["documentNumber"]);
   }
 }
-
-
-
 ?>
 
 
@@ -37,20 +30,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-2 col-12">
             <h4>Registros</h4>
         </div>
-        <div class="col-lg-2">
-            <a href="./src/view/estudiante/index.php" class="btn btn-primary"> Estuadiante </a>
+        <div class="col-lg-2 col-12 mb-2">
+            <a href="./src/view/estudiante/index.php" class="btn btn-primary form-control"> Estuadiante </a>
         </div>
-        <div class="col-lg-2">
-            <a href="" class="btn btn-primary"> Regular </a>
+        <div class="col-lg-2 col-12 mb-2">
+            <a href="" class="btn btn-primary form-control"> Regular </a>
         </div>
-        <div class="col-lg-2">
-            <a href="" class="btn btn-primary"> Empresa </a>
+        <div class="col-lg-2 col-12 mb-2">
+            <a href="" class="btn btn-primary form-control"> Empresa </a>
         </div>
-        <div class="col-lg-2">
-            <a href="" class="btn btn-primary"> Asociados </a>
+        <div class="col-lg-2 col-12 mb-2">
+            <a href="" class="btn btn-primary form-control"> Asociados </a>
         </div>
     </div>
     <hr>
@@ -69,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="mb-3 col-lg-4">
                         <label for="documentNumber" class="form-label">Número de RUC*</label>
-                        <input type="text" class="form-control col-6" id="documentNumber" name="documentNumber" require aria-describedby="emailHelp">
+                        <input type="text" class="form-control col-6" id="documentNumber" name="documentNumber" required aria-describedby="emailHelp">
                     </div>
                     <div class="col-lg-4 mt-4" style="">
                         <button type="submit" class="btn btn-siguiente">Siguiente</button>

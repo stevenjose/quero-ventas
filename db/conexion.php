@@ -2,9 +2,9 @@
 
 class MysqlDB
 {
-    private $host = "localhost:3307";
+    private $host = "localhost:3306";
     private $usuario ="root";
-    private $pass ="root";
+    private $pass ="123456";
     private $db ="ventas";
 
     private $connection;
