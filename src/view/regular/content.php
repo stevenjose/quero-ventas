@@ -162,7 +162,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <button class="btn btn-siguiente float-end">Con Tarjeta de Crédito</button>
+                        <button class="btn btn-siguiente float-end" type="button" id="deposito">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente">Con Tarjeta de Crédito</button>

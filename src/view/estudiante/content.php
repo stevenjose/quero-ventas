@@ -108,11 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <hr>
                 <div class="row">
                     <div class="col-lg-6">
-                        <button class="btn btn-siguiente float-end" type="submit">Con Tarjeta de Crédito</button>
+                        <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
-                    <div class="col-lg-6">
+                    <!--<div class="col-lg-6">
                         <button class="btn btn-siguiente" type="submit">Con Tarjeta de Crédito</button>
-                    </div>
+                    </div>-->
                 </div>
             </form>
         </div>
@@ -175,13 +175,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    var exampleModal = document.getElementById('guardar');
-    exampleModal.addEventListener("click", ()=>{
+    let guardar = document.getElementById('guardar');
+    guardar.addEventListener("click", ()=>{
         let bank = document.getElementById('entidad_bancaria').value;
         let reference = document.getElementById('reference').value;
         let num_voucher = document.getElementById('num_voucher').value;
         console.log('NUM VOUCHER',num_voucher);
         if(bank && reference && num_voucher){
+            console.log('crear persona');
             personCreate(bank, reference, num_voucher);
         }else{
             if(!bank){
@@ -216,7 +217,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     });
 
+
+
+
+
     const personCreate = async (bank, reference, num_voucher) => {
+
         const response = await fetch('../../controllers/person.php', {
             method: 'POST',
             body: new URLSearchParams({
@@ -233,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             })
         });
         const resp = await response.json();
-        console.log(resp);
+
         if(resp && resp['success'] == "false"){
             myModal.hide();
             Swal.fire({
@@ -246,7 +252,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             console.error('Error', resp);
         }else{
             console.log('no hay error', resp);
-            myModal.hide();
+            const fileInput = document.querySelector('#num_voucher');
+            console.log(fileInput.files[0].name);
+            let payload = {
+                entidad_bancaria: document.getElementById('entidad_bancaria').value,
+                reference: document.getElementById('reference').value,
+                voucher: fileInput.files[0].name,
+                email: document.getElementById('email').value
+            };
+            const formData = new FormData();
+            formData.append( "json", JSON.stringify( payload));
+            formData.append('file', fileInput.files[0]);
+
+            const payment = await fetch('../../controllers/payment.php', {
+                method: 'POST',
+                body:formData
+            });
+
+            console.log(payment);
 
             Swal.fire({
                 position: 'center',
@@ -255,6 +278,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 showConfirmButton: false,
                 timer: 2500
             });
+            myModal.hide();
         }
+
+
     }
 </script>

@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="./src/view/estudiante/index.php" class="btn btn-primary form-control"> Estuadiante </a>
         </div>
         <div class="col-lg-2 col-12 mb-2">
-            <a href="" class="btn btn-primary form-control"> Regular </a>
+            <a href="./src/view/regular/index.php" class="btn btn-primary form-control"> Regular </a>
         </div>
         <div class="col-lg-2 col-12 mb-2">
             <a href="" class="btn btn-primary form-control"> Empresa </a>

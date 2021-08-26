@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__."/../../db/conexion.php";
-require_once __DIR__."/../dto/PersonDTO.php";
+require __DIR__."/../../db/conexion.php";
+require __DIR__."/../dto/PersonDTO.php";
 class Person {
 
     private $db;
@@ -28,6 +28,19 @@ class Person {
 
     public function getPersonId(int $id): array {
         $sql="SELECT * FROM person where id ='$id'";
+        $consulta = [];
+        try {
+            if (isset($this)) {
+                $consulta = $this->db->getDataSingle($sql);
+            }
+        } catch (Exception $e) {
+            print $e;
+        }
+        return $consulta;
+    }
+
+    public function getPersonCorreo(string $email): array {
+        $sql="SELECT * FROM person where email ='$email'";
         $consulta = [];
         try {
             if (isset($this)) {
@@ -85,6 +98,18 @@ class Person {
             return ["error" => "true", "message"=>"Error ya se encuentra registrado el Correo o Dni."];
         }
 
+    }
+
+    public function postCreatePayment(string $sql) {
+        $consulta = [];
+        try {
+            if (isset($this)) {
+                $consulta = $this->db->getDataSingle($sql);
+            }
+        } catch (Exception $e) {
+            print $e;
+        }
+        return $consulta;
     }
 
 }
