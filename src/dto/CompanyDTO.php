@@ -1,20 +1,18 @@
 <?php
-
-class PersonDTO
+class CompanyDTO
 {
     private $id;
     private $name;
-    private $last_name;
     private $email;
-    private $city;
+    private $address;
     private $document_number;
-    private $phone_number;
+    private $participants_number;
     private $id_document_type;
-    private $column_9;
-    private $company_name;
-    private $id_person_type;
+    private $activity;
+    private $billing;
+    private $id_country;
     private $total;
-    private $position;
+    
 
     /**
      * @return mixed
@@ -35,7 +33,7 @@ class PersonDTO
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -43,7 +41,7 @@ class PersonDTO
     /**
      * @param mixed $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -51,23 +49,7 @@ class PersonDTO
     /**
      * @return mixed
      */
-    public function getLastName()
-    {
-        return $this->last_name;
-    }
-
-    /**
-     * @param mixed $last_name
-     */
-    public function setLastName($last_name)
-    {
-        $this->last_name = $last_name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -75,7 +57,7 @@ class PersonDTO
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -99,17 +81,17 @@ class PersonDTO
     /**
      * @return mixed
      */
-    public function getPhoneNumer()
+    public function getParticipantsNumber()
     {
-        return $this->phone_numer;
+        return $this->participants_number;
     }
 
     /**
      * @param mixed $phone_numer
      */
-    public function setPhoneNumer($phone_numer)
+    public function setParticipantsNumber(int $participants_number)
     {
-        $this->phone_numer = $phone_numer;
+        $this->participants_number = $participants_number;
     }
 
     /**
@@ -131,49 +113,49 @@ class PersonDTO
     /**
      * @return mixed
      */
-    public function getColumn9()
+    public function getActivity()
     {
-        return $this->column_9;
+        return $this->activity;
     }
 
     /**
-     * @param mixed $column_9
+     * @param mixed $activity
      */
-    public function setColumn9($column_9)
+    public function setActivity($activity)
     {
-        $this->column_9 = $column_9;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCompanyName()
-    {
-        return $this->company_name;
-    }
-
-    /**
-     * @param mixed $company_name
-     */
-    public function setCompanyName($company_name)
-    {
-        $this->company_name = $company_name;
+        $this->activity = $activity;
     }
 
     /**
      * @return mixed
      */
-    public function getIdPersonType()
+    public function getBilling()
     {
-        return $this->id_person_type;
+        return $this->billing;
+    }
+
+    /**
+     * @param mixed $billing
+     */
+    public function setBilling($billing)
+    {
+        $this->billing = $billing;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdCountry()
+    {
+        return $this->id_country;
     }
 
     /**
      * @param mixed $id_person_type
      */
-    public function setIdPersonType($id_person_type)
+    public function setIdCountry($id_country)
     {
-        $this->id_person_type = $id_person_type;
+        $this->id_country = $id_country;
     }
 
     /**
@@ -196,35 +178,17 @@ class PersonDTO
     /**
      * @return mixed
      */
-    public function getCity()
+    public function getAddress()
     {
-        return $this->city;
+        return $this->address;
     }
 
     /**
-     * @param mixed $city
+     * @param mixed $address
      */
-    public function setCity($city)
+    public function setAddress($address)
     {
-        $this->city = $city;
+        $this->address = $address;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * @param mixed $position
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    }
-
-    
 
 }

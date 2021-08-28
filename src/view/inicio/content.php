@@ -5,7 +5,19 @@ $document_type = $inicio->getDocumentType();
 $user = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {
-    $user = $inicio->getUser($_POST["tipo"],$_POST["documentNumber"]);
+   // $user = $inicio->getUser($_POST["tipo"],$_POST["documentNumber"]);
+   echo $_POST["documentNumber"];
+   if($_POST["tipo"] == "4")
+     header('Location: ./src/view/estudiante/index.php');
+   else if($_POST["tipo"] == "1")
+     header('Location: ./src/view/regular/index.php'); 
+   else if($_POST["tipo"] == "2")
+     header('Location: ./src/view/empresa/index.php'); 
+   else if($_POST["tipo"] == "3")
+     header('Location: ./src/view/asociados/index.php'); 
+        
+     exit();    
+    
   }
 }
 ?>
@@ -29,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <hr>
         </div>
     </div>
-    <div class="row">
+  <!-- <div class="row">
         <div class="col-lg-2 col-12">
             <h4>Registros</h4>
         </div>
@@ -46,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="" class="btn btn-primary form-control"> Asociados </a>
         </div>
     </div>
-    <hr>
+    <hr>-->
     <div class="row mt-4">
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -81,36 +93,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <table class="table table table-striped table-bordered table-inicio" style="border-top-right-radius: 15px;">
                     <thead>
                     <tr class="tbl" style="border-radius-topright: 15px" >
-                        <th scope="col">#</th>
                         <th scope="col">TIPO</th>
                         <th scope="col">INDIVIDUAL</th>
-                        <th scope="col">COPERATIVO</th>
+                        <th scope="col">COPERATIVO**</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr style="background-color: brown; color: white">
-                        <th scope="row">1</th>
                         <td>PREVENTA*</td>
-                        <td></td>
-                        <td></td>
+                        <td>US$ 65.00</td>
+                        <td>US$ 58.00</td>
                     </tr>
                     <tr>
-                        <th scope="row">2</th>
-                        <td><?php  
-                        if($user != null)
-                             echo $user[0]["name"] 
-                        
-                        ?></td>
-                        <td colspan="2"><?php  
-                        if($user != null)
-                             echo $user[0]["total"] 
-                        
-                        ?></td>
+                        <td>REGULAR </td>
+                        <td>US$ 80.00</td>
+                        <td>US$ 72.00</td>
                         
                     </tr>
                     <tr>
-                        <th scope="row">3</th>
                         
+                    <td>EMPRESA AVEM </td>
+                        <td>US$ 50.00</td>
+                        
+                    </tr>
+                    <tr>
+                        
+                    <td>ASOCIADOS Y COLABORADORES APA</td>
+                        <td>US$ 40.00</td>
+                        
+                    </tr>
+                    <tr>
+                        
+                    <td>ESTUDIANTE</td>
+                        <td>US$ 30.00</td>
                         
                     </tr>
                     </tbody>

@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $personaDTO->setDocumentNumber($_POST['dni']);
         $personaDTO->setEmail($_POST['email']);
         $personaDTO->setPhoneNumer($_POST['celular']);
+        $personaDTO->setTotal($_POST['total']);
         $save = $persona->postCreatePerson($personaDTO);
         if($save && $save['error'] == 'false'){
             $error = '';

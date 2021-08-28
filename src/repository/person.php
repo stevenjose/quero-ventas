@@ -11,7 +11,7 @@ class Person {
     }
 
 
-    public function getDocumentType(): array
+    public function getDocumentType()
     {
         $sql="SELECT * FROM person ORDER BY id";
         $consulta = [];
@@ -26,7 +26,7 @@ class Person {
     }
 
 
-    public function getPersonId(int $id): array {
+    public function getPersonId($id) {
         $sql="SELECT * FROM person where id ='$id'";
         $consulta = [];
         try {
@@ -39,7 +39,7 @@ class Person {
         return $consulta;
     }
 
-    public function getPersonCorreo(string $email): array {
+    public function getPersonCorreo($email) {
         $sql="SELECT * FROM person where email ='$email'";
         $consulta = [];
         try {
@@ -52,7 +52,7 @@ class Person {
         return $consulta;
     }
 
-    public function getPersonDocumentNumber(int $document_number, string $email): array {
+    public function getPersonDocumentNumber($document_number, $email) {
         $sql="SELECT * FROM person where document_number ='$document_number' or email = '$email'";
         //echo $sql. "---";
         $consulta = array();
@@ -74,6 +74,7 @@ class Person {
         //INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `document_number`, `phone_number`, `id_document_type`,
         // `position`, `column_9`, `company_name`, `id_person_type`, `total`)
         // VALUES (NULL, 'ASD', 'ASD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        
         $name=$person->getName();
         $last_name=$person->getLastName();
         $email = $person->getEmail();
@@ -82,12 +83,11 @@ class Person {
         $city = $person->getCity();
         $total = $person->getTotal();
         $documentType = $person->getIdDocumentType();
-
+        $position = $person->getPosition();
         $findPerson = $this->getPersonDocumentNumber($document, $email);
-
         if(count($findPerson) == 0){
-            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type) 
-                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType')";
+            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position) 
+                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position')";
             try {
                 $this->db->executeInstruction($sql);
                 return ["error" => "false", "message"=>"Se registro el estudiante exitosamente!"];

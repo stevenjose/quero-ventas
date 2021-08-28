@@ -1,6 +1,6 @@
 <?php
 //echo __DIR__."/../../db/conexion.php";
-require_once __DIR__."/../../db/conexion.php";
+//require_once __DIR__."/../../db/conexion.php";
 
 class Pais {
     private $db;
