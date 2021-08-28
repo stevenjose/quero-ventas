@@ -85,10 +85,13 @@ class Person {
         $documentType = $person->getIdDocumentType();
         $position = $person->getPosition();
         $id_person_type = $person->getIdPersonType();
+        $company_name = $person->getCompanyName();
+        $invitado = $person->getInvitado();
         $findPerson = $this->getPersonDocumentNumber($document, $email);
         if(count($findPerson) == 0){
-            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type) 
-                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type')";
+            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name) 
+                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name')";
+            
             try {
                 $this->db->executeInstruction($sql);
                 return ["error" => "false", "message"=>"Se registro el estudiante exitosamente!"];

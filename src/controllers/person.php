@@ -21,6 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $personaDTO->setTotal($_POST['total']);
         $personaDTO->setIdDocumentType(4);
         $personaDTO->setIdPersonType(1);
+        $personaDTO->setCompanyName('');
+        $personaDTO->setInvitado('');
 
         $save = $persona->postCreatePerson($personaDTO);
         if($save && $save['error'] == 'false'){

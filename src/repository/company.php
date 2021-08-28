@@ -9,6 +9,18 @@ class Company {
         $this->db = new MysqlDB();
         $this->db->connect();
     }
+
+    public function initTransaction() {
+        mysqli_begin_transaction($this->db->getConnect());
+    }
+
+    public function commitDB() {
+        mysqli_commit($this->db->getConnect());
+    }
+
+    public function rollBack() {
+        mysqli_rollback($this->db->getConnect());
+    }
     public function postCreateCompany(CompanyDTO $company) {
        // INSERT INTO  company  ( id ,  name ,  document_number ,  id_document_type , 
        // address ,  activity ,  billing ,  id_county ,  participants_number ,  total )

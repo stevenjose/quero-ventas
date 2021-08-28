@@ -15,6 +15,7 @@ class PersonDTO
     private $id_person_type;
     private $total;
     private $position;
+    private $invitado;
 
     /**
      * @return mixed
@@ -224,6 +225,23 @@ class PersonDTO
     {
         $this->position = $position;
     }
+
+/**
+     * @return mixed
+     */
+    public function getInvitado()
+    {
+        return $this->invitado;
+    }
+
+    /**
+     * @param mixed $invitado
+     */
+    public function setInvitado($invitado)
+    {
+        $this->invitado = $invitado;
+    }
+
 
     
 

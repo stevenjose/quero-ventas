@@ -28,6 +28,10 @@ class MysqlDB
         }
     }
 
+    public function getConnect() {
+        return $this->connection;
+    }
+
     /**
      * @param $sql
      * @return array

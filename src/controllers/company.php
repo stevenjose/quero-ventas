@@ -14,6 +14,7 @@ $success = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = '';
     $company = new Company();
+    $company->initTransaction();
     try {
         $companyDTO = new CompanyDTO();
         $companyDTO->setName($_POST['name']);
@@ -40,6 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $personaDTO->setIdDocumentType('2');
             $personaDTO->setTotal(0);
             $personaDTO->setIdPersonType(2);
+            $personaDTO->setCompanyName('');
+            $personaDTO->setInvitado('');
 
             $save = $persona->postCreatePerson($personaDTO);
 
@@ -63,25 +66,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $worker->setIdDocumentType('2');
                         $worker->setTotal(0);
                         $worker->setIdPersonType(3);
+                        $worker->setCompanyName($item->empresa);
+                        $worker->setInvitado($item->invitado);
+                        
+                   
                         $persona->postCreatePerson($worker);
                         $findWorker = $persona->getPersonDocumentNumber($item->dni, $item->email);
                         $company->postCreateRelCompanyPerson($findCompany["id"], $findWorker["id"]);
                     }
+                    $company->commitDB();
                     echo json_encode(array('error' => '', 'success' => 'true'));
                     
 
                 } else {
+                    $company->rollBack();
                     $error = $save['message'];
                     echo json_encode(['error' => $error, 'success' => 'false']);
                 }
-            } else {                
+            } else { 
+                $company->rollBack();               
                 echo json_encode(['error' => 'El registrados ya se encuentra registrado', 'success' => 'false']);
             }
         } else {
+            $company->rollBack();
             $error = $save['message'];
             echo json_encode(['error' => $error, 'success' => 'false']);
         }
     } catch (Exception $e) {
+        $company->rollBack();
         echo $e;
         echo json_encode(['error' => $e, 'success' => 'false']);
     }
