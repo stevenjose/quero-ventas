@@ -111,9 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
-                    <!--<div class="col-lg-6">
-                        <button class="btn btn-siguiente" type="submit">Con Tarjeta de Crédito</button>
-                    </div>-->
+                    <div class="col-lg-6">
+                        <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="mb-3">
                                 <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
-                                <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
+                                <input type="file" class="form-control" accept=".jpg,.png" id="num_voucher" name="num_voucher"></input>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -175,13 +175,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         myModal.show();
     }
 
+    let validarVoucher = (archivo)=>{
+        let extension = archivo.substring(archivo.lastIndexOf('.'),archivo.length);
+        if(document.getElementById('num_voucher').getAttribute("accept").split(',').indexOf(extension) < 0) {
+            return {"error": true, "message":'Archivo inválido. No se permite la extensión ' + extension};
+        }
+            return {"error": false,"message":""};
+    }
 
     let guardar = document.getElementById('guardar');
+
     guardar.addEventListener("click", ()=>{
         let bank = document.getElementById('entidad_bancaria').value;
         let reference = document.getElementById('reference').value;
-        let num_voucher = document.getElementById('num_voucher').value;
-        console.log('NUM VOUCHER',num_voucher);
+        let voucher = document.getElementById('num_voucher');
+        let num_voucher = voucher.value;
+        let validador = validarVoucher(num_voucher);
+
+        if(validador.error == true){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Archivo inválido. No se permite la extensión ' + validador.message,
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return;
+        }
+        console.log('NUM VOUCHER',voucher);
+
         if(bank && reference && num_voucher){
             console.log('crear persona');
             personCreate(bank, reference, num_voucher);

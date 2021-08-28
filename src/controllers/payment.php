@@ -8,7 +8,7 @@ $email = $person['email'];
 $archivo = $_FILES['file'];
 echo json_encode([ 'error' => 'false', 'success'=>'Se guardo exitosamente']);
 $repository = new Person();
-$persona = $repository->getPersonCorreo("lopezajoseg@gmail.com");
+$persona = $repository->getPersonCorreo($email);
 /*Subir la imagen en la uploads*/
 
 $target_path = $target_path . basename( $_FILES['file']['name']);
