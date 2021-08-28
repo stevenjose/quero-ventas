@@ -225,7 +225,7 @@ $paises = $pais->getData();
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <button class="btn btn-siguiente float-end" data-target="#exampleModalCenter" type="submit">Deposito en cuenta</button>
+                        <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente">Con Tarjeta de Crédito</button>
@@ -288,24 +288,48 @@ $paises = $pais->getData();
     </div>
 </div>
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPaymentHe">Deposito en cuenta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12">
+                        Datos de cuentas Bancarias Asociación Peruana de Avicultura
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12">
+                        BBVA Dólares: 125 25648 2683356 542
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12">
+                        CCI BBVA Dólares: 125 25648 2683356 542
+                    </div>
+                </div>
+                <form id="payment" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
+                        <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Número de operación*:</label>
+                        <input type="number" class="form-control" id="reference" name="reference"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
+                        <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 <script>
     let workers = [];
@@ -340,7 +364,7 @@ $paises = $pais->getData();
 
     addPerson.onclick = (e) => {
         e.preventDefault();
-        console.log(addPersonModal);
+        console.log(myModal);
         addPersonModal.show();
     }
     let guardar = document.getElementById('guardarParticipante');
@@ -363,7 +387,7 @@ $paises = $pais->getData();
         setTable();
     });
 
-    var myModal = new bootstrap.Modal(document.getElementById("exampleModalCenter"), {});
+    var myModal = new bootstrap.Modal(document.getElementById("modalPayment"), {});
 
     var form = document.getElementById('form-empresa');
 
