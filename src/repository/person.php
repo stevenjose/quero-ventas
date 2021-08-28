@@ -84,15 +84,16 @@ class Person {
         $total = $person->getTotal();
         $documentType = $person->getIdDocumentType();
         $position = $person->getPosition();
+        $id_person_type = $person->getIdPersonType();
         $findPerson = $this->getPersonDocumentNumber($document, $email);
         if(count($findPerson) == 0){
-            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position) 
-                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position')";
+            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type) 
+                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type')";
             try {
                 $this->db->executeInstruction($sql);
                 return ["error" => "false", "message"=>"Se registro el estudiante exitosamente!"];
             }catch (Exception $e){
-                return ["error" => "true", "message"=>"Error al guardar el estudiante!"];
+                return ["error" => "true", "message"=>"$sql"];
             }
         }else{
             return ["error" => "true", "message"=>"Error ya se encuentra registrado el Correo o Dni."];

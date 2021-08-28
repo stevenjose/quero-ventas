@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $personaDTO->setCity($_POST['city']);
         $personaDTO->setTotal($_POST['total']);
         $personaDTO->setIdDocumentType(4);
+        $personaDTO->setIdPersonType(1);
 
         $save = $persona->postCreatePerson($personaDTO);
         if($save && $save['error'] == 'false'){

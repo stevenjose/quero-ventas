@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.26, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: ventas
+-- Host: 127.0.0.1    Database: ventas3
 -- ------------------------------------------------------
 -- Server version	8.0.26
 
@@ -36,7 +36,7 @@ CREATE TABLE `company` (
   PRIMARY KEY (`id`),
   KEY `company_document_type_id_fk` (`id_document_type`),
   CONSTRAINT `company_document_type_id_fk` FOREIGN KEY (`id_document_type`) REFERENCES `document_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `company_person_rel` (
   KEY `company_person_rel_person_id_fk` (`id_person`),
   CONSTRAINT `company_person_rel_company_id_fk` FOREIGN KEY (`id_company`) REFERENCES `company` (`id`),
   CONSTRAINT `company_person_rel_person_id_fk` FOREIGN KEY (`id_person`) REFERENCES `person` (`id`)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `country` (
   `iso3166a2` char(3) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=241;
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `document_type` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +126,36 @@ LOCK TABLES `document_type` WRITE;
 /*!40000 ALTER TABLE `document_type` DISABLE KEYS */;
 INSERT INTO `document_type` (`id`, `name`) VALUES (1,'REGULAR'),(2,'EMPRESA AVEM'),(3,'ASOCIADOS APA'),(4,'ESTUDIANTE');
 /*!40000 ALTER TABLE `document_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `payment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `bank` varchar(50) NOT NULL,
+  `reference` varchar(50) NOT NULL,
+  `voucher` varchar(250) NOT NULL,
+  `person_id` int DEFAULT NULL,
+  `company_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `person_id` (`person_id`),
+  CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment`
+--
+
+LOCK TABLES `payment` WRITE;
+/*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+INSERT INTO `payment` (`id`, `bank`, `reference`, `voucher`, `person_id`, `company_id`) VALUES (13,'345345534','34534534','3.png',89,NULL);
+/*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -140,11 +170,11 @@ CREATE TABLE `person` (
   `name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `city` varchar(125) NOT NULL,
   `document_number` varchar(50) DEFAULT NULL,
   `phone_number` varchar(50) DEFAULT NULL,
   `id_document_type` int DEFAULT NULL,
   `position` varchar(50) DEFAULT NULL,
-  `column_9` int DEFAULT NULL,
   `company_name` int DEFAULT NULL,
   `id_person_type` int DEFAULT NULL,
   `total` double DEFAULT NULL,
@@ -154,7 +184,7 @@ CREATE TABLE `person` (
   KEY `person_person_type_id_fk` (`id_person_type`),
   CONSTRAINT `person_id_document_type_fk` FOREIGN KEY (`id_document_type`) REFERENCES `document_type` (`id`),
   CONSTRAINT `person_person_type_id_fk` FOREIGN KEY (`id_person_type`) REFERENCES `person_type` (`id`)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,6 +193,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `city`, `document_number`, `phone_number`, `id_document_type`, `position`, `company_name`, `id_person_type`, `total`) VALUES (89,'jose gregorio','lopez arias','lopezajoseg@gmail.com','Caracas','12315464','42415966',4,NULL,NULL,NULL,30);
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +208,7 @@ CREATE TABLE `person_type` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,6 +217,7 @@ CREATE TABLE `person_type` (
 
 LOCK TABLES `person_type` WRITE;
 /*!40000 ALTER TABLE `person_type` DISABLE KEYS */;
+INSERT INTO `person_type` (`id`, `name`) VALUES (1,'Estudiante'),(2,'Representante'),(3,'Trabajador');
 /*!40000 ALTER TABLE `person_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -198,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-24 23:23:08
+-- Dump completed on 2021-08-28 22:10:39
