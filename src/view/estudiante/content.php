@@ -26,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
+if( $_SERVER["REQUEST_METHOD"] == "GET"){
+    $error = '';
+}
 ?>
 
 <div class="container mb-4">
@@ -250,7 +253,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if( validatePayment()){
             console.log('paso buscar token');
             const tokenApi = await token();
-            console.log(tokenApi);
+            let headers = new Headers();
+            headers.append('Authorization', 'Bearer ' + tokenApi);
+
+            const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
+                method: 'POST',
+                headers: headers
+            });
+
+            if(response.status == 401){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 400){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 406){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 500){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 200){
+                console.log('Pago exitoso');
+            }
         }
     });
 
@@ -454,7 +503,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
             return;
         }
-        console.log('NUM VOUCHER',voucher);
 
         if(bank && reference && num_voucher){
             console.log('crear persona');
@@ -502,7 +550,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
         headers.append('Accept','application/json');
         headers.append('Content-Type','application/json');
-        console.log('fetch token');
         const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
             method: 'GET',
             headers: headers
@@ -542,9 +589,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
             console.error('Error', resp);
         }else{
-            console.log('no hay error', resp);
             const fileInput = document.querySelector('#num_voucher');
-            console.log(fileInput.files[0].name);
             let payload = {
                 entidad_bancaria: document.getElementById('entidad_bancaria').value,
                 reference: document.getElementById('reference').value,
@@ -560,8 +605,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 body:formData
             });
             const tokenResp = token();
-            console.log(payment);
-            console.log(tokenResp);
             Swal.fire({
                 position: 'center',
                 icon: 'success',
