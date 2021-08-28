@@ -175,9 +175,10 @@ CREATE TABLE `person` (
   `phone_number` varchar(50) DEFAULT NULL,
   `id_document_type` int DEFAULT NULL,
   `position` varchar(50) DEFAULT NULL,
-  `company_name` int DEFAULT NULL,
+  `company_name` varchar(50) DEFAULT NULL,
   `id_person_type` int DEFAULT NULL,
   `total` double DEFAULT NULL,
+  `guest` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `person_email_uindex` (`email`),
   KEY `person_id_document_type_fk` (`id_document_type`),
@@ -193,7 +194,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `city`, `document_number`, `phone_number`, `id_document_type`, `position`, `company_name`, `id_person_type`, `total`) VALUES (89,'jose gregorio','lopez arias','lopezajoseg@gmail.com','Caracas','12315464','42415966',4,NULL,NULL,NULL,30);
+INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `city`, `document_number`, `phone_number`, `id_document_type`, `position`, `company_name`, `id_person_type`, `total`, `guest`) VALUES (89,'jose gregorio','lopez arias','lopezajoseg@gmail.com','Caracas','12315464','42415966',4,NULL,NULL,NULL,30,NULL);
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-28 22:10:39
+-- Dump completed on 2021-08-29  1:15:45
