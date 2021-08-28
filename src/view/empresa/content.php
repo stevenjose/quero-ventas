@@ -237,7 +237,49 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
+<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPaymentHe">Deposito en cuenta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12">
+                        Datos de cuentas Bancarias Asociación Peruana de Avicultura
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12">
+                        BBVA Dólares: 125 25648 2683356 542
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12">
+                        CCI BBVA Dólares: 125 25648 2683356 542
+                    </div>
+                </div>
+                <form id="payment" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
+                        <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Número de operación*:</label>
+                        <input type="number" class="form-control" id="reference" name="reference"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
+                        <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
+                    </div>
+                </form>
 
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -288,49 +330,7 @@ $paises = $pais->getData();
     </div>
 </div>
 
-<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalPaymentHe">Deposito en cuenta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 col-lg-12 col-md-12">
-                        Datos de cuentas Bancarias Asociación Peruana de Avicultura
-                    </div>
-                    <div class="col-12 col-lg-12 col-md-12">
-                        BBVA Dólares: 125 25648 2683356 542
-                    </div>
-                    <div class="col-12 col-lg-12 col-md-12">
-                        CCI BBVA Dólares: 125 25648 2683356 542
-                    </div>
-                </div>
-                <form id="payment" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
-                        <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Número de operación*:</label>
-                        <input type="number" class="form-control" id="reference" name="reference"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
-                        <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
-                    </div>
-                </form>
 
-            </div>
-
-        </div>
-    </div>
-</div>
 <script>
     let workers = [];
 
