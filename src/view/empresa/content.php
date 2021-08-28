@@ -228,7 +228,7 @@ $paises = $pais->getData();
                         <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-6">
-                        <button class="btn btn-siguiente">Con Tarjeta de Crédito</button>
+                        <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
                 </div>
             </form>
@@ -330,7 +330,66 @@ $paises = $pais->getData();
     </div>
 </div>
 
+<!--Modal pagos-->
+<div class="modal fade" id="tddPayment" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tarjeta de Crédito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="payment" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Número de tarjeta*:</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Año*:</label>
+                        <input type="text" pattern="\d*" maxlength="4" class="form-control" id="anio_tdd" name="anio_tdd"></input>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Mes*:</label>
+                                <input type="text" pattern="\d*" maxlength="1" class="form-control" id="mes_tdd" name="mes_tdd"></input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">CVV*:</label>
+                                <input type="password" pattern="\d*" maxlength="3" class="form-control" id="cvv_tdd" name="cvv_tdd"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Nombres*:</label>
+                                <input type="text" maxlength="50" class="form-control" id="nombres_tdd" name="nombres_tdd"></input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Apellidos*:</label>
+                                <input type="text" maxlength="50" class="form-control" id="apellidos_tdd" name="apellidos_tdd"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Correo*:</label>
+                        <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
+                    </div>
+                </form>
+            </div>
 
+        </div>
+    </div>
+</div>
 <script>
     let workers = [];
 
@@ -361,6 +420,8 @@ $paises = $pais->getData();
 
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
+    var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
+    var paymentTdd = document.getElementById('tdd_payment');
 
     addPerson.onclick = (e) => {
         e.preventDefault();
@@ -550,4 +611,172 @@ $paises = $pais->getData();
 
 
     }
+
+    // Pagos
+    paymentTdd.addEventListener("click",(e)=>{
+        console.log('Click')
+        e.preventDefault();
+        if (!formCompany.valid()) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error en los datos de la empresa',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else {
+            console.log('Modal pagos');
+            myModalPayment.show();
+        }
+    });
+
+
+    var btnPagar = document.getElementById('pagar');
+    btnPagar.addEventListener("click",async (e)=> {
+        if( validatePayment()){
+            console.log('paso buscar token');
+            const tokenApi = await token();
+            let headers = new Headers();
+            headers.append('Authorization', 'Bearer ' + tokenApi);
+
+            const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
+                method: 'POST',
+                headers: headers
+            });
+
+            if(response.status == 401){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 400){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 406){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 500){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 200){
+                console.log('Pago exitoso');
+            }
+        }
+    });
+    function validatePayment() {
+        if( document.getElementById('cardNumber').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el numero de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('anio_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el año de vencimiento de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('mes_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el mes de vencimiento de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('cvv_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese código secreto CVV!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('nombres_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los nombres!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('apellidos_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los apellidos!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('email_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el email!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        return( true );
+    }
+
+    //token
+
+    const token = async () =>{
+        let username = 'diego.velarde@apa.org.pe';
+        let password = 'C!@q4d0B';
+        let headers = new Headers();
+        let resp = '';
+        headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
+        headers.append('Accept','application/json');
+        headers.append('Content-Type','application/json');
+        const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
+            method: 'GET',
+            headers: headers
+        });
+        if(response.ok){
+            return resp = await response.text();
+        }
+    }
+
+
 </script>
