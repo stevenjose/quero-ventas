@@ -1,6 +1,9 @@
 body{
     color: #333333;
 }
+.error  {
+    color: red !important;
+}
 
 
 /* Style Header */

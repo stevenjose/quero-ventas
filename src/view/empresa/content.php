@@ -85,33 +85,33 @@ $paises = $pais->getData();
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="name" class="form-label">Empresa*</label>
-                        <input type="text" value="lopezajosegmail.com" class="form-control col-6" id="name" name="name" required>
+                        <input type="text"  class="form-control col-6" id="name" name="name" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="ruc" class="form-label">RUC o equivalente*</label>
-                        <input type="text" value="lopezajosegmail.com" class="form-control col-6" id="ruc" name="ruc" required>
+                        <input type="text"  class="form-control col-6" id="ruc" name="ruc" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="address" class="form-label">Dirección de la empresa*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="address" name="address" required>
+                        <input type="text"  class="form-control col-6" id="address" name="address" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="activity" class="form-label">Rubro o actividad*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="activity" name="activity" required>
+                        <input type="text"  class="form-control col-6" id="activity" name="activity" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="billing" class="form-label">Contacto
                             contable/tesorería/facturación*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="billing" name="billing" required>
+                        <input type="text"  class="form-control col-6" id="billing" name="billing" required>
                     </div>
                     <div class="mb-3 col-lg-6">
 
                         <label for="country" class="form-label">Pais</label>
-                        <select value="2" class="form-select" aria-label="Default select example" name="country" id="country" required>
+                        <select  class="form-select" aria-label="Default select example" name="country" id="country" required>
                             <option selected value="null">Seleccione una opción del menu</option>
                             <?php foreach ($paises as &$value) { ?>
                                 <option value="<?php echo $value["id"] ?>"><?php echo $value["name"] ?></option>
@@ -125,32 +125,32 @@ $paises = $pais->getData();
                     <div class="row">
                         <div class="mb-3 col-lg-6">
                             <label for="re_nombres" class="form-label">Nombres*</label>
-                            <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_nombres" name="re_nombres" required>
+                            <input type="text"  class="form-control col-6" id="re_nombres" name="re_nombres" required>
                         </div>
                         <div class="mb-3 col-lg-6">
                             <label for="re_apellidos" class="form-label">Apellidos*</label>
-                            <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_apellidos" name="re_apellidos" required>
+                            <input type="text"  class="form-control col-6" id="re_apellidos" name="re_apellidos" required>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="re_dni" class="form-label">Documento de identificación*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_dni" name="re_dni" required>
+                        <input type="text"  class="form-control col-6" id="re_dni" name="re_dni" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="re_correo" class="form-label">Correo*</label>
-                        <input type="email" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_correo" name="email" required>
+                        <input type="email"  class="form-control col-6" id="re_correo" name="email" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="position" class="form-label">Cargo*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="position" name="position" required>
+                        <input type="text"  class="form-control col-6" id="position" name="position" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Celular*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_celular" name="re_celular" required>
+                        <input type="text"  class="form-control col-6" id="re_celular" name="re_celular" required>
                     </div>
                 </div>
                 <hr>
@@ -158,11 +158,11 @@ $paises = $pais->getData();
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="participants_number" class="form-label">Cantidad de inscripciones a comprar*</label>
-                        <input type="number" value="11" class="form-control col-6" id="participants_number" name="participants_number" required>
+                        <input type="number"  class="form-control col-6" id="participants_number" name="participants_number" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="total" class="form-label">Total*</label>
-                        <input type="number" value="22" class="form-control col-6" id="total" name="total" required>
+                        <input type="number"  class="form-control col-6" id="total" name="total" required>
                         <div id="emailHelp" class="form-text text-danger">US$50.00 por participante inc. IGV</div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@ $paises = $pais->getData();
                 <h4>Ingresar datos de inscritos por cantidad indicada</h4>
                 <div class="row">
                     <div class="mb-3 col-lg-12">
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="cant_inscritos" name="cant_inscritos" required>
+                        <input type="text" class="form-control col-6" id="cant_inscritos" name="cant_inscritos" required>
                     </div>
                 </div>
                 <div class="row">
@@ -237,7 +237,7 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
-<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe" >
+<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -283,7 +283,7 @@ $paises = $pais->getData();
 
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        
+
 
         <div class="modal-content">
             <div class="modal-header">
@@ -294,27 +294,27 @@ $paises = $pais->getData();
                 <form id="personNew">
                     <div class="mb-3">
                         <label for="part_nombres" class="form-label">Nombres*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_nombres" name="part_nombres" required>
+                        <input type="text" class="form-control col-6" id="part_nombres" name="part_nombres" required>
                     </div>
                     <div class="mb-3">
                         <label for="part_apellidos" class="form-label">Apellidos*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_apellidos" name="part_apellidos" required>
+                        <input type="text"  class="form-control col-6" id="part_apellidos" name="part_apellidos" required>
                     </div>
                     <div class="mb-3">
                         <label for="part_dni" class="form-label">Dni*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_dni" name="part_dni" required>
+                        <input type="text"  class="form-control col-6" id="part_dni" name="part_dni" required>
                     </div>
                     <div class="mb-3">
                         <label for="part_correo" class="form-label">Correo*</label>
-                        <input type="email" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_correo" name="part_correo" required>
+                        <input type="email"  class="form-control col-6" id="part_correo" name="part_correo" required>
                         <div>
                             <div class="mb-3">
                                 <label for="part_ciudad" class="form-label">Ciudad*</label>
-                                <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_ciudad" name="part_ciudad" required>
+                                <input type="text"  class="form-control col-6" id="part_ciudad" name="part_ciudad" required>
                             </div>
                             <div class="mb-3">
                                 <label for="part_cargo" class="form-label">Cargo*</label>
-                                <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_cargo" name="part_cargo" required>
+                                <input type="text"  class="form-control col-6" id="part_cargo" name="part_cargo" required>
 
                             </div>
 
@@ -364,36 +364,190 @@ $paises = $pais->getData();
 
     addPerson.onclick = (e) => {
         e.preventDefault();
-        console.log(myModal);
         addPersonModal.show();
     }
+    var personNew = $("#personNew");
+    personNew.validate();
     let guardar = document.getElementById('guardarParticipante');
     guardar.addEventListener("click", () => {
+
+
+
         let name = document.getElementById('part_nombres').value;
         let lastName = document.getElementById('part_apellidos').value;
         let dni = document.getElementById('part_dni').value;
         let email = document.getElementById('part_correo').value;
         let city = document.getElementById('part_ciudad').value;
         let position = document.getElementById('part_cargo').value;
-        workers.push({
-            "name": name,
-            "lastName": lastName,
-            "dni": dni,
-            "email": email,
-            "city": city,
-            "position": position
+        if (workers.filter(element => element.dni == dni).length > 0) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'El Documento de identidad ya existe',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else if (!personNew.valid()) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error en los datos del participante',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else {
+            workers.push({
+                "name": name,
+                "lastName": lastName,
+                "dni": dni,
+                "email": email,
+                "city": city,
+                "position": position
 
-        });
-        setTable();
+            });
+            setTable();
+            addPersonModal.hide();
+            personNew[0].reset()
+        }
+
     });
 
     var myModal = new bootstrap.Modal(document.getElementById("modalPayment"), {});
 
     var form = document.getElementById('form-empresa');
-
+    
+    var formCompany = $("#form-empresa");
+    formCompany.validate();
     form.onsubmit = (e) => {
         e.preventDefault();
-        console.log(myModal);
-        myModal.show();
+        if (!formCompany.valid()) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error en los datos de la empresa',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else {
+            myModal.show();
+        }
+    }
+
+   
+   
+    let guardarFrom = document.getElementById('guardar');
+    guardarFrom.addEventListener("click", () => {
+        let bank = document.getElementById('entidad_bancaria').value;
+        let reference = document.getElementById('reference').value;
+        let num_voucher = document.getElementById('num_voucher').value;
+        console.log('NUM VOUCHER', num_voucher);
+        if (bank && reference && num_voucher) {
+            console.log('crear company');
+            companyCreate(bank, reference, num_voucher);
+        } else {
+            if (!bank) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Entidad bancaria es requerida',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if (!reference) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Número de operación',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+
+            if (!num_voucher) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Voucher bancaria es requerido',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+        }
+    });
+
+
+    const companyCreate = async (bank, reference, num_voucher) => {
+
+        const response = await fetch('../../controllers/company.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'name': document.getElementById('name').value,
+                'address': document.getElementById('address').value,
+                'ruc': document.getElementById('ruc').value,
+                'participants_number': document.getElementById('participants_number').value,
+                'activity': document.getElementById('activity').value,
+                'country': document.getElementById('country').value,
+                'billing': document.getElementById('billing').value,
+                'total': document.getElementById('total').value,
+                'documentType': '2',
+                're_nombres': document.getElementById('re_nombres').value,
+                're_apellidos': document.getElementById('re_apellidos').value,
+                're_dni': document.getElementById('re_dni').value,
+                're_correo': document.getElementById('re_correo').value,
+                're_celular': document.getElementById('re_celular').value,
+                'position': document.getElementById('position').value,
+                'bank': bank,
+                'reference': reference,
+                'num_voucher': num_voucher,
+                'workers': JSON.stringify(workers)
+            })
+
+        });
+
+        console.log('no hay error', response);
+        const resp = await response.json();
+        console.log('no hay error', resp);
+        if (resp && resp['success'] == "false") {
+            myModal.hide();
+            Swal.fire({
+                title: 'Error!',
+                text: resp['error'],
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            console.error('Error', resp);
+        } else {
+            console.log('no hay error', resp);
+            const fileInput = document.querySelector('#num_voucher');
+            console.log(fileInput.files[0].name);
+            let payload = {
+                entidad_bancaria: document.getElementById('entidad_bancaria').value,
+                reference: document.getElementById('reference').value,
+                voucher: fileInput.files[0].name,
+                ruc: document.getElementById('ruc').value
+            };
+            const formData = new FormData();
+            formData.append("json", JSON.stringify(payload));
+            formData.append('file', fileInput.files[0]);
+
+            const payment = await fetch('../../controllers/payment.php', {
+                method: 'POST',
+                body: formData
+            });
+
+
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Estudiante creado!',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            myModal.hide();
+        }
+
+
     }
 </script>

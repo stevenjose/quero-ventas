@@ -43,7 +43,7 @@ class Company {
     public function postCreateRelCompanyPerson($id_company, $id_person) {
            $sql="INSERT INTO company_person_rel (id_company,id_person) 
                         VALUES('$id_company','$id_person')";
-                        echo $sql;
+                       
             try {
                 $this->db->executeInstruction($sql);
                 return ["error" => "false", "message"=>"Se registro la empresa exitosamente!"];
