@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__."/../../repository/person.php";
-require_once __DIR__."/../../dto/PersonDTO.php";
-require_once __DIR__."/../../repository/paises.php";
-require_once __DIR__."/../../repository/company.php";
-require_once __DIR__."/../../dto/CompanyDTO.php";
+require_once __DIR__ . "/../../repository/person.php";
+require_once __DIR__ . "/../../dto/PersonDTO.php";
+require_once __DIR__ . "/../../repository/paises.php";
+require_once __DIR__ . "/../../repository/company.php";
+require_once __DIR__ . "/../../dto/CompanyDTO.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = '';
     $company = new Company();
@@ -20,10 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $companyDTO->setBilling($_POST['billing']);
 
         $save = $company->postCreateCompany($companyDTO);
-        
-       
-        if($save && $save['error'] == 'false'){
-            
+
+
+        if ($save && $save['error'] == 'false') {
+
             $persona = new Person();
             $personaDTO = new PersonDTO();
             $personaDTO->setName($_POST['re_nombres']);
@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $personaDTO->setPosition($_POST['position']);
             $personaDTO->setIdDocumentType('2');
             $personaDTO->setTotal(0);
-            
+
             $save = $persona->postCreatePerson($personaDTO);
-           
-            if($save && $save['error'] == 'false'){
+
+            if ($save && $save['error'] == 'false') {
                 $findPerson = $persona->getPersonDocumentNumber($_POST['re_dni'], $_POST['re_correo']);
                 $findCompany = $company->getCompanyDocumentNumber($_POST['ruc']);
                 var_dump($findCompany["id"]);
@@ -45,18 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $save = $company->postCreateRelCompanyPerson($findCompany["id"], $findPerson["id"]);
                 var_dump($save);
                 $error = '';
-             //   $success = $save['message'];
-            }else{
+                //   $success = $save['message'];
+            } else {
                 $error = $save['message'];
             }
             var_dump($save);
-        }else{
+        } else {
             $error = $save['message'];
         }
-    }catch (Exception $e){
+    } catch (Exception $e) {
         echo $e;
     }
-
 }
 $pais = new Pais;
 $paises = $pais->getData();
@@ -82,7 +81,7 @@ $paises = $pais->getData();
         <hr>
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <h4>Ingrese los datos de la empresa</h4>
-            <form method="post" id="form-empresa" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <form method="post" id="form-empresa" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="name" class="form-label">Empresa*</label>
@@ -115,8 +114,8 @@ $paises = $pais->getData();
                         <select value="2" class="form-select" aria-label="Default select example" name="country" id="country" required>
                             <option selected value="null">Seleccione una opción del menu</option>
                             <?php foreach ($paises as &$value) { ?>
-                            <option value="<?php  echo $value["id"] ?>"><?php  echo $value["name"] ?></option>
-                            <?php  }?>
+                                <option value="<?php echo $value["id"] ?>"><?php echo $value["name"] ?></option>
+                            <?php  } ?>
                         </select>
                     </div>
                 </div>
@@ -168,8 +167,27 @@ $paises = $pais->getData();
                     </div>
                 </div>
                 <hr>
-                <h4>Ingresar datos del participante</h4>
+                <h4>Datos del participante</h4>
                 <div class="row">
+                    <div class="mb-6 col-lg-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Documento de Identidad</th>
+                                    <th scope="col">
+                                    <td><button type="button" id="addPerson" class="btn btn-danger">Agregar</button></td>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyWorkers">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--     <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Nombres*</label>
                         <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_nombres" name="part_nombres" required>
@@ -198,7 +216,7 @@ $paises = $pais->getData();
                         <label for="exampleInputEmail1" class="form-label">Cargo*</label>
                         <input type="email"  value="lopezajoseg@gmail.com" class="form-control col-6" id="part_cargo" name="part_cargo" required>
                     </div>
-                </div>
+                </div>-->
                 <h4>Ingresar datos de inscritos por cantidad indicada</h4>
                 <div class="row">
                     <div class="mb-3 col-lg-12">
@@ -207,10 +225,10 @@ $paises = $pais->getData();
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                    <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
+                        <button class="btn btn-siguiente float-end" data-target="#exampleModalCenter" type="submit">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-6">
-                        <button class="btn btn-siguiente" >Con Tarjeta de Crédito</button>
+                        <button class="btn btn-siguiente">Con Tarjeta de Crédito</button>
                     </div>
                 </div>
             </form>
@@ -219,3 +237,139 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
+
+
+<div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ingresar datos del participante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="personNew">
+                    <div class="mb-3">
+                        <label for="part_nombres" class="form-label">Nombres*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_nombres" name="part_nombres" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="part_apellidos" class="form-label">Apellidos*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_apellidos" name="part_apellidos" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="part_dni" class="form-label">Dni*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_dni" name="part_dni" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="part_correo" class="form-label">Correo*</label>
+                        <input type="email" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_correo" name="part_correo" required>
+                        <div>
+                            <div class="mb-3">
+                                <label for="part_ciudad" class="form-label">Ciudad*</label>
+                                <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_ciudad" name="part_ciudad" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="part_cargo" class="form-label">Cargo*</label>
+                                <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_cargo" name="part_cargo" required>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="guardarParticipante">Enviar</button>
+                            </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    let workers = [];
+
+    function setTable() {
+        var bodyWorkers = document.getElementById('bodyWorkers');
+        let table = "";
+        workers.forEach(element => {
+            table += "<tr><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><tr>";
+
+
+
+        });
+        bodyWorkers.innerHTML = table;
+
+        workers.forEach(element => {
+            var deleteWork = document.getElementById(element.dni);
+            deleteWork.addEventListener('click', click => {
+                console.log(element.dni)
+                workers = workers.filter(worker => worker.dni != element.dni);
+                setTable();
+            });
+
+        });
+
+
+    }
+
+
+    var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
+    var addPerson = document.getElementById('addPerson');
+
+    addPerson.onclick = (e) => {
+        e.preventDefault();
+        console.log(addPersonModal);
+        addPersonModal.show();
+    }
+    let guardar = document.getElementById('guardarParticipante');
+    guardar.addEventListener("click", () => {
+        let name = document.getElementById('part_nombres').value;
+        let lastName = document.getElementById('part_apellidos').value;
+        let dni = document.getElementById('part_dni').value;
+        let email = document.getElementById('part_correo').value;
+        let city = document.getElementById('part_ciudad').value;
+        let position = document.getElementById('part_cargo').value;
+        workers.push({
+            "name": name,
+            "lastName": lastName,
+            "dni": dni,
+            "email": email,
+            "city": city,
+            "position": position
+
+        });
+        setTable();
+    });
+
+    var myModal = new bootstrap.Modal(document.getElementById("exampleModalCenter"), {});
+
+    var form = document.getElementById('form-empresa');
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        console.log(myModal);
+        myModal.show();
+    }
+</script>
