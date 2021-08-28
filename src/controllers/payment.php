@@ -6,7 +6,7 @@ $target_path = __DIR__."/";
 $person = json_decode($_POST['json'], TRUE);
 $email = $person['email'];
 $archivo = $_FILES['file'];
-echo json_encode([ 'error' => 'false', 'success'=>'Se guardo exitosamente']);
+//echo json_encode([ 'error' => 'false', 'success'=>'Se guardo exitosamente']);
 $repository = new Person();
 $persona = $repository->getPersonCorreo($email);
 /*Subir la imagen en la uploads*/

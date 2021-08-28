@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row mt-4">
         <h4>Ingresar los datos del participante</h4>
         <div class="col-12 col-lg-12 col-md-12 mb-4">
-            <form method="post" id="form-estudiante" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <form method="post" id="form-estudiante" name="formEstudiante" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Nombres*</label>
@@ -162,17 +162,269 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <div class="mb-4"></div>
+    <div class="modal fade" id="tddPayment" tabindex="-1" aria-labelledby="tddPayment" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tarjeta de Crédito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="payment" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Número de tarjeta*:</label>
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Año*:</label>
+                            <input type="text" pattern="\d*" maxlength="4" class="form-control" id="anio_tdd" name="anio_tdd"></input>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Mes*:</label>
+                                    <input type="text" pattern="\d*" maxlength="1" class="form-control" id="mes_tdd" name="mes_tdd"></input>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">CVV*:</label>
+                                    <input type="password" pattern="\d*" maxlength="3" class="form-control" id="cvv_tdd" name="cvv_tdd"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Nombres*:</label>
+                                    <input type="text" maxlength="50" class="form-control" id="nombres_tdd" name="nombres_tdd"></input>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Apellidos*:</label>
+                                    <input type="text" maxlength="50" class="form-control" id="apellidos_tdd" name="apellidos_tdd"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Correo*:</label>
+                            <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
 
-
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+    var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"));
+
     var form = document.getElementById('form-estudiante');
 
     form.onsubmit = (e) => {
         e.preventDefault();
         myModal.show();
+    }
+
+    var paymentTdd = document.getElementById('tdd_payment');
+    paymentTdd.addEventListener("click",(e)=>{
+        console.log('Click')
+        e.preventDefault();
+        if (validate()){
+            myModalPayment.show();
+        };
+
+    });
+
+    var btnPagar = document.getElementById('pagar');
+    btnPagar.addEventListener("click",async (e)=> {
+        if( validatePayment()){
+            console.log('paso buscar token');
+            const tokenApi = await token();
+            console.log(tokenApi);
+        }
+    });
+
+    function validate() {
+
+        if( document.getElementById('nombres').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los nombres!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('apellidos').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los apellidos!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('dni').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el DNI!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('email').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el email!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('city').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese la Ciudad!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('centro').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el Centro!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+
+        if( document.getElementById('codigo_estudiante').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el Código del Estudiante!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+
+        if( document.getElementById('celular').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el celular!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+
+        if( document.getElementById('total').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el total!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+
+        return( true );
+    }
+
+    function validatePayment() {
+        if( document.getElementById('cardNumber').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el numero de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('anio_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el año de vencimiento de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('mes_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el mes de vencimiento de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('cvv_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese código secreto CVV!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('nombres_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los nombres!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('apellidos_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los apellidos!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('email_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el email!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        return( true );
     }
 
     let validarVoucher = (archivo)=>{
@@ -242,7 +494,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
+    const token = async () =>{
+        let username = 'diego.velarde@apa.org.pe';
+        let password = 'C!@q4d0B';
+        let headers = new Headers();
+        let resp = '';
+        headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
+        headers.append('Accept','application/json');
+        headers.append('Content-Type','application/json');
+        console.log('fetch token');
+        const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
+            method: 'GET',
+            headers: headers
+        });
+        if(response.ok){
+            return resp = await response.text();
+        }
+    }
 
     const personCreate = async (bank, reference, num_voucher) => {
 
@@ -291,9 +559,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 method: 'POST',
                 body:formData
             });
-
+            const tokenResp = token();
             console.log(payment);
-
+            console.log(tokenResp);
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -305,5 +573,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 
+    }
+
+    const personCreatePayment = async () =>{
+        const response = await fetch('../../controllers/person.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'nombres': document.getElementById('nombres').value,
+                'apellidos': document.getElementById('apellidos').value,
+                'dni': document.getElementById('dni').value,
+                'email': document.getElementById('email').value,
+                'city' : document.getElementById('city').value,
+                'celular':document.getElementById('celular').value,
+                'total': document.getElementById('total').value,
+                'bank' : bank,
+                'reference': reference,
+                'num_voucher': num_voucher
+            })
+        });
+        const resp = await response.json();
+
+        if(resp && resp['success'] == "false"){
+            myModal.hide();
+            Swal.fire({
+                title: 'Error!',
+                text: resp['error'],
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            console.error('Error', resp);
+        }else{
+            console.log('Se envía al api del pago');
+        }
     }
 </script>
