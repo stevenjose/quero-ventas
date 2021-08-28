@@ -1,10 +1,10 @@
 <?php
 class MysqlDB
 {
-    private $host = "localhost:3307";
+    private $host = "localhost";
     private $usuario ="root";
-    private $pass ="root";
-    private $db ="ventas2";
+    private $pass ="123456";
+    private $db ="ventas";
 
     private $connection;
 
