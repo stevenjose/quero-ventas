@@ -11,15 +11,15 @@ class Company {
     }
 
     public function initTransaction() {
-        mysqli_begin_transaction($this->db->getConnect());
+       // mysqli_begin_transaction($this->db->getConnect());
     }
 
     public function commitDB() {
-        mysqli_commit($this->db->getConnect());
+      //  mysqli_commit($this->db->getConnect());
     }
 
     public function rollBack() {
-        mysqli_rollback($this->db->getConnect());
+      //  mysqli_rollback($this->db->getConnect());
     }
     public function postCreateCompany(CompanyDTO $company) {
        // INSERT INTO  company  ( id ,  name ,  document_number ,  id_document_type , 
@@ -84,6 +84,7 @@ class Company {
         return [];
 
     }
- 
+
+  
 
 }

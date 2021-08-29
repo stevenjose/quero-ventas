@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $company = new Company();
     $company->initTransaction();
     try {
+        
         $companyDTO = new CompanyDTO();
         $companyDTO->setName($_POST['name']);
         $companyDTO->setAddress($_POST['address']);
@@ -30,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $save = $company->postCreateCompany($companyDTO);
         if ($save && $save['error'] == 'false') {
 
-            $persona = new Person();
+            
             $personaDTO = new PersonDTO();
             $personaDTO->setName($_POST['re_nombres']);
             $personaDTO->setLastName($_POST['re_apellidos']);
