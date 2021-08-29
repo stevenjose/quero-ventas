@@ -237,6 +237,68 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
+
+<!--Modal pagos-->
+<div class="modal fade" id="tddPayment" tabindex="-1"  aria-labelledby="tddPaymentHe" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tddPaymentHe">Tarjeta de Crédito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="payment" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Número de tarjeta*:</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Año*:</label>
+                        <input type="text" pattern="\d*" maxlength="4" class="form-control" id="anio_tdd" name="anio_tdd"></input>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Mes*:</label>
+                                <input type="text" pattern="\d*" maxlength="1" class="form-control" id="mes_tdd" name="mes_tdd"></input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">CVV*:</label>
+                                <input type="password" pattern="\d*" maxlength="3" class="form-control" id="cvv_tdd" name="cvv_tdd"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Nombres*:</label>
+                                <input type="text" maxlength="50" class="form-control" id="nombres_tdd" name="nombres_tdd"></input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Apellidos*:</label>
+                                <input type="text" maxlength="50" class="form-control" id="apellidos_tdd" name="apellidos_tdd"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Correo*:</label>
+                        <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -330,66 +392,7 @@ $paises = $pais->getData();
     </div>
 </div>
 
-<!--Modal pagos-->
-<div class="modal fade" id="tddPayment" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tarjeta de Crédito</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="payment" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Número de tarjeta*:</label>
-                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Año*:</label>
-                        <input type="text" pattern="\d*" maxlength="4" class="form-control" id="anio_tdd" name="anio_tdd"></input>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Mes*:</label>
-                                <input type="text" pattern="\d*" maxlength="1" class="form-control" id="mes_tdd" name="mes_tdd"></input>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">CVV*:</label>
-                                <input type="password" pattern="\d*" maxlength="3" class="form-control" id="cvv_tdd" name="cvv_tdd"></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Nombres*:</label>
-                                <input type="text" maxlength="50" class="form-control" id="nombres_tdd" name="nombres_tdd"></input>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Apellidos*:</label>
-                                <input type="text" maxlength="50" class="form-control" id="apellidos_tdd" name="apellidos_tdd"></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Correo*:</label>
-                        <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
-                    </div>
-                </form>
-            </div>
 
-        </div>
-    </div>
-</div>
 <script>
     let workers = [];
 
@@ -619,7 +622,7 @@ $paises = $pais->getData();
     paymentTdd.addEventListener("click",(e)=>{
         console.log('Click')
         e.preventDefault();
-        if (!formCompany.valid()) {
+        if (false) {
             Swal.fire({
                 title: 'Error!',
                 text: 'Error en los datos de la empresa',
