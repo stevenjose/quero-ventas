@@ -8,7 +8,7 @@ class Inicio {
         $this->db = new MysqlDB();
         $this->db->connect();
     }
-    public function getDocumentType(): array
+    public function getDocumentType()
     {
         $sql="SELECT * FROM document_type";
         $consulta = [];
@@ -22,7 +22,7 @@ class Inicio {
         return $consulta;
     }
 
-    public function getUser($documentType, $documentNumber): array
+    public function getUser($documentType, $documentNumber)
     {
         $sql = "";
         if($documentType == "4")

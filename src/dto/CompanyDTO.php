@@ -17,7 +17,7 @@ class CompanyDTO
     /**
      * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -33,7 +33,7 @@ class CompanyDTO
     /**
      * @return mixed
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -49,7 +49,7 @@ class CompanyDTO
     /**
      * @return mixed
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -57,7 +57,7 @@ class CompanyDTO
     /**
      * @param mixed $email
      */
-    public function setEmail(string $email)
+    public function setEmail($email)
     {
         $this->email = $email;
     }

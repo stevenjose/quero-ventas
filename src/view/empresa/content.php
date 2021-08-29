@@ -606,6 +606,9 @@ $paises = $pais->getData();
                 showConfirmButton: false,
                 timer: 2500
             });
+            formCompany[0].reset()
+            workers = [];
+            document.getElementById('bodyWorkers').innerHTML = '';
             myModal.hide();
         }
 

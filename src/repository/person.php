@@ -89,8 +89,8 @@ class Person {
         $invitado = $person->getInvitado();
         $findPerson = $this->getPersonDocumentNumber($document, $email);
         if(count($findPerson) == 0){
-            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name) 
-                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name')";
+            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name,guest) 
+                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name','$invitado')";
             
             try {
                 $this->db->executeInstruction($sql);

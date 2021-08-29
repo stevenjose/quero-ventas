@@ -322,7 +322,7 @@ $paises = $pais->getData();
                         <input type="text" class="form-control col-6" id="part_empresa" name="part_empresa" required>
                             </div>
                             <div class="mb-3">
-                            <input class="form-check-input mt-2" type="checkbox" value="" id="part_invitado" name="part_invitado">
+                            <input class="form-check-input mt-2" type="checkbox" value="true" id="part_invitado" name="part_invitado">
                             <label class="form-check-label mt-1" for="flexCheckDefault">
                                 Invitado
                             </label>
@@ -391,7 +391,7 @@ $paises = $pais->getData();
         let city = document.getElementById('part_ciudad').value;
         let position = document.getElementById('part_cargo').value;
         let empresa = document.getElementById('part_empresa').value;
-        let invitado = document.getElementById('part_invitado').value;
+        let invitado = document.getElementById('part_invitado').checked;
         if (workers.filter(element => element.dni == dni).length > 0) {
             Swal.fire({
                 title: 'Error!',
@@ -560,6 +560,9 @@ $paises = $pais->getData();
                 showConfirmButton: false,
                 timer: 2500
             });
+            formCompany[0].reset()
+            workers = [];
+            document.getElementById('bodyWorkers').innerHTML = '';
             myModal.hide();
         }
 

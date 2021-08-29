@@ -9,7 +9,7 @@ class Pais {
         $this->db = new MysqlDB();
         $this->db->connect();
     }
-    public function getData(): array
+    public function getData()
     {
         $sql="SELECT * FROM country";
         $consulta = [];
