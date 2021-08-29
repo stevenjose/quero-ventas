@@ -230,6 +230,9 @@ $paises = $pais->getData();
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
+                   <!-- <div class="col-lg-6">
+                        <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
+                    </div>-->
                 </div>
             </form>
         </div>
@@ -394,6 +397,59 @@ $paises = $pais->getData();
 
 
 <script>
+
+    /*var transaction = document.getElementById('transaction');
+    transaction.addEventListener('click', async ()=>{
+        const response = await fetch('../../controllers/payment_tdd_company.php',{
+            method: 'POST',
+            body: new URLSearchParams({
+                'num_tdd': document.getElementById('cardNumber').value,
+                'names': document.getElementById('nombres_tdd').value ? document.getElementById('nombres_tdd').value : 'Jose' ,
+                'last_name': document.getElementById('apellidos_tdd').value,
+                'email': document.getElementById('email_tdd'),
+                'num_transaction':'123131312123',
+                'name': document.getElementById('name').value,
+                'address': document.getElementById('address').value,
+                'ruc': document.getElementById('ruc').value,
+                'participants_number': document.getElementById('participants_number').value,
+                'documentType': '2',
+                'total':document.getElementById('total').value,
+                'activity': document.getElementById('activity').value,
+                'country': document.getElementById('country').value,
+                'billing': document.getElementById('billing').value
+            })
+        });
+        if(response.status == 200){
+            const resp = await response.json();
+            console.log(resp);
+            if(resp.error == "false"){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Se crea el pago exitosamente!',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error al crear pago o persona por favor validar el pago manualmente',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+        }else{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Se produjo un error comuníquese con el administrador!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        }
+
+    });*/
     let workers = [];
 
     function setTable() {
@@ -687,7 +743,54 @@ $paises = $pais->getData();
                 });
             }
             if(response.status == 200){
-                console.log('Pago exitoso');
+                const response = await fetch('../../controllers/payment_tdd_company.php',{
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'num_tdd': document.getElementById('cardNumber').value,
+                        'names': document.getElementById('nombres_tdd').value ? document.getElementById('nombres_tdd').value : 'Jose' ,
+                        'last_name': document.getElementById('apellidos_tdd').value,
+                        'email': document.getElementById('email_tdd'),
+                        'num_transaction':'123131312123',
+                        'name': document.getElementById('name').value,
+                        'address': document.getElementById('address').value,
+                        'ruc': document.getElementById('ruc').value,
+                        'participants_number': document.getElementById('participants_number').value,
+                        'documentType': '2',
+                        'total':document.getElementById('total').value,
+                        'activity': document.getElementById('activity').value,
+                        'country': document.getElementById('country').value,
+                        'billing': document.getElementById('billing').value
+                    })
+                });
+                if(response.status == 200){
+                    const resp = await response.json();
+                    console.log(resp);
+                    if(resp.error == "false"){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Se crea el pago exitosamente!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }else{
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Error al crear pago o persona por favor validar el pago manualmente',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                }else{
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Se produjo un error comuníquese con el administrador!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
             }
         }
     });

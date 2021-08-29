@@ -65,41 +65,41 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Nombres*</label>
-                        <input type="text" class="form-control col-6" id="nombres" name="nombres" required value="jose gregorio">
+                        <input type="text" class="form-control col-6" id="nombres" name="nombres" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">Apellidos*</label>
-                        <input type="text" class="form-control col-6" id="apellidos" name="apellidos" required value="lopez arias">
+                        <input type="text" class="form-control col-6" id="apellidos" name="apellidos" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">Dni*</label>
-                        <input type="text" class="form-control col-6" id="dni" name="dni" required value="12315464">
+                        <input type="text" class="form-control col-6" id="dni" name="dni" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">Correo*</label>
-                        <input type="email" class="form-control col-6" id="email" name="email" required value="lopezajoseg@gmail.com">
+                        <input type="email" class="form-control col-6" id="email" name="email" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label" required>Ciudad</label>
-                        <input type="text" class="form-control col-6" id="city" name="city" required value="Caracas">
+                        <input type="text" class="form-control col-6" id="city" name="city" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Centro de estudios*</label>
-                        <input type="text" class="form-control col-6" id="centro" name="centro" required value="universidad">
+                        <input type="text" class="form-control col-6" id="centro" name="centro" required >
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Código de estudiante*</label>
-                        <input type="text" class="form-control col-6" id="codigo_estudiante" name="codigo_estudiante" required value="0002251">
+                        <input type="text" class="form-control col-6" id="codigo_estudiante" name="codigo_estudiante" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Celular*</label>
-                        <input type="number" class="form-control col-6" id="celular" name="celular" required value="042415966">
+                        <input type="number" class="form-control col-6" id="celular" name="celular" required>
                     </div>
                 </div>
                 <div class="row">
@@ -117,9 +117,9 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
-                    <div class="col-lg-6">
+                    <!--<div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
-                    </div>
+                    </div>-->
                 </div>
             </form>
         </div>
@@ -231,10 +231,10 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
 
 <script>
 
-    var transaction = document.getElementById('transaction');
+    /*var transaction = document.getElementById('transaction');
     transaction.addEventListener('click', async ()=>{
 
-    });
+    });*/
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"));

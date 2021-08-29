@@ -67,6 +67,17 @@ class PaymentTddRepository
         }
     }
 
+    public function updatePaymentTddCompany($num_transaction, $company_id){
+        $sql="UPDATE payment_tdd SET company_id= ".$company_id. "  WHERE num_transaction = ".$num_transaction;
+
+        try {
+            $this->db->getData($sql);
+            return ["error" => "false", "message"=>"Se registro el estudiante exitosamente!"];
+        }catch (Exception $e){
+            return ["error" => "true", "message"=>"$sql"];
+        }
+    }
+
     public function getPersonCorreo($email) {
         $sql="SELECT * FROM person where email ='$email'";
         $consulta = [];
