@@ -212,6 +212,32 @@ CREATE TABLE `person_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `payment_tdd`
+--
+
+CREATE TABLE `payment_tdd` (
+                               `id` int NOT NULL,
+                               `num_tdd` varchar(100) NOT NULL COMMENT 'Numero de la tarjeta',
+                               `names` varchar(100) NOT NULL COMMENT 'Nombres',
+                               `last_name` varchar(100) NOT NULL COMMENT 'Apellidos',
+                               `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Correo',
+                               `num_transaction` varchar(100) NOT NULL COMMENT 'Número de la transacción',
+                               `person_id` int DEFAULT NULL,
+                               `company_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `payment_tdd`
+--
+
+
+
+
 --
 -- Dumping data for table `person_type`
 --
