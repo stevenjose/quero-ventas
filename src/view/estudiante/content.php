@@ -117,6 +117,9 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -228,6 +231,11 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
 
 <script>
 
+    var transaction = document.getElementById('transaction');
+    transaction.addEventListener('click', async ()=>{
+
+    });
+
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"));
 
@@ -298,7 +306,43 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 });
             }
             if(response.status == 200){
-                console.log('Pago exitoso');
+
+                const response = await fetch('../../controllers/payment_tdd.php',{
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'num_tdd': document.getElementById('cardNumber').value,
+                        'names': document.getElementById('nombres_tdd').value,
+                        'last_name': document.getElementById('apellidos_tdd').value,
+                        'email': document.getElementById('email_tdd'),
+                        'num_transaction':'123131312123',
+                        'person_nombres': document.getElementById('nombres').value,
+                        'person_apellidos': document.getElementById('apellidos').value,
+                        'person_dni': document.getElementById('dni').value,
+                        'person_email': document.getElementById('email').value,
+                        'person_city' : document.getElementById('city').value,
+                        'person_celular':document.getElementById('celular').value,
+                        'person_total': document.getElementById('total').value
+                    })
+                });
+                const resp = await response.json();
+                console.log(resp);
+                if(resp.error == false){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Se crea el pago exitosamente!',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }else{
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error al crear pago o persona por favor validar el pago manualmente',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
             }
         }
     });
