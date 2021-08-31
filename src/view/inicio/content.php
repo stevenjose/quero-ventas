@@ -4,22 +4,24 @@ $inicio = new Inicio;
 $document_type = $inicio->getDocumentType();
 $user = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {
-   // $user = $inicio->getUser($_POST["tipo"],$_POST["documentNumber"]);
-   echo $_POST["documentNumber"];
-   if($_POST["tipo"] == "4")
-     header('Location: ./src/view/estudiante/index.php');
-   else if($_POST["tipo"] == "1")
-     header('Location: ./src/view/regular/index.php'); 
-   else if($_POST["tipo"] == "2")
-     header('Location: ./src/view/empresa/index.php'); 
-   else if($_POST["tipo"] == "3")
-     header('Location: ./src/view/asociados/index.php'); 
-        
-     exit();    
-    
+    if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {
+     if($_POST["tipo"] == "4"){
+         echo "<script>window.location.href='./src/view/estudiante/index.php';</script>";
+       //header('Location: ./src/view/estudiante/index.php');
+     }else if($_POST["tipo"] == "1") {
+        echo "<script>window.location.href='./src/view/regular/index.php';</script>";
+    //   header('Location: ./src/view/regular/index.php'); 
+     } else if($_POST["tipo"] == "2") {
+        echo "<script>window.location.href='./src/view/empresa/index.php';</script>";
+       //header('Location: ./src/view/empresa/index.php'); 
+     } else if($_POST["tipo"] == "3") {
+      echo "<script>window.location.href='./src/view/asociados/index.php';</script>";
+      // header('Location: ./src/view/asociados/index.php'); 
+     } 
+       exit();    
+      
+    }
   }
-}
 ?>
 
 

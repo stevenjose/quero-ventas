@@ -228,8 +228,11 @@ $paises = $pais->getData();
                         <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-6">
-                        <button class="btn btn-siguiente">Con Tarjeta de Crédito</button>
+                        <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
+                   <!-- <div class="col-lg-6">
+                        <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
+                    </div>-->
                 </div>
             </form>
         </div>
@@ -237,6 +240,68 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
+
+<!--Modal pagos-->
+<div class="modal fade" id="tddPayment" tabindex="-1"  aria-labelledby="tddPaymentHe" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tddPaymentHe">Tarjeta de Crédito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="payment" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Número de tarjeta*:</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Año*:</label>
+                        <input type="text" pattern="\d*" maxlength="4" class="form-control" id="anio_tdd" name="anio_tdd"></input>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Mes*:</label>
+                                <input type="text" pattern="\d*" maxlength="1" class="form-control" id="mes_tdd" name="mes_tdd"></input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">CVV*:</label>
+                                <input type="password" pattern="\d*" maxlength="3" class="form-control" id="cvv_tdd" name="cvv_tdd"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Nombres*:</label>
+                                <input type="text" maxlength="50" class="form-control" id="nombres_tdd" name="nombres_tdd"></input>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Apellidos*:</label>
+                                <input type="text" maxlength="50" class="form-control" id="apellidos_tdd" name="apellidos_tdd"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Correo*:</label>
+                        <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -343,6 +408,59 @@ $paises = $pais->getData();
 
 
 <script>
+
+    /*var transaction = document.getElementById('transaction');
+    transaction.addEventListener('click', async ()=>{
+        const response = await fetch('../../controllers/payment_tdd_company.php',{
+            method: 'POST',
+            body: new URLSearchParams({
+                'num_tdd': document.getElementById('cardNumber').value,
+                'names': document.getElementById('nombres_tdd').value ? document.getElementById('nombres_tdd').value : 'Jose' ,
+                'last_name': document.getElementById('apellidos_tdd').value,
+                'email': document.getElementById('email_tdd'),
+                'num_transaction':'123131312123',
+                'name': document.getElementById('name').value,
+                'address': document.getElementById('address').value,
+                'ruc': document.getElementById('ruc').value,
+                'participants_number': document.getElementById('participants_number').value,
+                'documentType': '2',
+                'total':document.getElementById('total').value,
+                'activity': document.getElementById('activity').value,
+                'country': document.getElementById('country').value,
+                'billing': document.getElementById('billing').value
+            })
+        });
+        if(response.status == 200){
+            const resp = await response.json();
+            console.log(resp);
+            if(resp.error == "false"){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Se crea el pago exitosamente!',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error al crear pago o persona por favor validar el pago manualmente',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+        }else{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Se produjo un error comuníquese con el administrador!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        }
+
+    });*/
     let workers = [];
 
     function setTable() {
@@ -372,6 +490,8 @@ $paises = $pais->getData();
 
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
+    var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
+    var paymentTdd = document.getElementById('tdd_payment');
 
     addPerson.onclick = (e) => {
         e.preventDefault();
@@ -390,8 +510,6 @@ $paises = $pais->getData();
         let email = document.getElementById('part_correo').value;
         let city = document.getElementById('part_ciudad').value;
         let position = document.getElementById('part_cargo').value;
-        let empresa = document.getElementById('part_empresa').value;
-        let invitado = document.getElementById('part_invitado').checked;
         if (workers.filter(element => element.dni == dni).length > 0) {
             Swal.fire({
                 title: 'Error!',
@@ -415,9 +533,7 @@ $paises = $pais->getData();
                 "dni": dni,
                 "email": email,
                 "city": city,
-                "position": position,
-                "empresa": empresa,
-                "invitado": invitado
+                "position": position
 
             });
             setTable();
@@ -568,4 +684,219 @@ $paises = $pais->getData();
 
 
     }
+
+    // Pagos
+    paymentTdd.addEventListener("click",(e)=>{
+        console.log('Click')
+        e.preventDefault();
+        if (!formCompany.valid()) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error en los datos de la empresa',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else {
+            console.log('Modal pagos');
+            myModalPayment.show();
+        }
+    });
+
+
+    var btnPagar = document.getElementById('pagar');
+    btnPagar.addEventListener("click",async (e)=> {
+        if( validatePayment()){
+            console.log('paso buscar token');
+            const tokenApi = await token();
+            let headers = new Headers();
+            headers.append('Authorization', 'Bearer ' + tokenApi);
+
+            const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
+                method: 'POST',
+                headers: headers
+            });
+
+            if(response.status == 401){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 400){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 406){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 500){
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Ocurrio un error intente de nuevo!',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
+            if(response.status == 200){
+                const response = await fetch('../../controllers/payment_tdd_company.php',{
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'num_tdd': document.getElementById('cardNumber').value,
+                        'names': document.getElementById('nombres_tdd').value ? document.getElementById('nombres_tdd').value : 'Jose' ,
+                        'last_name': document.getElementById('apellidos_tdd').value,
+                        'email': document.getElementById('email_tdd'),
+                        'num_transaction':'123131312123',
+                        'name': document.getElementById('name').value,
+                        'address': document.getElementById('address').value,
+                        'ruc': document.getElementById('ruc').value,
+                        'participants_number': document.getElementById('participants_number').value,
+                        'documentType': '2',
+                        'total':document.getElementById('total').value,
+                        'activity': document.getElementById('activity').value,
+                        'country': document.getElementById('country').value,
+                        'billing': document.getElementById('billing').value
+                    })
+                });
+                if(response.status == 200){
+                    const resp = await response.json();
+                    console.log(resp);
+                    if(resp.error == "false"){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Se crea el pago exitosamente!',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }else{
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Error al crear pago o persona por favor validar el pago manualmente',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    }
+                }else{
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Se produjo un error comuníquese con el administrador!',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            }
+        }
+    });
+    function validatePayment() {
+        if( document.getElementById('cardNumber').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el numero de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('anio_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el año de vencimiento de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('mes_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el mes de vencimiento de la tarjeta!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('cvv_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese código secreto CVV!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('nombres_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los nombres!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('apellidos_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese los apellidos!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        if( document.getElementById('email_tdd').value == "" ) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor ingrese el email!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            return false;
+        }
+        return( true );
+    }
+
+    //token
+
+    const token = async () =>{
+        let username = 'diego.velarde@apa.org.pe';
+        let password = 'C!@q4d0B';
+        let headers = new Headers();
+        let resp = '';
+        headers.append('Authorization', 'Basic ' + btoa(username + ":" + password));
+        headers.append('Accept','application/json');
+        headers.append('Content-Type','application/json');
+        const response = await fetch('https://apiprod.vnforapps.com/api.security/v1/security',{
+            method: 'GET',
+            headers: headers
+        });
+        if(response.ok){
+            return resp = await response.text();
+        }
+    }
+
+
 </script>

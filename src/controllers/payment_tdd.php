@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../repository/payment_tdd.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $payment = json_decode($_POST, true);
+    //$payment = json_decode($_POST, true);
     $postPayment = new PaymentTdd();
     $num_tdd = $_POST['num_tdd'];
     $name = $_POST['names'];

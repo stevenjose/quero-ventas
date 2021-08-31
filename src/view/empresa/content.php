@@ -678,7 +678,7 @@ $paises = $pais->getData();
     paymentTdd.addEventListener("click",(e)=>{
         console.log('Click')
         e.preventDefault();
-        if (false) {
+        if (!formCompany.valid()) {
             Swal.fire({
                 title: 'Error!',
                 text: 'Error en los datos de la empresa',
