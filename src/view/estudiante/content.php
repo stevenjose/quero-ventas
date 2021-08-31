@@ -33,12 +33,8 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
 
 <div class="container mb-4">
     <!-- header -->
-    <div class="mt-1">
-        <h2 class="p-4 mr-4 mt-0" style="color: #333333">
-            <a href="#" class="link-header">Empresa</a> | <a href="#" class="link-header"> Persona </a>
-        </h2>
-        <hr class="hr-header">
-    </div>
+    <?php require_once __DIR__."/../header_title.php"; ?>
+
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
             <h3 class="text-center">

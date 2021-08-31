@@ -4,6 +4,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav">
+                <li class="p-4" > <a href="https://avemperu.com/es/avem-peru" target="_blank"><img src="http://localhost/quero-ventas/src/asssets/img/avem.png" class="img-fluid" height="50px" width="80px" /></a></li>
+            </ul>
             <ul class="nav navbar-nav ms-auto" style="margin-right: 100px">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">INICIO</a>
