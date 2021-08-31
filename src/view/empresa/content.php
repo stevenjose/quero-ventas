@@ -84,7 +84,7 @@ $paises = $pais->getData();
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="ruc" class="form-label">RUC o equivalente*</label>
-                        <input type="text"  class="form-control col-6" id="ruc" name="ruc" required>
+                        <input type="text" value="<?php echo $_POST["ruc"]?>" class="form-control col-6" id="ruc" name="ruc" required>
                     </div>
                 </div>
                 <div class="row">
@@ -93,15 +93,15 @@ $paises = $pais->getData();
                         <input type="text"  class="form-control col-6" id="address" name="address" required>
                     </div>
                     <div class="mb-3 col-lg-6">
-                        <label for="activity" class="form-label">Rubro o actividad*</label>
-                        <input type="text"  class="form-control col-6" id="activity" name="activity" required>
+                        <label for="activity" class="form-label">Rubro o actividad</label>
+                        <input type="text"  class="form-control col-6" id="activity" name="activity" >
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="billing" class="form-label">Contacto
-                            contable/tesorería/facturación*</label>
-                        <input type="text"  class="form-control col-6" id="billing" name="billing" required>
+                            contable/tesorería/facturación</label>
+                        <input type="text"  class="form-control col-6" id="billing" name="billing" >
                     </div>
                     <div class="mb-3 col-lg-6">
 
@@ -157,7 +157,7 @@ $paises = $pais->getData();
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="total" class="form-label">Total*</label>
-                        <input type="number"  class="form-control col-6" id="total" name="total" required>
+                        <input type="number"  class="form-control col-6" id="total" name="total" disabled>
                         <div id="emailHelp" class="form-text text-danger">US$50.00 por participante inc. IGV</div>
                     </div>
                 </div>
@@ -168,11 +168,12 @@ $paises = $pais->getData();
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
                                     <th scope="col">Documento de Identidad</th>
                                     <th scope="col">
-                                    <td><button type="button" id="addPerson" class="btn btn-danger">Agregar</button></td>
+                                    <td><button type="button" id="addPerson" class="btn btn-danger">Agregar participante</button></td>
                                     </th>
                                 </tr>
                             </thead>
@@ -212,12 +213,12 @@ $paises = $pais->getData();
                         <input type="email"  value="lopezajoseg@gmail.com" class="form-control col-6" id="part_cargo" name="part_cargo" required>
                     </div>
                 </div>-->
-                <h4>Ingresar datos de inscritos por cantidad indicada</h4>
+              <!--  <h4>Ingresar datos de inscritos por cantidad indicada</h4>
                 <div class="row">
                     <div class="mb-3 col-lg-12">
                         <input type="text" class="form-control col-6" id="cant_inscritos" name="cant_inscritos" required>
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
@@ -330,7 +331,7 @@ $paises = $pais->getData();
                         <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
                     </div>
                 </form>
@@ -369,18 +370,18 @@ $paises = $pais->getData();
                         <input type="email"  class="form-control col-6" id="part_correo" name="part_correo" required>
                         <div>
                             <div class="mb-3">
-                                <label for="part_ciudad" class="form-label">Ciudad*</label>
-                                <input type="text"  class="form-control col-6" id="part_ciudad" name="part_ciudad" required>
+                                <label for="part_ciudad" class="form-label">Ciudad</label>
+                                <input type="text"  class="form-control col-6" id="part_ciudad" name="part_ciudad" >
                             </div>
                             <div class="mb-3">
-                                <label for="part_cargo" class="form-label">Cargo*</label>
-                                <input type="text"  class="form-control col-6" id="part_cargo" name="part_cargo" required>
+                                <label for="part_cargo" class="form-label">Cargo</label>
+                                <input type="text"  class="form-control col-6" id="part_cargo" name="part_cargo" >
 
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" id="guardarParticipante">Enviar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="guardarParticipante">Agregar participante</button>
                             </div>
                 </form>
 
@@ -445,16 +446,19 @@ $paises = $pais->getData();
         }
 
     });*/
+    var participantsNumber = document.getElementById('participants_number');
+    participantsNumber.addEventListener("change" ,(e) => {
+        document.getElementById('total').value = participantsNumber.value * 50.00;
+    });
     let workers = [];
 
     function setTable() {
         var bodyWorkers = document.getElementById('bodyWorkers');
         let table = "";
+        var i = 1;
         workers.forEach(element => {
-            table += "<tr><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><tr>";
-
-
-
+            table += "<tr><td>"+i+"</td><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><tr>";
+            i++;
         });
         bodyWorkers.innerHTML = table;
 
