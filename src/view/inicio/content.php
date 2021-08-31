@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          echo "<script>window.location.href='./src/view/estudiante/index.php';</script>";
        //header('Location: ./src/view/estudiante/index.php');
      }else if($_POST["tipo"] == "1") {
-         echo "sssssssss"+$_POST["documentNumber"];
-        //echo "<script>window.location.href='./src/view/regular/index.php?ruc="+$_POST["documentNumber"]+"';</script>";
+      //   echo "window.location.href='./src/view/regular/index.php?ruc="+$_POST["documentNumber"];
+        echo "<script>window.location.href='./src/view/regular/index.php?ruc=".$_POST["documentNumber"]."';</script>";
     //   header('Location: ./src/view/regular/index.php'); 
      } else if($_POST["tipo"] == "2") {
-        echo "<script>window.location.href='./src/view/empresa/index.php?ruc="+$_POST["documentNumber"]+"';</script>";
+        echo "<script>window.location.href='./src/view/empresa/index.php?ruc=".$_POST["documentNumber"]."';</script>";
        //header('Location: ./src/view/empresa/index.php'); 
      } else if($_POST["tipo"] == "3") {
-      echo "<script>window.location.href='./src/view/asociados/index.php?ruc="+$_POST["documentNumber"]+"';</script>";
+      echo "<script>window.location.href='./src/view/asociados/index.php?ruc=".$_POST["documentNumber"]."';</script>";
       // header('Location: ./src/view/asociados/index.php'); 
      } 
        exit();    

@@ -84,7 +84,7 @@ $paises = $pais->getData();
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="ruc" class="form-label">RUC o equivalente*</label>
-                        <input type="text" class="form-control col-6" id="ruc" name="ruc" required>
+                        <input type="text" value="<?php echo $_GET["ruc"]?>" class="form-control col-6" id="ruc" name="ruc" required>
                     </div>
                 </div>
                 <div class="row">
