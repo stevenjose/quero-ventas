@@ -4,7 +4,8 @@ $inicio = new Inicio;
 $document_type = $inicio->getDocumentType();
 $user = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {
+  /*if (!empty($_POST["documentNumber"]) && !empty($_POST["tipo"])) {*/
+    if (!empty($_POST["tipo"])) {
    // $user = $inicio->getUser($_POST["tipo"],$_POST["documentNumber"]);
    echo $_POST["documentNumber"];
    if($_POST["tipo"] == "4")
@@ -26,12 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container">
     <!-- header -->
-    <div class="mt-2">
-        <h2 class="p-4 mr-4 mt-1" style="color: #333333">
-            <a href="#" class="link-header">Empresa</a> | <a href="#" class="link-header"> Persona </a>
-        </h2>
-        <hr class="hr-header">
-    </div>
+    <?php require_once __DIR__."/../header_title.php"; ?>
 
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
@@ -41,24 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <hr>
         </div>
     </div>
-  <!-- <div class="row">
-        <div class="col-lg-2 col-12">
-            <h4>Registros</h4>
-        </div>
-        <div class="col-lg-2 col-12 mb-2">
-            <a href="./src/view/estudiante/index.php" class="btn btn-primary form-control"> Estuadiante </a>
-        </div>
-        <div class="col-lg-2 col-12 mb-2">
-            <a href="./src/view/regular/index.php" class="btn btn-primary form-control"> Regular </a>
-        </div>
-        <div class="col-lg-2 col-12 mb-2">
-            <a href="" class="btn btn-primary form-control"> Empresa </a>
-        </div>
-        <div class="col-lg-2 col-12 mb-2">
-            <a href="" class="btn btn-primary form-control"> Asociados </a>
-        </div>
-    </div>
-    <hr>-->
+
     <div class="row mt-4">
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -66,13 +45,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="mb-3 col-lg-4">
                         <label for="tipo" class="form-label">Tipo</label>
                         <select require class="form-select" aria-label="Default select example" name="tipo" id="tipo">
-                            <option selected>Open this select menu</option>
-                            <?php foreach ($document_type as &$value) { ?>
-                            <option value="<?php  echo $value["id"] ?>"><?php  echo $value["name"] ?></option>
+                            <?php foreach ($document_type as &$value) {
+                                if($value["name"] == "REGULAR"){ ?>
+                                    <option selected value="<?php  echo $value["id"] ?>">
+                                        <?php  echo $value["name"] ?>
+                                    </option>
+                             <?php } ?>
+                            <?php if($value["name"] != "REGULAR"){ ?>
+                                <option value="<?php  echo $value["id"] ?>"><?php  echo $value["name"] ?></option>
+                            <?php } ?>
                             <?php  }?>
                         </select>
                     </div>
-                    <div class="mb-3 col-lg-4">
+                    <div class="mb-3 col-lg-4" id="div-ruc">
                         <label for="documentNumber" class="form-label">Número de RUC*</label>
                         <input type="text" class="form-control col-6" id="documentNumber" name="documentNumber" required aria-describedby="emailHelp">
                     </div>
@@ -141,3 +126,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
+<script>
+    console.log('Inicio');
+
+    document.getElementById('tipo').addEventListener("change", (e)=>{
+        console.log('cambio');
+        if(e.target.value == 4){
+            document.getElementById('documentNumber').removeAttribute("required");
+            document.getElementById('div-ruc').style.visibility= "hidden"
+        }else{
+            document.getElementById('documentNumber').setAttribute("required","true");
+            document.getElementById('div-ruc').style.visibility= "visible"
+        }
+        console.log(e.target.value);
+    });
+
+    if(document.getElementById('tipo').value == 4){
+        document.getElementById('documentNumber').removeAttribute("required");
+        document.getElementById('div-ruc').style.visibility= "hidden"
+    }else{
+        document.getElementById('documentNumber').setAttribute("required","true");
+        document.getElementById('div-ruc').style.visibility= "visible";
+    }
+
+</script>
