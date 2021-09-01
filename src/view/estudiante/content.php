@@ -101,7 +101,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="number" class="form-control col-6" id="total" name="total" required>
+                        <input type="number" class="form-control col-6" id="total" name="total" value="30" required>
                         <div id="emailHelp" class="form-text text-danger">US$30.00 inc IGV</div>
                     </div>
                 </div>
@@ -119,49 +119,12 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 </div>
             </form>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Deposito en cuenta</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12 col-lg-12 col-md-12">
-                                Datos de cuentas Bancarias Asociación Peruana de Avicultura
-                            </div>
-                            <div class="col-12 col-lg-12 col-md-12">
-                                BBVA Dólares: 125 25648 2683356 542
-                            </div>
-                            <div class="col-12 col-lg-12 col-md-12">
-                                CCI BBVA Dólares: 125 25648 2683356 542
-                            </div>
-                        </div>
-                        <form id="payment" enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
-                                <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Número de operación*:</label>
-                                <input type="number" class="form-control" id="reference" name="reference"></input>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
-                                <input type="file" class="form-control" accept=".jpg,.png" id="num_voucher" name="num_voucher"></input>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <!--Modal deposito -->
+        <?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
+        <!--End Modal deposito -->
+        <!--Modal deposito Success-->
+        <?php require_once __DIR__ . "/../modal-payment-deposit-success.php"; ?>
+        <!--Modal end deposito Success-->
     </div>
     <div class="mb-4"></div>
     <div class="modal fade" id="tddPayment" tabindex="-1" aria-labelledby="tddPayment" aria-hidden="true">
@@ -170,6 +133,11 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Tarjeta de Crédito</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="text-center img-fluid">
+                        <img src="http://localhost/sist-quero/src/asssets/img/avem.png" />
+                    </span>
                 </div>
                 <div class="modal-body">
                     <form id="payment" enctype="multipart/form-data">
@@ -214,7 +182,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                             <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
                         </div>
                     </form>
@@ -231,9 +199,17 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
     transaction.addEventListener('click', async ()=>{
 
     });*/
+    console.log('Modal');
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+
+    document.getElementById('total').addEventListener('change', ()=>{
+        document.getElementById('total_modal').innerText = document.getElementById('total').value;
+    });
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"));
+    var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
+
 
     var form = document.getElementById('form-estudiante');
 
@@ -644,14 +620,8 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 method: 'POST',
                 body:formData
             });
-            const tokenResp = token();
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Estudiante creado!',
-                showConfirmButton: false,
-                timer: 2500
-            });
+            //const tokenResp = token();
+            modalPaymentDepositSuccess.show();
             myModal.hide();
         }
 
