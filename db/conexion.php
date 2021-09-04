@@ -3,7 +3,7 @@ class MysqlDB
 {
     private $host = "localhost";
     private $usuario ="root";
-    private $pass ="123456";
+    private $pass ="";
     private $db ="ventas3";
 
     private $connection;
