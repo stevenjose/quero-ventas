@@ -623,6 +623,17 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
             //const tokenResp = token();
             modalPaymentDepositSuccess.show();
             myModal.hide();
+            
+            let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            headers.append('Content-Type', 'application/json');
+            const response = await fetch('../mail.php', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({name: 'Jose', participantes : []})
+            });
+            const resp = await response.json();
+            console.log(resp);
         }
 
 
