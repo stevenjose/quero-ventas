@@ -298,7 +298,7 @@ $paises = $pais->getData();
     </div>
 </div>
 
-
+<!--
 <div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -341,7 +341,13 @@ $paises = $pais->getData();
 
         </div>
     </div>
-</div>
+</div>-->
+<!--Modal deposito -->
+<?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
+<!--End Modal deposito -->
+<!--Modal deposito Success-->
+<?php require_once __DIR__ . "/../modal-payment-deposit-success.php"; ?>
+<!--Modal end deposito Success-->
 
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -457,6 +463,12 @@ $paises = $pais->getData();
         }
 
     });*/
+    var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+
+document.getElementById('total').addEventListener('change', ()=>{
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+});
     if (!document.getElementById('part_invitado').checked) {
         $("#part_empresa").hide();
         $("#part_empresa_label").hide();
@@ -568,7 +580,7 @@ $paises = $pais->getData();
 
     });
 
-    var myModal = new bootstrap.Modal(document.getElementById("modalPayment"), {});
+    var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 
     var form = document.getElementById('form-empresa');
 
@@ -694,13 +706,7 @@ $paises = $pais->getData();
             });
 
 
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Estudiante creado!',
-                showConfirmButton: false,
-                timer: 2500
-            });
+            modalPaymentDepositSuccess.show();
             formCompany[0].reset()
             workers = [];
             document.getElementById('bodyWorkers').innerHTML = '';
