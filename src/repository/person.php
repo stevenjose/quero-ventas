@@ -96,7 +96,7 @@ class Person {
                 $this->db->executeInstruction($sql);
                 return ["error" => "false", "message"=>"Se registro el estudiante exitosamente!"];
             }catch (Exception $e){
-                return ["error" => "true", "message"=>"$sql"];
+                return ["error" => "true", "message"=>$sql];
             }
         }else{
             return ["error" => "true", "message"=>"Error ya se encuentra registrado el Correo o Dni."];
