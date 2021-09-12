@@ -10,7 +10,7 @@ class Email
     private $mail;
     private $mensaje;
     
-    public function __construct()
+    public function __construct($email_person,$name)
     {
         $this->mail = new PHPMailer(true);
         $this->mail->Host = 'smtp.gmail.com';  // Indicamos los servidores SMTP
@@ -26,8 +26,8 @@ class Email
         $this->mail->addAddress('lopezajoseg@gmail.com');
         //Recipients
         $this->mail->setFrom('jeanquero@gmail.com', 'AVEM');
-        $this->mail->addAddress('jeanquero@gmail.com', 'Jean Quero');     //Add a recipient
-        $this->mail->addReplyTo('lopezajoseg@gmail.com', 'Information');
+        $this->mail->addAddress($email_person, $name);     //Add a recipient
+       // $this->mail->addReplyTo('lopezajoseg@gmail.com', 'Information');
         //Content
         $this->mail->isHTML(true);
     
@@ -115,11 +115,12 @@ class Email
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents("php://input"),true);
     $name = $data["name"];
+    $email_person = $data["email"];
     $participantes = $data['participantes'];
     $cant_participantes = count($participantes) == 0 ? 1 : count($participantes);
     $colaborador = count($participantes) > 0 ? 'colaboradores' : 'colaborador';
     // Probar envio
-    $email = new Email();
+    $email = new Email($email_person,$name);
     $email->send($name, $participantes, $cant_participantes, $colaborador);
     echo json_encode(['message' => 'Se envia el correo al participante correctamente', 'success' => 'true']);
 }

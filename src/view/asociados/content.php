@@ -227,11 +227,11 @@ $paises = $pais->getData();
                     <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
                     </div>
-                    <div class="col-lg-2">
+                  <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
                     <div class="col-lg-3"></div>
-                    <!-- <div class="col-lg-6">
+                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
                     </div>-->
                 </div>
@@ -520,7 +520,7 @@ $paises = $pais->getData();
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
-    var paymentTdd = document.getElementById('tdd_payment');
+    //var paymentTdd = document.getElementById('tdd_payment');
     var diferido = document.getElementById('diferido');
 
     addPerson.onclick = (e) => {
@@ -715,6 +715,17 @@ document.getElementById('total').addEventListener('change', ()=>{
             });
 
         }
+        let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            headers.append('Content-Type', 'application/json');
+            const response = await fetch('../mail.php', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({name: document.getElementById('re_nombres').value,email: document.getElementById('re_correo').value , participantes : workers})
+            });
+          
+            var formpayment = $("#payment");
+            formpayment[0].reset()
             modalPaymentDepositSuccess.show();
             formCompany[0].reset()
             workers = [];
@@ -741,7 +752,7 @@ document.getElementById('total').addEventListener('change', ()=>{
         }
     });
     // Pagos
-    paymentTdd.addEventListener("click", (e) => {
+ /*   paymentTdd.addEventListener("click", (e) => {
         console.log('Click')
         e.preventDefault();
         if (!formCompany.valid()) {
@@ -756,7 +767,7 @@ document.getElementById('total').addEventListener('change', ()=>{
             console.log('Modal pagos');
             myModalPayment.show();
         }
-    });
+    });*/
 
 
     var btnPagar = document.getElementById('pagar');

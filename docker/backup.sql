@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.26, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: ventas3
+-- Host: 127.0.0.1    Database: ventas4
 -- ------------------------------------------------------
 -- Server version	8.0.26
 
@@ -36,7 +36,7 @@ CREATE TABLE `company` (
   PRIMARY KEY (`id`),
   KEY `company_document_type_id_fk` (`id_document_type`),
   CONSTRAINT `company_document_type_id_fk` FOREIGN KEY (`id_document_type`) REFERENCES `document_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` (`id`, `name`, `document_number`, `id_document_type`, `address`, `activity`, `billing`, `id_county`, `participants_number`, `total`) VALUES (1,'TPT','777777',2,'PERU','CARNE','2345',1,2,774);
+INSERT INTO `company` (`id`, `name`, `document_number`, `id_document_type`, `address`, `activity`, `billing`, `id_county`, `participants_number`, `total`) VALUES (1,'TPT','777777',2,'PERU','CARNE','2345',1,2,774),(2,'ididi','9e9e9e9e',1,'ixxiid','idi9e9e','ie99e',7,838,0),(3,'LoPez Lopez','2828393',2,'Chorrillo Peru','Comida','Tecnologia',13,10,500),(4,'MLB','2828334',2,'Chorrillo Peru','APA','horas',10,8,400),(5,'LoPez Lopez 2','28283',2,'Chorrillo Peru','Comida','Tecnologia',9,8,400),(6,'APA','282838888000',2,'PEru','8ieeeieie','Tecnologia',6,8,400),(7,'PDB','282838eue',2,'Chorrillo Peru','8ieeeieie','horas',7,7,350),(8,'APA','282838877y',2,'Chorrillo Peru','8ieeeieie','Tecnologia',8,7,350),(9,'COP','2828388888888888',3,'Chorrillo Peru','8ieeeieie','Tecnologia',5,7,280);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `company_person_rel` (
   KEY `company_person_rel_person_id_fk` (`id_person`),
   CONSTRAINT `company_person_rel_company_id_fk` FOREIGN KEY (`id_company`) REFERENCES `company` (`id`),
   CONSTRAINT `company_person_rel_person_id_fk` FOREIGN KEY (`id_person`) REFERENCES `person` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,6 +74,7 @@ CREATE TABLE `company_person_rel` (
 
 LOCK TABLES `company_person_rel` WRITE;
 /*!40000 ALTER TABLE `company_person_rel` DISABLE KEYS */;
+INSERT INTO `company_person_rel` (`id`, `id_company`, `id_person`) VALUES (1,3,95),(2,3,96),(3,3,97),(4,4,98),(5,5,99),(6,6,100),(7,6,101),(8,7,102),(9,8,103),(10,9,104);
 /*!40000 ALTER TABLE `company_person_rel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,6 +130,34 @@ INSERT INTO `document_type` (`id`, `name`) VALUES (1,'REGULAR'),(2,'EMPRESA AVEM
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pagos`
+--
+
+DROP TABLE IF EXISTS `pagos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pagos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `precio_individual` varchar(10) DEFAULT NULL,
+  `precio_corparativo` varchar(10) DEFAULT NULL,
+  `divisa` varchar(50) DEFAULT NULL,
+  `id_document_type` int DEFAULT NULL,
+  `estado` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pagos`
+--
+
+LOCK TABLES `pagos` WRITE;
+/*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
+INSERT INTO `pagos` (`id`, `precio_individual`, `precio_corparativo`, `divisa`, `id_document_type`, `estado`) VALUES (1,'77','88','US',1,'true'),(2,'83','83','US',2,'false');
+/*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `payment`
 --
 
@@ -145,7 +174,7 @@ CREATE TABLE `payment` (
   PRIMARY KEY (`id`),
   KEY `person_id` (`person_id`),
   CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,8 +183,36 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` (`id`, `bank`, `reference`, `voucher`, `person_id`, `company_id`) VALUES (13,'345345534','34534534','3.png',89,NULL);
+INSERT INTO `payment` (`id`, `bank`, `reference`, `voucher`, `person_id`, `company_id`) VALUES (13,'345345534','34534534','3.png',89,NULL),(14,'BBVA','8839','Captura de pantalla de 2021-07-14 12-25-19.png',93,NULL),(15,'BBVA','9393923','Captura de pantalla de 2021-07-11 08-23-20.png',94,NULL),(16,'BBVA','9394','Captura de pantalla de 2021-07-14 12-25-19.png',NULL,3),(17,'BBVA','9394','Captura de pantalla de 2021-07-14 12-25-19.png',NULL,4),(18,'BBVA','9394','Captura de pantalla de 2021-07-14 12-25-19.png',NULL,5),(19,'BBVA','9394','Captura de pantalla de 2021-07-14 12-25-19.png',NULL,6),(20,'BBVA','9394','Captura de pantalla de 2021-07-14 12-25-19.png',NULL,7),(21,'BBVA','9394','Captura de pantalla de 2021-07-14 12-25-19.png',NULL,8),(22,'BBVA','8','Captura de pantalla de 2021-07-11 08-24-25.png',NULL,9);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payment_tdd`
+--
+
+DROP TABLE IF EXISTS `payment_tdd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `payment_tdd` (
+  `id` int NOT NULL,
+  `num_tdd` varchar(100) NOT NULL COMMENT 'Numero de la tarjeta',
+  `names` varchar(100) NOT NULL COMMENT 'Nombres',
+  `last_name` varchar(100) NOT NULL COMMENT 'Apellidos',
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Correo',
+  `num_transaction` varchar(100) NOT NULL COMMENT 'Número de la transacción',
+  `person_id` int DEFAULT NULL,
+  `company_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_tdd`
+--
+
+LOCK TABLES `payment_tdd` WRITE;
+/*!40000 ALTER TABLE `payment_tdd` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payment_tdd` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -179,13 +236,15 @@ CREATE TABLE `person` (
   `id_person_type` int DEFAULT NULL,
   `total` double DEFAULT NULL,
   `guest` varchar(10) DEFAULT NULL,
+  `centro` varchar(50) DEFAULT NULL,
+  `codigo_estudiante` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `person_email_uindex` (`email`),
   KEY `person_id_document_type_fk` (`id_document_type`),
   KEY `person_person_type_id_fk` (`id_person_type`),
   CONSTRAINT `person_id_document_type_fk` FOREIGN KEY (`id_document_type`) REFERENCES `document_type` (`id`),
   CONSTRAINT `person_person_type_id_fk` FOREIGN KEY (`id_person_type`) REFERENCES `person_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +253,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `city`, `document_number`, `phone_number`, `id_document_type`, `position`, `company_name`, `id_person_type`, `total`, `guest`) VALUES (89,'jose gregorio','lopez arias','lopezajoseg@gmail.com','Caracas','12315464','42415966',4,NULL,NULL,NULL,30,NULL);
+INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `city`, `document_number`, `phone_number`, `id_document_type`, `position`, `company_name`, `id_person_type`, `total`, `guest`, `centro`, `codigo_estudiante`) VALUES (89,'jose gregorio','lopez arias','lopezajoseg@gmail.com','Caracas','12315464','42415966',4,'','',1,30,'','jdjdjd','883e'),(90,'u8e','e8e','kudd@dm.com8e8e8','88ee','88eiidd','8844',4,'','',1,0,'','8ddu','8d8d'),(91,'eiiisis','8eeiei','iskaks@qls.s','iissi','ididie9w9w9393','',2,'isksskuududu','iwiwwiuuu',3,0,'true','',''),(92,'jdj','ydudd','jdjd@eke.ee','jjddjd','9ieeekqk32','883838338',2,'ududud','',3,0,'false','',''),(93,'Jean','quero','jeanqueroes@gmail.com','Barcelos','16812345','872930334',4,'','',1,30,'','Barcelona','123445'),(94,'Jean','Quero','jeanquero@gmail.com','Barcelos','16812356','99930223',4,'','',1,30,'','',''),(95,'Jean','Quero','jean3.queroo@oxigent.io','','7234834733','1920304',2,'Jefe','',2,0,'','',''),(96,'Luis','Marquez','jae@d.d','','9003402','',2,'LO','',3,0,'','',''),(97,'Miguel','Lime','jjased@dld.d','','9930304','',2,'TC','',3,0,'','',''),(98,'Jean','Quero','jean.queroo@oxigent.ioi','','7234334','8379456',2,'Jefe','',2,0,'','',''),(99,'Jean','Quero','jean.queroo@oxigent.io88','','99e22','8379456',2,'Registrador','',2,0,'','',''),(100,'Jean','Quero','jean.queroo@oxigent.io888','','783949500577u','8379456',2,'Registrador','',2,0,'','',''),(101,'Jdl','id','jd@dlldm.e','','899eds','',2,'id','',3,0,'','',''),(102,'Jean','Quero','kudd@dm.comyyyy','','dd7777777','8730453',2,'Registrador','',2,0,'','',''),(103,'Jean','Quero','kudd@dm.com88888666','','723483473yyy','8379456',2,'Registrador','',2,0,'','',''),(104,'Jean','Quero','jean.queroo@oxigent.io','','72348347388g','8379456',2,'Registrador','',2,0,'','','');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,32 +270,6 @@ CREATE TABLE `person_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `payment_tdd`
---
-
-CREATE TABLE `payment_tdd` (
-                               `id` int NOT NULL,
-                               `num_tdd` varchar(100) NOT NULL COMMENT 'Numero de la tarjeta',
-                               `names` varchar(100) NOT NULL COMMENT 'Nombres',
-                               `last_name` varchar(100) NOT NULL COMMENT 'Apellidos',
-                               `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Correo',
-                               `num_transaction` varchar(100) NOT NULL COMMENT 'Número de la transacción',
-                               `person_id` int DEFAULT NULL,
-                               `company_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `payment_tdd`
---
-
-
-
 
 --
 -- Dumping data for table `person_type`
@@ -257,4 +290,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-29  1:15:45
+-- Dump completed on 2021-09-12 16:02:53

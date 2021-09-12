@@ -87,10 +87,12 @@ class Person {
         $id_person_type = $person->getIdPersonType();
         $company_name = $person->getCompanyName();
         $invitado = $person->getInvitado();
+        $centro = $person->getCentro();
+        $codigo_estudiante = $person->getCodigoEstudiante();
         $findPerson = $this->getPersonDocumentNumber($document, $email);
         if(count($findPerson) == 0){
-            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name,guest) 
-                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name','$invitado')";
+            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name,guest,centro, codigo_estudiante) 
+                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name','$invitado', '$centro', '$codigo_estudiante')";
             
             try {
                 $this->db->executeInstruction($sql);
