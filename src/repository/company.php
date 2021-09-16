@@ -35,9 +35,9 @@ class Company {
        $documentType = $company->getIdDocumentType();
        $billing = $company->getBilling();
        $email_contable = $company->getEmailContable();
-       $findCompany = $this->getCompanyDocumentNumber($document);
+       //$findCompany = $this->getCompanyDocumentNumber($document);
 
-       if(count($findCompany) == 0){
+      // if(count($findCompany) == 0){
            $sql="INSERT INTO company (name,document_number,id_document_type,address , activity ,  billing ,  id_county ,  participants_number ,  total, email_contable ) 
                        VALUES('$name','$document','$documentType','$address','$activity','$billing','$id_country',$participantsNumber, '$total', '$email_contable')";
            try {
@@ -47,9 +47,9 @@ class Company {
            }catch (Exception $e){
                return ["error" => "true", "message"=>"Error al guardar la empresa!"];
            }
-       }else{
-           return ["error" => "true", "message"=>"Error ya se encuentra registrado este RUC."];
-       }
+      // }else{
+        //   return ["error" => "true", "message"=>"Error ya se encuentra registrado este RUC."];
+      // }
 
     }
 

@@ -227,12 +227,12 @@ $paises = $pais->getData();
                     </div>
                 </div>-->
                 <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
+                <div class="col-lg-3 text-left"></div>
+                    <div class="col-lg-3 text-left">
+                        <button class="btn btn-siguiente text-left" type="submit">Deposito en cuenta</button>
                     </div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
+                    <div class="col-lg-3 text-left">
+                        <button class="btn btn-siguiente text-left" type="button" id="diferido">Pago Diferido</button>
                     </div>
                     <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
@@ -538,6 +538,9 @@ $paises = $pais->getData();
 
         }
 
+        var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
+        var addPerson = document.getElementById('addPerson');
+
         function setUpdateWorker(worker) {
             document.getElementById('part_nombres').value = worker[0].name;
             document.getElementById('part_apellidos').value = worker[0].lastName;
@@ -552,16 +555,14 @@ $paises = $pais->getData();
             $('#editarParticipante').show();
             $('#guardarParticipante').hide();
            
-            var updatePerson = new bootstrap.Modal(document.getElementById("modalPerson"), {});
             
-            updatePerson.show();
+            addPersonModal.show();
            
            
         }
 
 
-        var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
-        var addPerson = document.getElementById('addPerson');
+        
         var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
         //var paymentTdd = document.getElementById('tdd_payment');
         var diferido = document.getElementById('diferido');
@@ -573,6 +574,8 @@ $paises = $pais->getData();
                 personNew[0].reset()
                 $('.btn-close').click();
             addPersonModal.show();
+            $("#part_empresa").hide();
+            $("#part_empresa_label").hide();
         }
         
         personNew.validate();
