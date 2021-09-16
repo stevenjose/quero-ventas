@@ -10,7 +10,7 @@
                 <div class="row mt-4 p-4">
                     <div class="col-12 col-lg-12 col-md-12">
                         <p class="text-center">
-                            Gracias hemos recibido, una inscripción, al Congreso Peruano de Avicultura AVEM 2021 nos vemos los días 4,5,6 de Octubre
+                            Gracias hemos recibido, una inscripción, al Congreso Peruano de Avicultura AVEM 2021 nos vemos los días 4,5,6 y 7 de Octubre
                             a través de nuestra moderna plataforma digital.
                         </p>
                         <br>
