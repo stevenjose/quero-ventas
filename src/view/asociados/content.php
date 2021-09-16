@@ -109,7 +109,7 @@ $paises = $pais->getData();
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="mb-3 col-lg-6">
 
                         <label for="country" class="form-label">Pais</label>
@@ -227,13 +227,10 @@ $paises = $pais->getData();
                     </div>
                 </div>-->
                 <div class="row">
-                <div class="col-lg-3"></div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
-                    </div>
-                    <div class="col-lg-2">
-                        <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
-                    </div>
+                <div class="col-lg-12 text-center">
+                    <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
+                    <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
+                </div>
                   <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
@@ -529,7 +526,7 @@ $paises = $pais->getData();
                 let updateWork = workers.filter(worker => worker.dni == element.dni);
 
                 console.log(updateWork);
-                setUpdateWorker(updateWork) 
+                setUpdateWorker(updateWork)
                 setTable();
             });
 
@@ -680,7 +677,7 @@ $paises = $pais->getData();
         $('#editarParticipante').hide();
     $('#guardarParticipante').show();
     });
-    
+
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
     var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
@@ -774,7 +771,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 're_celular': document.getElementById('re_celular').value,
                 'position': document.getElementById('position').value,
                 'email_contable':document.getElementById('email_contable').value,
-                
+
                 'workers': JSON.stringify(workers)
             })
 
@@ -822,7 +819,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 headers: headers,
                 body: JSON.stringify({name: document.getElementById('re_nombres').value,email: document.getElementById('re_correo').value , participantes : workers})
             });
-          
+
             var formpayment = $("#payment");
             formpayment[0].reset()
             modalPaymentDepositSuccess.show();
