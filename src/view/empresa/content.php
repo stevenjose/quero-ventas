@@ -190,45 +190,10 @@ $paises = $pais->getData();
                         </table>
                     </div>
                 </div>
-                <!--     <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Nombres*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_nombres" name="part_nombres" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Apellidos*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_apellidos" name="part_apellidos" required>
-                    </div>
-                </div>
+
                 <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Dni*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_dni" name="part_dni" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Correo*</label>
-                        <input type="email" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_correo" name="email" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Ciudad*</label>
-                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_ciudad" name="part_ciudad" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Cargo*</label>
-                        <input type="email"  value="lopezajoseg@gmail.com" class="form-control col-6" id="part_cargo" name="part_cargo" required>
-                    </div>
-                </div>-->
-                <!--  <h4>Ingresar datos de inscritos por cantidad indicada</h4>
-                <div class="row">
-                    <div class="mb-3 col-lg-12">
-                        <input type="text" class="form-control col-6" id="cant_inscritos" name="cant_inscritos" required>
-                    </div>
-                </div>-->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
+                    <div class="col-lg-12 text-center">
+                        <button class="btn btn-siguiente text-center" type="submit">Deposito en cuenta</button>
                     </div>
                     <!--<div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
@@ -304,52 +269,6 @@ $paises = $pais->getData();
         </div>
     </div>
 </div>
-
-<!--<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalPaymentHe">Deposito en cuenta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 col-lg-12 col-md-12">
-                        Datos de cuentas Bancarias Asociación Peruana de Avicultura
-                    </div>
-                    <div class="col-12 col-lg-12 col-md-12">
-                        BBVA Dólares: 125 25648 2683356 542
-                    </div>
-                    <div class="col-12 col-lg-12 col-md-12">
-                        CCI BBVA Dólares: 125 25648 2683356 542
-                    </div>
-                </div>
-                <form id="payment" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
-                        <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Número de operación*:</label>
-                        <input type="number" class="form-control" id="reference" name="reference"></input>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
-                        <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
-                    </div>
-                </form>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-                            -->
-
 <!--Modal deposito -->
 <?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
 <!--End Modal deposito -->
@@ -358,8 +277,6 @@ $paises = $pais->getData();
 <!--Modal end deposito Success-->
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-
-
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Ingresar datos del participante</h5>
