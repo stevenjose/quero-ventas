@@ -107,8 +107,8 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-lg-6">
-                        <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
+                    <div class="col-lg-12 text-center">
+                        <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
                     </div>
                   <!--  <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
