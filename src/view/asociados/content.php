@@ -227,16 +227,13 @@ $paises = $pais->getData();
                     </div>
                 </div>-->
                 <div class="row">
-                <div class="col-lg-12 text-center">
-                    <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
-                    <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
-                </div>
-                   <!-- <div class="col-lg-2">
+                <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
-                    </div>-->
+                    </div>
                   <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
@@ -545,6 +542,8 @@ $paises = $pais->getData();
         document.getElementById('part_nombres').value = worker[0].name;
         document.getElementById('part_apellidos').value = worker[0].lastName;
         document.getElementById('part_dni').value = worker[0].dni;
+        document.getElementById('part_dni_old').value = worker[0].dni;
+        document.getElementById('part_correo_old').value = worker[0].email;
         document.getElementById('part_correo').value = worker[0].email;
         document.getElementById('part_ciudad').value = worker[0].city;
         document.getElementById('part_cargo').value = worker[0].position;
@@ -638,6 +637,8 @@ $paises = $pais->getData();
         let lastName = document.getElementById('part_apellidos').value;
         let dni = document.getElementById('part_dni').value;
         let email = document.getElementById('part_correo').value;
+        let dni_old = document.getElementById('part_dni_old').value;
+        let email_old = document.getElementById('part_correo_old').value;
         let city = document.getElementById('part_ciudad').value;
         let position = document.getElementById('part_cargo').value;
         let empresa = document.getElementById('part_empresa').value;
