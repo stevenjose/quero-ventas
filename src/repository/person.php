@@ -1,11 +1,13 @@
 <?php
-require __DIR__."/../../db/conexion.php";
-require __DIR__."/../dto/PersonDTO.php";
-class Person {
+require __DIR__ . "/../../db/conexion.php";
+require __DIR__ . "/../dto/PersonDTO.php";
+class Person
+{
 
     private $db;
 
-    function __construct() {
+    function __construct()
+    {
         $this->db = new MysqlDB();
         $this->db->connect();
     }
@@ -13,7 +15,7 @@ class Person {
 
     public function getDocumentType()
     {
-        $sql="SELECT * FROM person ORDER BY id";
+        $sql = "SELECT * FROM person ORDER BY id";
         $consulta = [];
         try {
             if (isset($this)) {
@@ -26,8 +28,9 @@ class Person {
     }
 
 
-    public function getPersonId($id) {
-        $sql="SELECT * FROM person where id ='$id'";
+    public function getPersonId($id)
+    {
+        $sql = "SELECT * FROM person where id ='$id'";
         $consulta = [];
         try {
             if (isset($this)) {
@@ -39,8 +42,9 @@ class Person {
         return $consulta;
     }
 
-    public function getPersonCorreo($email) {
-        $sql="SELECT * FROM person where email ='$email'";
+    public function getPersonCorreo($email)
+    {
+        $sql = "SELECT * FROM person where email ='$email'";
         $consulta = [];
         try {
             if (isset($this)) {
@@ -52,8 +56,9 @@ class Person {
         return $consulta;
     }
 
-    public function getPersonDocumentNumber($document_number, $email) {
-        $sql="SELECT * FROM person where document_number ='$document_number' or email = '$email'";
+    public function getPersonDocumentNumber($document_number, $email)
+    {
+        $sql = "SELECT * FROM person where document_number ='$document_number' or email = '$email'";
         //echo $sql. "---";
         $consulta = array();
         try {
@@ -63,20 +68,20 @@ class Person {
         } catch (Exception $e) {
             print $e;
         }
-        if($consulta){
+        if ($consulta) {
             return $consulta;
         }
         return [];
-
     }
 
-    public function postCreatePerson(PersonDTO $person) {
+    public function postCreatePerson(PersonDTO $person)
+    {
         //INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `document_number`, `phone_number`, `id_document_type`,
         // `position`, `column_9`, `company_name`, `id_person_type`, `total`)
         // VALUES (NULL, 'ASD', 'ASD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-        
-        $name=$person->getName();
-        $last_name=$person->getLastName();
+
+        $name = $person->getName();
+        $last_name = $person->getLastName();
         $email = $person->getEmail();
         $document = $person->getDocumentNumber();
         $phone = $person->getPhoneNumer();
@@ -90,23 +95,57 @@ class Person {
         $centro = $person->getCentro();
         $codigo_estudiante = $person->getCodigoEstudiante();
         $findPerson = $this->getPersonDocumentNumber($document, $email);
-        if(count($findPerson) == 0){
-            $sql="INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name,guest,centro, codigo_estudiante) 
+        if (count($findPerson) == 0) {
+            $sql = "INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name,guest,centro, codigo_estudiante) 
                         VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name','$invitado', '$centro', '$codigo_estudiante')";
-            
+
             try {
                 $this->db->executeInstruction($sql);
-                return ["error" => "false", "message"=>"Se registro el estudiante exitosamente!"];
-            }catch (Exception $e){
-                return ["error" => "true", "message"=>$sql];
+                return ["error" => "false", "message" => "Se registro el estudiante exitosamente!"];
+            } catch (Exception $e) {
+                return ["error" => "true", "message" => $sql];
             }
-        }else{
-            return ["error" => "true", "message"=>"Error ya se encuentra registrado el Correo o Dni."];
+        } else {
+            return ["error" => "true", "message" => "Error ya se encuentra registrado el Correo o Dni."];
         }
-
     }
 
-    public function postCreatePayment(string $sql) {
+    public function postCreateRepresentante(PersonDTO $person)
+    {
+        //INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `document_number`, `phone_number`, `id_document_type`,
+        // `position`, `column_9`, `company_name`, `id_person_type`, `total`)
+        // VALUES (NULL, 'ASD', 'ASD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+        $name = $person->getName();
+        $last_name = $person->getLastName();
+        $email = $person->getEmail();
+        $document = $person->getDocumentNumber();
+        $phone = $person->getPhoneNumer();
+        $city = $person->getCity();
+        $total = $person->getTotal();
+        $documentType = $person->getIdDocumentType();
+        $position = $person->getPosition();
+        $id_person_type = $person->getIdPersonType();
+        $company_name = $person->getCompanyName();
+        $invitado = $person->getInvitado();
+        $centro = $person->getCentro();
+        $codigo_estudiante = $person->getCodigoEstudiante();
+        $sql = "INSERT INTO person (name,last_name,email,document_number,phone_number,city,total, id_document_type, position,id_person_type,company_name,guest,centro, codigo_estudiante) 
+                        VALUES('$name','$last_name','$email','$document','$phone','$city','$total','$documentType','$position','$id_person_type','$company_name','$invitado', '$centro', '$codigo_estudiante')";
+
+        try {
+            $this->db->executeInstruction($sql);
+            return ["error" => "false", "message" => "Se registro el estudiante exitosamente!"];
+        } catch (Exception $e) {
+            return ["error" => "true", "message" => $sql];
+        }
+    }
+
+
+
+
+    public function postCreatePayment(string $sql)
+    {
         $consulta = [];
         try {
             if (isset($this)) {
@@ -117,5 +156,4 @@ class Person {
         }
         return $consulta;
     }
-
 }

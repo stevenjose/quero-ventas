@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $personaDTO->setCompanyName('');
             $personaDTO->setInvitado('');
 
-            $save = $persona->postCreatePerson($personaDTO);
+            $save = $persona->postCreateRepresentante($personaDTO);
 
             if ($save && $save['error'] == 'false') {
                 $findPerson = $persona->getPersonDocumentNumber($_POST['re_dni'], $_POST['re_correo']);
