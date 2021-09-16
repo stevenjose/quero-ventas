@@ -227,13 +227,16 @@ $paises = $pais->getData();
                     </div>
                 </div>-->
                 <div class="row">
-                <div class="col-lg-3"></div>
-                    <div class="col-lg-2">
+                <div class="col-lg-12 text-center">
+                    <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
+                    <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
+                </div>
+                   <!-- <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
                     </div>
                     <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
-                    </div>
+                    </div>-->
                   <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
