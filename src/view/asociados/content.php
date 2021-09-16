@@ -84,7 +84,7 @@ $paises = $pais->getData();
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="ruc" class="form-label">RUC o equivalente*</label>
-                        <input type="text"  value="<?php echo $_GET["ruc"]?>" class="form-control col-6" id="ruc" name="ruc" required>
+                        <input type="text" value="<?php echo $_GET["ruc"] ?>" class="form-control col-6" id="ruc" name="ruc" required>
                     </div>
                 </div>
                 <div class="row">
@@ -174,15 +174,15 @@ $paises = $pais->getData();
                     <div class="mb-6 col-lg-12">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Apellido</th>
-                                    <th scope="col">Documento de Identidad</th>
-                                    <th scope="col">
-                                    <td><button type="button" id="addPerson" class="btn btn-danger">Agregar participante</button></td>
-                                    </th>
-                                </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Documento de Identidad</th>
+                                <th scope="col">
+                                <td><button type="button" id="addPerson" class="btn btn-danger">Agregar participante</button></td>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody id="bodyWorkers">
 
@@ -227,11 +227,14 @@ $paises = $pais->getData();
                     </div>
                 </div>-->
                 <div class="row">
-                <div class="col-lg-12 text-center">
-                    <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
-                    <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
-                </div>
-                  <!--  <div class="col-lg-2">
+                    <div class="col-lg-3 text-left"></div>
+                    <div class="col-lg-3 text-left">
+                        <button class="btn btn-siguiente text-left" type="submit">Deposito en cuenta</button>
+                    </div>
+                    <div class="col-lg-3 text-left">
+                        <button class="btn btn-siguiente text-left" type="button" id="diferido">Pago Diferido</button>
+                    </div>
+                    <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
                     <div class="col-lg-3"></div>
@@ -349,7 +352,7 @@ $paises = $pais->getData();
 
         </div>
     </div>
-</div>-->
+    </div>-->
 
 <!--Modal deposito -->
 <?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
@@ -380,12 +383,12 @@ $paises = $pais->getData();
                     <div class="mb-3">
                         <label for="part_dni" class="form-label">Dni*</label>
                         <input type="text" class="form-control col-6" id="part_dni" name="part_dni" required>
-                        <input type="hidden"  id="part_dni_old" name="part_dni_old">
+                        <input type="hidden" id="part_dni_old" name="part_dni_old">
                     </div>
                     <div class="mb-3">
                         <label for="part_correo" class="form-label">Correo*</label>
                         <input type="email" class="form-control col-6" id="part_correo" name="part_correo" required>
-                        <input type="hidden"  id="part_correo_old" name="part_correo_old">
+                        <input type="hidden" id="part_correo_old" name="part_correo_old">
                         <div>
                             <div class="mb-3">
                                 <label for="part_ciudad" class="form-label">Ciudad</label>
@@ -399,7 +402,7 @@ $paises = $pais->getData();
                             <div class="mb-3">
                                 <input class="form-check-input mt-2" type="checkbox" value="true" id="part_invitado" name="part_invitado">
                                 <label class="form-check-label mt-1" for="flexCheckDefault">
-                                Otra empresa
+                                    Otra empresa
                                 </label>
                             </div>
                             <div class="mb-3">
@@ -425,57 +428,57 @@ $paises = $pais->getData();
 
 <script>
     /*var transaction = document.getElementById('transaction');
-    transaction.addEventListener('click', async ()=>{
-        const response = await fetch('../../controllers/payment_tdd_company.php',{
-            method: 'POST',
-            body: new URLSearchParams({
-                'num_tdd': document.getElementById('cardNumber').value,
-                'names': document.getElementById('nombres_tdd').value ? document.getElementById('nombres_tdd').value : 'Jose' ,
-                'last_name': document.getElementById('apellidos_tdd').value,
-                'email': document.getElementById('email_tdd'),
-                'num_transaction':'123131312123',
-                'name': document.getElementById('name').value,
-                'address': document.getElementById('address').value,
-                'ruc': document.getElementById('ruc').value,
-                'participants_number': document.getElementById('participants_number').value,
-                'documentType': '2',
-                'total':document.getElementById('total').value,
-                'activity': document.getElementById('activity').value,
-                'country': document.getElementById('country').value,
-                'billing': document.getElementById('billing').value
-            })
-        });
-        if(response.status == 200){
-            const resp = await response.json();
-            console.log(resp);
-            if(resp.error == "false"){
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Se crea el pago exitosamente!',
-                    showConfirmButton: false,
-                    timer: 2500
-                });
-            }else{
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Error al crear pago o persona por favor validar el pago manualmente',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 2500
-                });
-            }
+transaction.addEventListener('click', async ()=>{
+    const response = await fetch('../../controllers/payment_tdd_company.php',{
+        method: 'POST',
+        body: new URLSearchParams({
+            'num_tdd': document.getElementById('cardNumber').value,
+            'names': document.getElementById('nombres_tdd').value ? document.getElementById('nombres_tdd').value : 'Jose' ,
+            'last_name': document.getElementById('apellidos_tdd').value,
+            'email': document.getElementById('email_tdd'),
+            'num_transaction':'123131312123',
+            'name': document.getElementById('name').value,
+            'address': document.getElementById('address').value,
+            'ruc': document.getElementById('ruc').value,
+            'participants_number': document.getElementById('participants_number').value,
+            'documentType': '2',
+            'total':document.getElementById('total').value,
+            'activity': document.getElementById('activity').value,
+            'country': document.getElementById('country').value,
+            'billing': document.getElementById('billing').value
+        })
+    });
+    if(response.status == 200){
+        const resp = await response.json();
+        console.log(resp);
+        if(resp.error == "false"){
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se crea el pago exitosamente!',
+                showConfirmButton: false,
+                timer: 2500
+            });
         }else{
             Swal.fire({
                 title: 'Error!',
-                text: 'Se produjo un error comuníquese con el administrador!',
+                text: 'Error al crear pago o persona por favor validar el pago manualmente',
                 icon: 'error',
                 showConfirmButton: false,
                 timer: 2500
             });
         }
+    }else{
+        Swal.fire({
+            title: 'Error!',
+            text: 'Se produjo un error comuníquese con el administrador!',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    }
 
-    });*/
+});*/
     $('#editarParticipante').hide();
     $('#guardarParticipante').show();
     if (!document.getElementById('part_invitado').checked) {
@@ -535,6 +538,9 @@ $paises = $pais->getData();
 
     }
 
+    var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
+    var addPerson = document.getElementById('addPerson');
+
     function setUpdateWorker(worker) {
         document.getElementById('part_nombres').value = worker[0].name;
         document.getElementById('part_apellidos').value = worker[0].lastName;
@@ -548,22 +554,30 @@ $paises = $pais->getData();
         document.getElementById('part_invitado').checked = worker[0].invitado;
         $('#editarParticipante').show();
         $('#guardarParticipante').hide();
-        var updatePerson = new bootstrap.Modal(document.getElementById("modalPerson"), {});
-        updatePerson.show();
+
+
+        addPersonModal.show();
+
+
     }
 
 
-    var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
-    var addPerson = document.getElementById('addPerson');
+
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
     //var paymentTdd = document.getElementById('tdd_payment');
     var diferido = document.getElementById('diferido');
-
+    var personNew = $("#personNew");
     addPerson.onclick = (e) => {
         e.preventDefault();
+        $('#editarParticipante').hide();
+        $('#guardarParticipante').show();
+        personNew[0].reset()
+        $('.btn-close').click();
         addPersonModal.show();
+        $("#part_empresa").hide();
+        $("#part_empresa_label").hide();
     }
-    var personNew = $("#personNew");
+
     personNew.validate();
     let guardar = document.getElementById('guardarParticipante');
     guardar.addEventListener("click", () => {
@@ -614,8 +628,9 @@ $paises = $pais->getData();
             });
             console.log(workers);
             setTable();
-            addPersonModal.hide();
             personNew[0].reset()
+            $('.btn-close').click();
+
         }
 
     });
@@ -640,16 +655,37 @@ $paises = $pais->getData();
         let position = document.getElementById('part_cargo').value;
         let empresa = document.getElementById('part_empresa').value;
         let invitado = document.getElementById('part_invitado').checked;
+        let valid = true;
 
-        if (workers.filter(element => element.dni == dni).length > 0) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'El Documento de identidad ya existe',
-                icon: 'error',
-                showConfirmButton: false,
-                timer: 2500
-            });
-        } else if (!personNew.valid()) {
+        if (dni != dni_old) {
+            if (workers.filter(element => element.dni == dni).length > 0) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'El Documento de identidad ya existe',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+
+                valid = false;
+            }
+        }
+
+        if (email != email_old) {
+            if (workers.filter(element => element.email == email).length > 0) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'El Email ya existe',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+
+                valid = false;
+            }
+        }
+
+        if (!personNew.valid()) {
             Swal.fire({
                 title: 'Error!',
                 text: 'Error en los datos del participante',
@@ -657,7 +693,9 @@ $paises = $pais->getData();
                 showConfirmButton: false,
                 timer: 2500
             });
-        } else {
+        } else if (valid == true) {
+            console.log(workers);
+            workers = workers.filter(w => w.dni != dni_old);
             workers.push({
                 "name": name,
                 "lastName": lastName,
@@ -669,13 +707,13 @@ $paises = $pais->getData();
                 "invitado": invitado
 
             });
-            console.log(workers);
             setTable();
             addPersonModal.hide();
             personNew[0].reset()
+            $('.btn-close').click();
         }
         $('#editarParticipante').hide();
-    $('#guardarParticipante').show();
+        $('#guardarParticipante').show();
     });
 
 
@@ -683,9 +721,9 @@ $paises = $pais->getData();
     var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
     document.getElementById('total_modal').innerText = document.getElementById('total').value;
 
-document.getElementById('total').addEventListener('change', ()=>{
-    document.getElementById('total_modal').innerText = document.getElementById('total').value;
-});
+    document.getElementById('total').addEventListener('change', () => {
+        document.getElementById('total_modal').innerText = document.getElementById('total').value;
+    });
 
     var form = document.getElementById('form-empresa');
 
@@ -770,7 +808,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 're_correo': document.getElementById('re_correo').value,
                 're_celular': document.getElementById('re_celular').value,
                 'position': document.getElementById('position').value,
-                'email_contable':document.getElementById('email_contable').value,
+                'email_contable': document.getElementById('email_contable').value,
 
                 'workers': JSON.stringify(workers)
             })
@@ -792,32 +830,36 @@ document.getElementById('total').addEventListener('change', ()=>{
             console.error('Error', resp);
         } else {
             console.log('no hay error', resp);
-            if(!diferido) {
-            const fileInput = document.querySelector('#num_voucher');
-            console.log(fileInput.files[0].name);
-            let payload = {
-                entidad_bancaria: document.getElementById('entidad_bancaria').value,
-                reference: document.getElementById('reference').value,
-                voucher: fileInput.files[0].name,
-                ruc: document.getElementById('ruc').value
-            };
-            const formData = new FormData();
-            formData.append("json", JSON.stringify(payload));
-            formData.append('file', fileInput.files[0]);
+            if (!diferido) {
+                const fileInput = document.querySelector('#num_voucher');
+                console.log(fileInput.files[0].name);
+                let payload = {
+                    entidad_bancaria: document.getElementById('entidad_bancaria').value,
+                    reference: document.getElementById('reference').value,
+                    voucher: fileInput.files[0].name,
+                    ruc: document.getElementById('ruc').value
+                };
+                const formData = new FormData();
+                formData.append("json", JSON.stringify(payload));
+                formData.append('file', fileInput.files[0]);
 
-            const payment = await fetch('../../controllers/payment.php', {
-                method: 'POST',
-                body: formData
-            });
+                const payment = await fetch('../../controllers/payment.php', {
+                    method: 'POST',
+                    body: formData
+                });
 
-        }
-        let headers = new Headers();
+            }
+            let headers = new Headers();
             headers.append('Accept', 'application/json');
             headers.append('Content-Type', 'application/json');
             const response = await fetch('../mail.php', {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify({name: document.getElementById('re_nombres').value,email: document.getElementById('re_correo').value , participantes : workers})
+                body: JSON.stringify({
+                    name: document.getElementById('re_nombres').value,
+                    email: document.getElementById('re_correo').value,
+                    participantes: workers
+                })
             });
 
             var formpayment = $("#payment");
@@ -848,22 +890,22 @@ document.getElementById('total').addEventListener('change', ()=>{
         }
     });
     // Pagos
- /*   paymentTdd.addEventListener("click", (e) => {
-        console.log('Click')
-        e.preventDefault();
-        if (!formCompany.valid()) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Error en los datos de la empresa',
-                icon: 'error',
-                showConfirmButton: false,
-                timer: 2500
-            });
-        } else {
-            console.log('Modal pagos');
-            myModalPayment.show();
-        }
-    });*/
+    /*   paymentTdd.addEventListener("click", (e) => {
+           console.log('Click')
+           e.preventDefault();
+           if (!formCompany.valid()) {
+               Swal.fire({
+                   title: 'Error!',
+                   text: 'Error en los datos de la empresa',
+                   icon: 'error',
+                   showConfirmButton: false,
+                   timer: 2500
+               });
+           } else {
+               console.log('Modal pagos');
+               myModalPayment.show();
+           }
+       });*/
 
 
     var btnPagar = document.getElementById('pagar');
