@@ -223,10 +223,10 @@ $paises = $pais->getData();
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
-                    <div class="col-lg-6">
+                   <!-- <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
-                    <!-- <div class="col-lg-6">
+                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
                     </div>-->
                 </div>
@@ -298,7 +298,7 @@ $paises = $pais->getData();
     </div>
 </div>
 
-
+<!--
 <div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -341,7 +341,13 @@ $paises = $pais->getData();
 
         </div>
     </div>
-</div>
+</div>-->
+<!--Modal deposito -->
+<?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
+<!--End Modal deposito -->
+<!--Modal deposito Success-->
+<?php require_once __DIR__ . "/../modal-payment-deposit-success.php"; ?>
+<!--Modal end deposito Success-->
 
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -457,6 +463,12 @@ $paises = $pais->getData();
         }
 
     });*/
+    var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+
+document.getElementById('total').addEventListener('change', ()=>{
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+});
     if (!document.getElementById('part_invitado').checked) {
         $("#part_empresa").hide();
         $("#part_empresa_label").hide();
@@ -501,7 +513,7 @@ $paises = $pais->getData();
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
-    var paymentTdd = document.getElementById('tdd_payment');
+    //var paymentTdd = document.getElementById('tdd_payment');
     var participantsNumber = document.getElementById('participants_number');
     participantsNumber.addEventListener("change", (e) => {
         document.getElementById('total').value = participantsNumber.value * 58.00;
@@ -568,7 +580,7 @@ $paises = $pais->getData();
 
     });
 
-    var myModal = new bootstrap.Modal(document.getElementById("modalPayment"), {});
+    var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 
     var form = document.getElementById('form-empresa');
 
@@ -692,15 +704,19 @@ $paises = $pais->getData();
                 method: 'POST',
                 body: formData
             });
-
-
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Estudiante creado!',
-                showConfirmButton: false,
-                timer: 2500
+            let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            headers.append('Content-Type', 'application/json');
+            const response = await fetch('../mail.php', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({name: document.getElementById('re_nombres').value,email: document.getElementById('re_correo').value , participantes : workers})
             });
+          
+            var formpayment = $("#payment");
+            formpayment[0].reset()
+
+            modalPaymentDepositSuccess.show();
             formCompany[0].reset()
             workers = [];
             document.getElementById('bodyWorkers').innerHTML = '';
@@ -711,7 +727,7 @@ $paises = $pais->getData();
     }
 
     // Pagos
-    paymentTdd.addEventListener("click", (e) => {
+ /*   paymentTdd.addEventListener("click", (e) => {
         console.log('Click')
         e.preventDefault();
         if (!formCompany.valid()) {
@@ -726,7 +742,7 @@ $paises = $pais->getData();
             console.log('Modal pagos');
             myModalPayment.show();
         }
-    });
+    });*/
 
 
     var btnPagar = document.getElementById('pagar');

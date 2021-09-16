@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row text-center">
-                    <img src="http://localhost/sist-quero/src/asssets/img/avem.png"  id="logo-payment" class="img-fluid" alt="img-logo" style="padding: 80px"/>
+                    <img src="../../asssets/img/avem.png"  id="logo-payment" class="img-fluid" alt="img-logo" style="padding: 80px"/>
                 </div>
                 <h3 class="text-center">!Gracias!</h3>
                 <div class="row mt-4 p-4">

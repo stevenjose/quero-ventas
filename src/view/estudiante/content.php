@@ -90,7 +90,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Código de estudiante*</label>
+                        <label for="codigo_estudiante" class="form-label">Código de estudiante*</label>
                         <input type="text" class="form-control col-6" id="codigo_estudiante" name="codigo_estudiante" required>
                     </div>
                     <div class="mb-3 col-lg-6">
@@ -110,10 +110,10 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                     <div class="col-lg-6">
                         <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
                     </div>
-                    <div class="col-lg-6">
+                  <!--  <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
-                    <!--<div class="col-lg-6">
+                    <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
                     </div>-->
                 </div>
@@ -136,7 +136,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 </div>
                 <div class="text-center mt-2">
                     <span class="text-center img-fluid">
-                        <img src="http://localhost/sist-quero/src/asssets/img/avem.png" />
+                        <img src="../../asssets/img/avem.png" />
                     </span>
                 </div>
                 <div class="modal-body">
@@ -218,7 +218,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
         myModal.show();
     }
 
-    var paymentTdd = document.getElementById('tdd_payment');
+   /* var paymentTdd = document.getElementById('tdd_payment');
     paymentTdd.addEventListener("click",(e)=>{
         console.log('Click')
         e.preventDefault();
@@ -226,7 +226,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
             myModalPayment.show();
         };
 
-    });
+    });*/
 
     var btnPagar = document.getElementById('pagar');
     btnPagar.addEventListener("click",async (e)=> {
@@ -623,6 +623,20 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
             //const tokenResp = token();
             modalPaymentDepositSuccess.show();
             myModal.hide();
+            
+            let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            headers.append('Content-Type', 'application/json');
+            const response = await fetch('../mail.php', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({name: document.getElementById('nombres').value,email: document.getElementById('email').value , participantes : []})
+            });
+            form.reset();
+            const resp = await response.json();
+            console.log(resp);
+
+            
         }
 
 
@@ -639,6 +653,8 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 'city' : document.getElementById('city').value,
                 'celular':document.getElementById('celular').value,
                 'total': document.getElementById('total').value,
+                'codigo_estudiante': document.getElementById('codigo_estudiante').value,
+        'centro': document.getElementById('centro').value,
                 'bank' : bank,
                 'reference': reference,
                 'num_voucher': num_voucher

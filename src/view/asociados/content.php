@@ -220,13 +220,18 @@ $paises = $pais->getData();
                     </div>
                 </div>-->
                 <div class="row">
-                    <div class="col-lg-6">
-                        <button class="btn btn-siguiente float-end" type="submit">Deposito en cuenta</button>
+                <div class="col-lg-3"></div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-2">
+                        <button class="btn btn-siguiente" type="button" id="diferido">Pago Diferido</button>
+                    </div>
+                  <!--  <div class="col-lg-2">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
-                    <!-- <div class="col-lg-6">
+                    <div class="col-lg-3"></div>
+                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
                     </div>-->
                 </div>
@@ -298,7 +303,7 @@ $paises = $pais->getData();
     </div>
 </div>
 
-<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
+<<!--div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -340,7 +345,14 @@ $paises = $pais->getData();
 
         </div>
     </div>
-</div>
+</div>-->
+
+<!--Modal deposito -->
+<?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
+<!--End Modal deposito -->
+<!--Modal deposito Success-->
+<?php require_once __DIR__ . "/../modal-payment-deposit-success.php"; ?>
+<!--Modal end deposito Success-->
 
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -508,7 +520,8 @@ $paises = $pais->getData();
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
-    var paymentTdd = document.getElementById('tdd_payment');
+    //var paymentTdd = document.getElementById('tdd_payment');
+    var diferido = document.getElementById('diferido');
 
     addPerson.onclick = (e) => {
         e.preventDefault();
@@ -571,7 +584,13 @@ $paises = $pais->getData();
 
     });
 
-    var myModal = new bootstrap.Modal(document.getElementById("modalPayment"), {});
+    var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+    var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+
+document.getElementById('total').addEventListener('change', ()=>{
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+});
 
     var form = document.getElementById('form-empresa');
 
@@ -602,7 +621,7 @@ $paises = $pais->getData();
         console.log('NUM VOUCHER', num_voucher);
         if (bank && reference && num_voucher) {
             console.log('crear company');
-            companyCreate(bank, reference, num_voucher);
+            companyCreate(bank, reference, num_voucher, false);
         } else {
             if (!bank) {
                 Swal.fire({
@@ -636,7 +655,7 @@ $paises = $pais->getData();
     });
 
 
-    const companyCreate = async (bank, reference, num_voucher) => {
+    const companyCreate = async (bank, reference, num_voucher, diferido) => {
 
         const response = await fetch('../../controllers/company.php', {
             method: 'POST',
@@ -656,9 +675,7 @@ $paises = $pais->getData();
                 're_correo': document.getElementById('re_correo').value,
                 're_celular': document.getElementById('re_celular').value,
                 'position': document.getElementById('position').value,
-                'bank': bank,
-                'reference': reference,
-                'num_voucher': num_voucher,
+                
                 'workers': JSON.stringify(workers)
             })
 
@@ -679,6 +696,7 @@ $paises = $pais->getData();
             console.error('Error', resp);
         } else {
             console.log('no hay error', resp);
+            if(!diferido) {
             const fileInput = document.querySelector('#num_voucher');
             console.log(fileInput.files[0].name);
             let payload = {
@@ -696,14 +714,19 @@ $paises = $pais->getData();
                 body: formData
             });
 
-
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Estudiante creado!',
-                showConfirmButton: false,
-                timer: 2500
+        }
+        let headers = new Headers();
+            headers.append('Accept', 'application/json');
+            headers.append('Content-Type', 'application/json');
+            const response = await fetch('../mail.php', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({name: document.getElementById('re_nombres').value,email: document.getElementById('re_correo').value , participantes : workers})
             });
+          
+            var formpayment = $("#payment");
+            formpayment[0].reset()
+            modalPaymentDepositSuccess.show();
             formCompany[0].reset()
             workers = [];
             document.getElementById('bodyWorkers').innerHTML = '';
@@ -712,9 +735,24 @@ $paises = $pais->getData();
 
 
     }
-
+    diferido.addEventListener("click", (e) => {
+        console.log('Click')
+        e.preventDefault();
+        if (!formCompany.valid()) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error en los datos de la empresa',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else {
+            console.log('Modal pagos');
+            companyCreate(null, null, null, true);
+        }
+    });
     // Pagos
-    paymentTdd.addEventListener("click", (e) => {
+ /*   paymentTdd.addEventListener("click", (e) => {
         console.log('Click')
         e.preventDefault();
         if (!formCompany.valid()) {
@@ -729,7 +767,7 @@ $paises = $pais->getData();
             console.log('Modal pagos');
             myModalPayment.show();
         }
-    });
+    });*/
 
 
     var btnPagar = document.getElementById('pagar');

@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } else { 
                 $company->rollBack();               
-                echo json_encode(['error' => 'El registrados ya se encuentra registrado', 'success' => 'false']);
+                echo json_encode(['error' => 'El registrados ya se encuentra registrado', 'success' => $save ]);
             }
         } else {
             $company->rollBack();
