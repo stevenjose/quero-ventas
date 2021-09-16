@@ -104,6 +104,13 @@ $paises = $pais->getData();
                         <input type="text" class="form-control col-6" id="billing" name="billing">
                     </div>
                     <div class="mb-3 col-lg-6">
+                        <label for="email_contable" class="form-label">Correo de Contacto contable</label>
+                        <input type="email_contable" class="form-control col-6" id="email_contable" name="email_contable">
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="mb-3 col-lg-6">
 
                         <label for="country" class="form-label">Pais</label>
                         <select class="form-select" aria-label="Default select example" name="country" id="country" required>
@@ -659,6 +666,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 'billing': document.getElementById('billing').value,
                 'total': document.getElementById('total').value,
                 'documentType': '1',
+                'email_contable':document.getElementById('email_contable').value,
                 're_nombres': document.getElementById('re_nombres').value,
                 're_apellidos': document.getElementById('re_apellidos').value,
                 're_dni': document.getElementById('re_dni').value,

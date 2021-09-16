@@ -33,7 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $companyDTO->setActivity($_POST['activity']);
         $companyDTO->setIdCountry($_POST['country']);
         $companyDTO->setBilling($_POST['billing']);
-
+        $companyDTO->setEmailContable($_POST['email_contable']);
+        
         $save = $company->postCreateCompany($companyDTO);
         if ($save && $save['error'] == 'false') {
 

@@ -12,6 +12,7 @@ class CompanyDTO
     private $billing;
     private $id_country;
     private $total;
+    private $email_contable;
     
 
     /**
@@ -190,5 +191,24 @@ class CompanyDTO
     {
         $this->address = $address;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEmailContable()
+    {
+        return $this->email_contable;
+    }
+
+    /**
+     * @param mixed $email_contable
+     */
+    public function setEmailContable($email_contable)
+    {
+        $this->email_contable = $email_contable;
+    }
+    
+
+    
 
 }
