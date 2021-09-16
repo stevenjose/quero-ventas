@@ -395,7 +395,7 @@ $paises = $pais->getData();
                             <div class="mb-3">
                                 <input class="form-check-input mt-2" type="checkbox" value="true" id="part_invitado" name="part_invitado">
                                 <label class="form-check-label mt-1" for="flexCheckDefault">
-                                    Invitado
+                                Otra empresa
                                 </label>
                             </div>
                             <div class="mb-3">
