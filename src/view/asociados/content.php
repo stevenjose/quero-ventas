@@ -137,7 +137,7 @@ $paises = $pais->getData();
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
-                        <label for="re_dni" class="form-label">DNI, CE, CI*</label>
+                        <label for="re_dni" class="form-label">Documento de identificación*</label>
                         <input type="text" class="form-control col-6" id="re_dni" name="re_dni" required>
                     </div>
                     <div class="mb-3 col-lg-6">
@@ -383,10 +383,12 @@ $paises = $pais->getData();
                     <div class="mb-3">
                         <label for="part_dni" class="form-label">Dni*</label>
                         <input type="text" class="form-control col-6" id="part_dni" name="part_dni" required>
+                        <input type="hidden"  id="part_dni_old" name="part_dni_old">
                     </div>
                     <div class="mb-3">
                         <label for="part_correo" class="form-label">Correo*</label>
                         <input type="email" class="form-control col-6" id="part_correo" name="part_correo" required>
+                        <input type="hidden"  id="part_correo_old" name="part_correo_old">
                         <div>
                             <div class="mb-3">
                                 <label for="part_ciudad" class="form-label">Ciudad</label>
@@ -412,6 +414,7 @@ $paises = $pais->getData();
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="button" class="btn btn-primary" id="guardarParticipante">Agregar participante</button>
+                                <button type="button" class="btn btn-primary" id="editarParticipante">Editar participante</button>
                             </div>
                 </form>
 
@@ -476,6 +479,8 @@ $paises = $pais->getData();
         }
 
     });*/
+    $('#editarParticipante').hide();
+    $('#guardarParticipante').show();
     if (!document.getElementById('part_invitado').checked) {
         $("#part_empresa").hide();
         $("#part_empresa_label").hide();
@@ -505,7 +510,7 @@ $paises = $pais->getData();
         let table = "";
         var i = 1;
         workers.forEach(element => {
-            table += "<tr><td>" + i + "</td><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><tr>";
+            table += "<tr><td>" + i + "</td><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><td> <button type='button' id='" + element.dni + "_editar' class='btn btn-danger'>Editar</button></td><tr>";
             i++;
         });
         bodyWorkers.innerHTML = table;
@@ -518,9 +523,34 @@ $paises = $pais->getData();
                 setTable();
             });
 
+            var editWork = document.getElementById(element.dni + '_editar');
+            editWork.addEventListener('click', click => {
+                console.log(element.dni)
+                let updateWork = workers.filter(worker => worker.dni == element.dni);
+
+                console.log(updateWork);
+                setUpdateWorker(updateWork) 
+                setTable();
+            });
+
         });
 
 
+    }
+
+    function setUpdateWorker(worker) {
+        document.getElementById('part_nombres').value = worker[0].name;
+        document.getElementById('part_apellidos').value = worker[0].lastName;
+        document.getElementById('part_dni').value = worker[0].dni;
+        document.getElementById('part_correo').value = worker[0].email;
+        document.getElementById('part_ciudad').value = worker[0].city;
+        document.getElementById('part_cargo').value = worker[0].position;
+        document.getElementById('part_empresa').value = worker[0].empresa;
+        document.getElementById('part_invitado').checked = worker[0].invitado;
+        $('#editarParticipante').show();
+        $('#guardarParticipante').hide();
+        var updatePerson = new bootstrap.Modal(document.getElementById("modalPerson"), {});
+        updatePerson.show();
     }
 
 
@@ -590,6 +620,63 @@ $paises = $pais->getData();
         }
 
     });
+    let editarPar = document.getElementById('editarParticipante');
+    editarPar.addEventListener("click", () => {
+        if (!document.getElementById('part_invitado').checked) {
+            $("#part_empresa").hide();
+            $("#part_empresa_label").hide();
+        } else {
+            $("#part_empresa").show();
+            $("#part_empresa_label").show();
+        }
+
+
+        let name = document.getElementById('part_nombres').value;
+        let lastName = document.getElementById('part_apellidos').value;
+        let dni = document.getElementById('part_dni').value;
+        let email = document.getElementById('part_correo').value;
+        let city = document.getElementById('part_ciudad').value;
+        let position = document.getElementById('part_cargo').value;
+        let empresa = document.getElementById('part_empresa').value;
+        let invitado = document.getElementById('part_invitado').checked;
+
+        if (workers.filter(element => element.dni == dni).length > 0) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'El Documento de identidad ya existe',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else if (!personNew.valid()) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Error en los datos del participante',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        } else {
+            workers.push({
+                "name": name,
+                "lastName": lastName,
+                "dni": dni,
+                "email": email,
+                "city": city,
+                "position": position,
+                "empresa": empresa,
+                "invitado": invitado
+
+            });
+            console.log(workers);
+            setTable();
+            addPersonModal.hide();
+            personNew[0].reset()
+        }
+        $('#editarParticipante').hide();
+    $('#guardarParticipante').show();
+    });
+    
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
     var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));

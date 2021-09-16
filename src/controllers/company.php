@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $company->initTransaction();
     try {
         $persona = new Person();
-        $findPerson = $persona->getPersonDocumentNumber($_POST['re_dni'], $_POST['re_correo']);
+       /* $findPerson = $persona->getPersonDocumentNumber($_POST['re_dni'], $_POST['re_correo']);
         if(count($findPerson) > 0){
             echo json_encode(['error' => 'El registrados ya se encuentra registrado', 'success' => 'false']);
             exit(1);
-        }
+        }*/
         
         $companyDTO = new CompanyDTO();
         $companyDTO->setName($_POST['name']);
