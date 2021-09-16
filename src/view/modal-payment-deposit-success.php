@@ -15,14 +15,13 @@
                         </p>
                         <br>
                         <p class="text-center">
-                            Estamos felices de que vivas la experiencia AVEM y participes en este evento de alcance internacional que congregara a la
-                            comunidad agricola en pleno.
+                            Estamos felices de que vivas la experiencia AVEM y participes en este evento de alcance internacional que congregará a la
+                            comunidad agrícola en pleno.
                         </p>
                         <br>
                         <p class="text-center">
                             Pronto nos comunicaremos contigo.
                         </p>
-
                     </div>
                 </div>
             </div>
