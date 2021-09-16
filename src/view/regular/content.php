@@ -378,10 +378,12 @@ $paises = $pais->getData();
                     <div class="mb-3">
                         <label for="part_dni" class="form-label">Dni*</label>
                         <input type="text" class="form-control col-6" id="part_dni" name="part_dni" required>
+                        <input type="hidden" id="part_dni_old" name="part_dni_old">
                     </div>
                     <div class="mb-3">
                         <label for="part_correo" class="form-label">Correo*</label>
                         <input type="email" class="form-control col-6" id="part_correo" name="part_correo" required>
+                        <input type="hidden" id="part_correo_old" name="part_correo_old">
                         <div>
                             <div class="mb-3">
                                 <label for="part_ciudad" class="form-label">Ciudad</label>
@@ -407,6 +409,8 @@ $paises = $pais->getData();
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="button" class="btn btn-primary" id="guardarParticipante">Agregar participante</button>
+                                <button type="button" class="btn btn-primary" id="editarParticipante">Editar participante</button>
+
                             </div>
                 </form>
 
@@ -498,7 +502,7 @@ document.getElementById('total').addEventListener('change', ()=>{
         let table = "";
         var i = 1;
         workers.forEach(element => {
-            table += "<tr><td>" + i + "</td><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><tr>";
+            table += "<tr><td>" + i + "</td><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button></td><td> <button type='button' id='" + element.dni + "_editar' class='btn btn-danger'>Editar</button></td><tr>";
             i++;
         });
         bodyWorkers.innerHTML = table;
@@ -511,6 +515,15 @@ document.getElementById('total').addEventListener('change', ()=>{
                 setTable();
             });
 
+            var editWork = document.getElementById(element.dni + '_editar');
+                editWork.addEventListener('click', click => {
+                    console.log(element.dni)
+                    let updateWork = workers.filter(worker => worker.dni == element.dni);
+
+                    console.log(updateWork);
+                    setUpdateWorker(updateWork)
+                    setTable();
+                });
         });
 
 
@@ -519,6 +532,28 @@ document.getElementById('total').addEventListener('change', ()=>{
 
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
+
+
+    function setUpdateWorker(worker) {
+            document.getElementById('part_nombres').value = worker[0].name;
+            document.getElementById('part_apellidos').value = worker[0].lastName;
+            document.getElementById('part_dni').value = worker[0].dni;
+            document.getElementById('part_dni_old').value = worker[0].dni;
+            document.getElementById('part_correo_old').value = worker[0].email;
+            document.getElementById('part_correo').value = worker[0].email;
+            document.getElementById('part_ciudad').value = worker[0].city;
+            document.getElementById('part_cargo').value = worker[0].position;
+            document.getElementById('part_empresa').value = worker[0].empresa;
+            document.getElementById('part_invitado').checked = worker[0].invitado;
+            $('#editarParticipante').show();
+            $('#guardarParticipante').hide();
+           
+            
+            addPersonModal.show();
+           
+           
+        }
+
     var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
     //var paymentTdd = document.getElementById('tdd_payment');
     var participantsNumber = document.getElementById('participants_number');
@@ -527,7 +562,14 @@ document.getElementById('total').addEventListener('change', ()=>{
     });
     addPerson.onclick = (e) => {
         e.preventDefault();
-        addPersonModal.show();
+            $('#editarParticipante').hide();
+            $('#guardarParticipante').show();
+                personNew[0].reset()
+                $('.btn-close').click();
+            addPersonModal.show();
+            document.getElementById('part_invitado').checked = false;
+            $("#part_empresa").hide();
+            $("#part_empresa_label").hide();
     }
     var personNew = $("#personNew");
     personNew.validate();
@@ -583,9 +625,92 @@ document.getElementById('total').addEventListener('change', ()=>{
             setTable();
             addPersonModal.hide();
             personNew[0].reset()
+            $('.btn-close').click();
         }
 
     });
+
+    let editarPar = document.getElementById('editarParticipante');
+        editarPar.addEventListener("click", () => {
+            if (!document.getElementById('part_invitado').checked) {
+                $("#part_empresa").hide();
+                $("#part_empresa_label").hide();
+            } else {
+                $("#part_empresa").show();
+                $("#part_empresa_label").show();
+            }
+
+
+            let name = document.getElementById('part_nombres').value;
+            let lastName = document.getElementById('part_apellidos').value;
+            let dni = document.getElementById('part_dni').value;
+            let email = document.getElementById('part_correo').value;
+            let dni_old = document.getElementById('part_dni_old').value;
+            let email_old = document.getElementById('part_correo_old').value;
+            let city = document.getElementById('part_ciudad').value;
+            let position = document.getElementById('part_cargo').value;
+            let empresa = document.getElementById('part_empresa').value;
+            let invitado = document.getElementById('part_invitado').checked;
+            let valid = true;
+            
+            if (dni != dni_old) {
+                if (workers.filter(element => element.dni == dni).length > 0) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'El Documento de identidad ya existe',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+
+                    valid = false;
+                }
+            }
+
+            if (email != email_old) {
+                if (workers.filter(element => element.email == email).length > 0) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'El Email ya existe',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+
+                    valid = false;
+                }
+            }
+
+            if (!personNew.valid()) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error en los datos del participante',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            } else if (valid == true) {
+                console.log(workers);
+                workers = workers.filter(w => w.dni != dni_old);
+                workers.push({
+                    "name": name,
+                    "lastName": lastName,
+                    "dni": dni,
+                    "email": email,
+                    "city": city,
+                    "position": position,
+                    "empresa": empresa,
+                    "invitado": invitado
+
+                });
+                setTable();
+                addPersonModal.hide();
+                personNew[0].reset()
+                $('.btn-close').click();
+            }
+            $('#editarParticipante').hide();
+            $('#guardarParticipante').show();
+        });
 
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 
