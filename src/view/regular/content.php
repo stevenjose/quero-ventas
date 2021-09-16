@@ -130,7 +130,7 @@ $paises = $pais->getData();
                 </div>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
-                        <label for="re_dni" class="form-label">Documento de identificación*</label>
+                        <label for="re_dni" class="form-label">DNI, CE, CI*</label>
                         <input type="text" class="form-control col-6" id="re_dni" name="re_dni" required>
                     </div>
                     <div class="mb-3 col-lg-6">

@@ -19,18 +19,18 @@
                 </div>
                 <form id="payment" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
+                        <label for="entidad_bancaria" class="col-form-label">Entidad Bancaria*:</label>
                         <select class="form-control" id="entidad_bancaria" name="entidad_bancaria">
                             <option value="BBVA" selected>BBVA</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Número de operación*:</label>
-                        <input type="number" class="form-control" id="reference" name="reference"></input>
+                        <label for="reference" class="col-form-label">Número de operación*:</label>
+                        <input type="number" class="form-control" id="reference" name="reference" />
                     </div>
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
-                        <input type="file" class="form-control" accept=".jpg,.png,.pdf" id="num_voucher" name="num_voucher"></input>
+                        <input type="file" class="form-control" accept=".jpg,.png,.pdf" id="num_voucher" name="num_voucher" />
                         <div id="emailHelp" class="form-text text-danger">Cargar imagen en formato jpg, png,pdf. Peso máximo 20mb  </div>
                     </div>
                     <h4>Total: U$$ <span id="total_modal"></span> inc. Igv </h4>
