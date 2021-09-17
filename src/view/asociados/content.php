@@ -249,6 +249,8 @@ $paises = $pais->getData();
     <div class="mb-4"></div>
 </div>
 
+<?php require_once __DIR__."/../footer.php"; ?>
+
 <!--Modal pagos-->
 <div class="modal fade" id="tddPayment" tabindex="-1" aria-labelledby="tddPaymentHe" aria-hidden="true">
     <div class="modal-dialog">

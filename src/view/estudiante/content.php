@@ -38,7 +38,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
             <h3 class="text-center">
-                Para ventas corporativas (Empresas)
+                Para ventas a (Estudiantes)
             </h3>
             <?php if($error) {?>
                 <div class="alert alert-danger" role="alert">
@@ -55,7 +55,6 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
         </div>
     </div>
     <div class="row mt-4">
-        <h4>Ingresar los datos del participante</h4>
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <form method="post" id="form-estudiante" name="formEstudiante" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="row">

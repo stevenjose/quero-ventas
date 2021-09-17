@@ -109,7 +109,7 @@ $paises = $pais->getData();
                     </div>
                 </div>
                 <div class="row">
-                    
+
                     <div class="mb-3 col-lg-6">
 
                         <label for="country" class="form-label">Pais</label>
@@ -208,7 +208,7 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
-
+<?php require_once __DIR__."/../footer.php"; ?>
 <!--Modal pagos-->
 <div class="modal fade" id="tddPayment" tabindex="-1"  aria-labelledby="tddPaymentHe" aria-hidden="true">
     <div class="modal-dialog">
@@ -324,8 +324,6 @@ $paises = $pais->getData();
         </div>
     </div>
 </div>
-
-
 <script>
     /*var transaction = document.getElementById('transaction');
     transaction.addEventListener('click', async ()=>{
@@ -433,15 +431,15 @@ $paises = $pais->getData();
             document.getElementById('part_cargo').value = worker[0].position;
             $('#editarParticipante').show();
             $('#guardarParticipante').hide();
-           
-            
+
+
             addPersonModal.show();
-           
-           
+
+
         }
 
 
-    
+
    // var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
    // var paymentTdd = document.getElementById('tdd_payment');
 
@@ -452,7 +450,7 @@ $paises = $pais->getData();
                 personNew[0].reset()
                 $('.btn-close').click();
         addPersonModal.show();
-        
+
     }
     var personNew = $("#personNew");
     personNew.validate();
@@ -503,7 +501,7 @@ $paises = $pais->getData();
 
     let editarPar = document.getElementById('editarParticipante');
         editarPar.addEventListener("click", () => {
-            
+
 
 
             let name = document.getElementById('part_nombres').value;
@@ -515,7 +513,7 @@ $paises = $pais->getData();
             let city = document.getElementById('part_ciudad').value;
             let position = document.getElementById('part_cargo').value;
             let valid = true;
-            
+
             if (dni != dni_old) {
                 if (workers.filter(element => element.dni == dni).length > 0) {
                     Swal.fire({
@@ -704,8 +702,8 @@ document.getElementById('total').addEventListener('change', ()=>{
 
 
             modalPaymentDepositSuccess.show();
-           
-            
+
+
             document.getElementById('bodyWorkers').innerHTML = '';
             myModal.hide();
             let headers = new Headers();
@@ -812,7 +810,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                         'country': document.getElementById('country').value,
                         'email_contable':document.getElementById('email_contable').value,
                         'billing': document.getElementById('billing').value
-                        
+
                     })
                 });
                 if (response.status == 200) {
