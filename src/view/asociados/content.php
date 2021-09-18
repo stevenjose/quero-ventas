@@ -72,7 +72,7 @@ $paises = $pais->getData();
         </div>
     </div>
     <div class="row mt-4">
-        <h4>Asociados APA</h4>
+        <h4>Asociados APA y Colaboradores APA</h4>
         <hr>
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <h4>Ingrese los datos de la empresa</h4>

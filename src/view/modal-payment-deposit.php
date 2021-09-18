@@ -20,9 +20,10 @@
                 <form id="payment" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="entidad_bancaria" class="col-form-label">Entidad Bancaria*:</label>
-                        <select class="form-control" id="entidad_bancaria" name="entidad_bancaria">
+                       <!-- <select class="form-control" id="entidad_bancaria" name="entidad_bancaria">
                             <option value="BBVA" selected>BBVA</option>
-                        </select>
+                        </select>-->
+                        <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" />
                     </div>
                     <div class="mb-3">
                         <label for="reference" class="col-form-label">Número de operación*:</label>
@@ -31,9 +32,9 @@
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
                         <input type="file" class="form-control" accept=".jpg,.png,.pdf" id="num_voucher" name="num_voucher" />
-                        <div id="emailHelp" class="form-text text-danger">Cargar imagen en formato jpg, png,pdf. Peso máximo 20mb  </div>
+                        <div id="emailHelp" class="form-text text-danger">Cargar imagen en formato jpg, png,pdf. Peso máximo 5mb  </div>
                     </div>
-                    <h4>Total: U$$ <span id="total_modal"></span> inc. Igv </h4>
+                    <h4>Total: US$ <span id="total_modal"></span> inc. Igv </h4>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" id="guardar">Enviar</button>

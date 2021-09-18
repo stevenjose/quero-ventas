@@ -38,7 +38,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
             <h3 class="text-center">
-                Para ventas a (Estudiantes)
+                Para ventas a Estudiantes
             </h3>
             <?php if($error) {?>
                 <div class="alert alert-danger" role="alert">
@@ -100,7 +100,7 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 <div class="row">
                     <div class="col-lg-6">
                         <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="number" class="form-control col-6" id="total" name="total" value="30" required>
+                        <input type="number" class="form-control col-6" id="total" name="total" value="30" disabled>
                         <div id="emailHelp" class="form-text text-danger">US$30.00 inc IGV</div>
                     </div>
                 </div>
