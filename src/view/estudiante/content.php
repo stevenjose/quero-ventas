@@ -30,6 +30,19 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
     $error = '';
 }
 ?>
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
 
 <div class="container mb-4">
     <!-- header -->
@@ -586,6 +599,8 @@ if( $_SERVER["REQUEST_METHOD"] == "GET"){
                 'city' : document.getElementById('city').value,
                 'celular':document.getElementById('celular').value,
                 'total': document.getElementById('total').value,
+                'codigo_estudiante': document.getElementById('codigo_estudiante').value,
+        'centro': document.getElementById('centro').value,
                 'bank' : bank,
                 'reference': reference,
                 'num_voucher': num_voucher
