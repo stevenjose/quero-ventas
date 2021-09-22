@@ -124,5 +124,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo json_encode(['message' => 'Se envia el correo al participante correctamente', 'success' => 'true']);
 }
 
-$email = new Email("lopezajoseg@gmail.com","jose");
-$email->send("Jose", [], 1, 'colaborador');
+//$email = new Email("lopezajoseg@gmail.com","jose");
+//$email->send("Jose", [], 1, 'colaborador');
