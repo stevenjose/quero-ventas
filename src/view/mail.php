@@ -12,18 +12,18 @@ class Email
     public function __construct($email_person,$name)
     {
         $this->mail = new PHPMailer(true);
-        $this->mail->Host = "registroempresas.avemperu.com";  // Indicamos los servidores SMTP
+        $this->mail->Host = "smtp.gmail.com";  // Indicamos los servidores SMTP
         $this->mail->isSMTP();                                            //Send using SMTP
         //$this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = "registroempresasinfo@registroempresas.avemperu.com";                 // SMTP username
-        $this->mail->Password = 'Avem2@21*';                           // SMTP password
-        $this->mail->SMTPSecure = 'tsl';                           // Habilitar encriptaci贸n TLS o SSL
-        $this->mail->Port = 587;
+        $this->mail->Username = "avemperu@gmail.com";                 // SMTP username
+        $this->mail->Password = 'avemperu2021@';                           // SMTP password
+        $this->mail->SMTPSecure = 'ssl';                           // Habilitar encriptaci贸n TLS o SSL
+        $this->mail->Port = 465;
         /** Incluir destinatarios. El nombre es opcional * */
-        $this->mail->addAddress('lopezajoseg@gmail.com');
+        //$this->mail->addAddress('lopezajoseg@gmail.com');
         //Recipients
-        $this->mail->setFrom('registroempresasinfo@registroempresas.avemperu.com', 'AVEM');
+        $this->mail->setFrom('avemperu@gmail.com', 'AVEM');
         $this->mail->addAddress($email_person, $name);     //Add a recipient
         $this->mail->addReplyTo('lopezajoseg@gmail.com', 'Information');
         //Content
@@ -89,13 +89,10 @@ class Email
         </html>
         ';
 
-        echo $this->mensaje;
-
         try {
             $this->mail->Subject = 'Congreso de Peruano de Avicultura AVEW 2021';
             $this->mail->Body    = $this->mensaje;
-            $envio = $this->mail->send();
-            echo " Se envia: ".$envio ;
+            $this->mail->send();
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
@@ -126,7 +123,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email->send($name, $participantes, $cant_participantes, $colaborador);
     echo json_encode(['message' => 'Se envia el correo al participante correctamente', 'success' => 'true']);
 }
-echo "envio";
+
 $email = new Email("lopezajoseg@gmail.com","jose");
 $email->send("Jose", [], 1, 'colaborador');
-echo "termina";
