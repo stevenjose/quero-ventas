@@ -4,9 +4,18 @@ require_once __DIR__ . "/../../dto/PersonDTO.php";
 require_once __DIR__ . "/../../repository/paises.php";
 require_once __DIR__ . "/../../repository/company.php";
 require_once __DIR__ . "/../../dto/CompanyDTO.php";
+$company = new Company();
+$companyData = $company->getCompanyUpdate($_GET["ruc"],2); 
+$representante = null;
+$workers = null;
+if($companyData != null) {
+    $representante = $company->getPerson($companyData["id"], 2)[0];
+    $workers = $company->getPerson($companyData["id"], 3);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = '';
-    $company = new Company();
+   
     try {
         $companyDTO = new CompanyDTO();
         $companyDTO->setName($_POST['name']);
@@ -60,6 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $pais = new Pais;
 $paises = $pais->getData();
 ?>
+
+
 <div class="container mb-4">
     <!-- header -->
     <?php require_once __DIR__ . "/../header_title.php"; ?>
@@ -72,99 +83,29 @@ $paises = $pais->getData();
         </div>
     </div>
     <div class="row mt-4">
-        <h4>Empresa AVEM</h4>
+    <h4>Empresa AVEM</h4>
         <hr>
         <div class="col-12 col-lg-12 col-md-12 mb-4">
             <h4>Ingrese los datos de la empresa</h4>
             <form method="post" id="form-empresa" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="name" class="form-label">Empresa*</label>
-                        <input type="text" class="form-control col-6" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="ruc" class="form-label">RUC o equivalente*</label>
-                        <input type="text" value="<?php echo $_GET["ruc"] ?>" class="form-control col-6" id="ruc" name="ruc" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="address" class="form-label">Dirección de la empresa*</label>
-                        <input type="text" class="form-control col-6" id="address" name="address" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="activity" class="form-label">Rubro o actividad</label>
-                        <input type="text" class="form-control col-6" id="activity" name="activity">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="billing" class="form-label">Contacto
-                            contable/tesorería/facturación</label>
-                        <input type="text" class="form-control col-6" id="billing" name="billing">
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="email_contable" class="form-label">Correo de Contacto contable</label>
-                        <input type="email_contable" class="form-control col-6" id="email_contable" name="email_contable">
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="mb-3 col-lg-6">
-
-                        <label for="country" class="form-label">Pais</label>
-                        <select class="form-select" aria-label="Default select example" name="country" id="country" required>
-                            <option selected value="null">Seleccione una opción del menu</option>
-                            <?php foreach ($paises as &$value) { ?>
-                                <option value="<?php echo $value["id"] ?>"><?php echo $value["name"] ?></option>
-                            <?php  } ?>
-                        </select>
-                    </div>
-                </div>
-                <hr>
+                <!--datos empresa -->
+               <?php require_once __DIR__ . "/../common/datos_empresa.php"; ?>
+               <!--End datos empresa  -->
+               <hr>
                 <h4>Datos del Registrador</h4>
-                <div class="row">
-                    <div class="row">
-                        <div class="mb-3 col-lg-6">
-                            <label for="re_nombres" class="form-label">Nombres*</label>
-                            <input type="text" class="form-control col-6" id="re_nombres" name="re_nombres" required>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label for="re_apellidos" class="form-label">Apellidos*</label>
-                            <input type="text" class="form-control col-6" id="re_apellidos" name="re_apellidos" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="re_dni" class="form-label">DNI, CE, CI*</label>
-                        <input type="text" class="form-control col-6" id="re_dni" name="re_dni" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="re_correo" class="form-label">Correo*</label>
-                        <input type="email" class="form-control col-6" id="re_correo" name="email" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-lg-6">
-                        <label for="position" class="form-label">Cargo*</label>
-                        <input type="text" class="form-control col-6" id="position" name="position" required>
-                    </div>
-                    <div class="mb-3 col-lg-6">
-                        <label for="exampleInputEmail1" class="form-label">Celular*</label>
-                        <input type="text" class="form-control col-6" id="re_celular" name="re_celular" required>
-                    </div>
-                </div>
+                <!--datos empresa -->
+               <?php require_once __DIR__ . "/../common/datos_representante.php"; ?>
+               <!--End datos empresa  -->
                 <hr>
                 <h4>Participantes</h4>
                 <div class="row">
                     <div class="mb-3 col-lg-6">
                         <label for="participants_number" class="form-label">Cantidad de inscripciones a comprar*</label>
-                        <input type="number" class="form-control col-6" id="participants_number" name="participants_number" required>
+                        <input type="number" value="<?php echo $companyData["participants_number"]?>" class="form-control col-6" id="participants_number" name="participants_number" required>
                     </div>
                     <div class="mb-3 col-lg-6">
                         <label for="total" class="form-label">Total*</label>
-                        <input type="number" class="form-control col-6" id="total" name="total" disabled>
+                        <input type="number" value="<?php echo $companyData["total"]?>" disabled class="form-control col-6" id="total" name="total">
                         <div id="emailHelp" class="form-text text-danger">US$50.00 por participante inc. IGV</div>
                     </div>
                 </div>
@@ -190,15 +131,50 @@ $paises = $pais->getData();
                         </table>
                     </div>
                 </div>
-
+                <!--     <div class="row">
+                    <div class="mb-3 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Nombres*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_nombres" name="part_nombres" required>
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Apellidos*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_apellidos" name="part_apellidos" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Dni*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="re_dni" name="part_dni" required>
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Correo*</label>
+                        <input type="email" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_correo" name="email" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Ciudad*</label>
+                        <input type="text" value="lopezajoseg@gmail.com" class="form-control col-6" id="part_ciudad" name="part_ciudad" required>
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                        <label for="exampleInputEmail1" class="form-label">Cargo*</label>
+                        <input type="email"  value="lopezajoseg@gmail.com" class="form-control col-6" id="part_cargo" name="part_cargo" required>
+                    </div>
+                </div>-->
+                <!-- <h4>Ingresar datos de inscritos por cantidad indicada</h4>
+                <div class="row">
+                    <div class="mb-3 col-lg-12">
+                        <input type="text" class="form-control col-6" id="cant_inscritos" name="cant_inscritos" required>
+                    </div>
+                </div>-->
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <button class="btn btn-siguiente text-center" type="submit">Deposito en cuenta</button>
+                        <button class="btn btn-siguiente" type="submit">Deposito en cuenta</button>
                     </div>
-                    <!--<div class="col-lg-6">
+                   <!-- <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="tdd_payment">Con Tarjeta de Crédito</button>
                     </div>
-                    <div class="col-lg-6">
+                     <div class="col-lg-6">
                         <button class="btn btn-siguiente" type="button" id="transaction">Probar transacción</button>
                     </div>-->
                 </div>
@@ -208,9 +184,9 @@ $paises = $pais->getData();
     </div>
     <div class="mb-4"></div>
 </div>
-<?php require_once __DIR__."/../footer.php"; ?>
+
 <!--Modal pagos-->
-<div class="modal fade" id="tddPayment" tabindex="-1"  aria-labelledby="tddPaymentHe" aria-hidden="true">
+<div class="modal fade" id="tddPayment" tabindex="-1" aria-labelledby="tddPaymentHe" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -260,7 +236,7 @@ $paises = $pais->getData();
                         <input type="email" email class="form-control" id="email_tdd" name="email_tdd"></input>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" id="pagar">Pagar</button>
                     </div>
                 </form>
@@ -269,14 +245,70 @@ $paises = $pais->getData();
         </div>
     </div>
 </div>
+
+<!--
+<div class="modal fade" id="modalPayment" tabindex="-1" aria-labelledby="modalPaymentHe">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPaymentHe">Deposito en cuenta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12">
+                        Datos de cuentas Bancarias Asociación Peruana de Avicultura
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12">
+                        BBVA Dólares: 125 25648 2683356 542
+                    </div>
+                    <div class="col-12 col-lg-12 col-md-12">
+                        CCI BBVA Dólares: 125 25648 2683356 542
+                    </div>
+                </div>
+                <form id="payment" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Entidad Bancaria*:</label>
+                        <input type="text" class="form-control" id="entidad_bancaria" name="entidad_bancaria" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Número de operación*:</label>
+                        <input type="number" class="form-control" id="reference" name="reference"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Adjuntar Voucher*:</label>
+                        <input type="file" class="form-control" id="num_voucher" name="num_voucher"></input>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="guardar">Enviar</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>-->
 <!--Modal deposito -->
 <?php require_once __DIR__ . "/../modal-payment-deposit.php"; ?>
 <!--End Modal deposito -->
 <!--Modal deposito Success-->
 <?php require_once __DIR__ . "/../modal-payment-deposit-success.php"; ?>
 <!--Modal end deposito Success-->
+
+
+<!-- begin fill workers -->
+<?php require_once __DIR__ . "/../common/fill_workers.php"; ?>
+<!-- end fill workers -->
+
+<!-- update_company -->
+<?php require_once __DIR__ . "/../common/update_company.php"; ?>
+<!--  end update_company -->
 <div class="modal fade" id="modalPerson" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+
+
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Ingresar datos del participante</h5>
@@ -304,18 +336,30 @@ $paises = $pais->getData();
                         <div>
                             <div class="mb-3">
                                 <label for="part_ciudad" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control col-6" id="part_ciudad" name="part_ciudad">
+                                <input type="text" class="form-control col-6" id="part_ciudad" name="part_ciudad" >
                             </div>
                             <div class="mb-3">
                                 <label for="part_cargo" class="form-label">Cargo</label>
-                                <input type="text" class="form-control col-6" id="part_cargo" name="part_cargo">
+                                <input type="text" class="form-control col-6" id="part_cargo" name="part_cargo" >
 
                             </div>
+                            <div class="mb-3">
+                                <input class="form-check-input mt-2" type="checkbox" value="true" id="part_invitado" name="part_invitado">
+                                <label class="form-check-label mt-1" for="flexCheckDefault">
+                                Otra empresa
+                                </label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="part_empresa" id="part_empresa_label"  class="form-label">Empresa*</label>
+                                <input type="text" class="form-control col-6" id="part_empresa" name="part_empresa" required>
+                            </div>
+                            
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="button" class="btn btn-primary" id="guardarParticipante">Agregar participante</button>
                                 <button type="button" class="btn btn-primary" id="editarParticipante">Editar participante</button>
+
                             </div>
                 </form>
 
@@ -324,6 +368,8 @@ $paises = $pais->getData();
         </div>
     </div>
 </div>
+
+
 <script>
     /*var transaction = document.getElementById('transaction');
     transaction.addEventListener('click', async ()=>{
@@ -378,47 +424,34 @@ $paises = $pais->getData();
 
     });*/
     var modalPaymentDepositSuccess = new bootstrap.Modal(document.getElementById("modalPaymentDepositSuccess"));
-    $('#editarParticipante').hide();
-        $('#guardarParticipante').show();
-    var participantsNumber = document.getElementById('participants_number');
-    participantsNumber.addEventListener("change", (e) => {
-        document.getElementById('total').value = participantsNumber.value * 50.00;
-    });
-    let workers = [];
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
 
-    function setTable() {
-        var bodyWorkers = document.getElementById('bodyWorkers');
-        let table = "";
-        var i = 1;
-        workers.forEach(element => {
-            table += "<tr><td>" + i + "</td><td>" + element.name + "</td><td>" + element.lastName + "</td><td>" + element.dni + "</td><td><button type='button' id='" + element.dni + "' class='btn btn-danger'>Eliminar</button><td> <button type='button' id='" + element.dni + "_editar' class='btn btn-danger'>Editar</button></td></td><tr>";
-            i++;
-        });
-        bodyWorkers.innerHTML = table;
-
-        workers.forEach(element => {
-            var deleteWork = document.getElementById(element.dni);
-            deleteWork.addEventListener('click', click => {
-                console.log(element.dni)
-                workers = workers.filter(worker => worker.dni != element.dni);
-                setTable();
-            });
-
-            var editWork = document.getElementById(element.dni + '_editar');
-                editWork.addEventListener('click', click => {
-                    console.log(element.dni)
-                    let updateWork = workers.filter(worker => worker.dni == element.dni);
-
-                    console.log(updateWork);
-                    setUpdateWorker(updateWork)
-                    setTable();
-                });
-        });
-
-
+document.getElementById('total').addEventListener('change', ()=>{
+    document.getElementById('total_modal').innerText = document.getElementById('total').value;
+});
+    if (!document.getElementById('part_invitado').checked) {
+        $("#part_empresa").hide();
+        $("#part_empresa_label").hide();
     }
+
+    var partInvitadoCheck = document.getElementById('part_invitado');
+    partInvitadoCheck.addEventListener("change", (e) => {
+        if (!document.getElementById('part_invitado').checked) {
+            $("#part_empresa").hide();
+            $("#part_empresa_label").hide();
+        } else {
+            $("#part_empresa").show();
+            $("#part_empresa_label").show();
+        }
+    });
+    
+
+    
+
+
     var addPersonModal = new bootstrap.Modal(document.getElementById("modalPerson"), {});
     var addPerson = document.getElementById('addPerson');
+
 
     function setUpdateWorker(worker) {
             document.getElementById('part_nombres').value = worker[0].name;
@@ -429,35 +462,46 @@ $paises = $pais->getData();
             document.getElementById('part_correo').value = worker[0].email;
             document.getElementById('part_ciudad').value = worker[0].city;
             document.getElementById('part_cargo').value = worker[0].position;
+            document.getElementById('part_empresa').value = worker[0].empresa;
+            document.getElementById('part_invitado').checked = worker[0].invitado;
             $('#editarParticipante').show();
             $('#guardarParticipante').hide();
-
-
+           
+            
             addPersonModal.show();
-
-
+           
+           
         }
 
-
-
-   // var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
-   // var paymentTdd = document.getElementById('tdd_payment');
-
+    var myModalPayment = new bootstrap.Modal(document.getElementById("tddPayment"), {});
+    //var paymentTdd = document.getElementById('tdd_payment');
+    var participantsNumber = document.getElementById('participants_number');
+    participantsNumber.addEventListener("change", (e) => {
+        document.getElementById('total').value = participantsNumber.value * 50.00;
+    });
     addPerson.onclick = (e) => {
         e.preventDefault();
             $('#editarParticipante').hide();
             $('#guardarParticipante').show();
                 personNew[0].reset()
                 $('.btn-close').click();
-        addPersonModal.show();
-
+            addPersonModal.show();
+            document.getElementById('part_invitado').checked = false;
+            $("#part_empresa").hide();
+            $("#part_empresa_label").hide();
     }
     var personNew = $("#personNew");
     personNew.validate();
     let guardar = document.getElementById('guardarParticipante');
     guardar.addEventListener("click", () => {
 
-
+        if (!document.getElementById('part_invitado').checked) {
+            $("#part_empresa").hide();
+            $("#part_empresa_label").hide();
+        } else {
+            $("#part_empresa").show();
+            $("#part_empresa_label").show();
+        }
 
         let name = document.getElementById('part_nombres').value;
         let lastName = document.getElementById('part_apellidos').value;
@@ -465,6 +509,8 @@ $paises = $pais->getData();
         let email = document.getElementById('part_correo').value;
         let city = document.getElementById('part_ciudad').value;
         let position = document.getElementById('part_cargo').value;
+        let empresa = document.getElementById('part_empresa').value;
+        let invitado = document.getElementById('part_invitado').checked;
         if (workers.filter(element => element.dni == dni).length > 0) {
             Swal.fire({
                 title: 'Error!',
@@ -488,9 +534,13 @@ $paises = $pais->getData();
                 "dni": dni,
                 "email": email,
                 "city": city,
-                "position": position
+                "position": position,
+                "empresa": empresa,
+                "invitado": invitado
+
 
             });
+            console.log(workers);
             setTable();
             addPersonModal.hide();
             personNew[0].reset()
@@ -501,7 +551,13 @@ $paises = $pais->getData();
 
     let editarPar = document.getElementById('editarParticipante');
         editarPar.addEventListener("click", () => {
-
+            if (!document.getElementById('part_invitado').checked) {
+                $("#part_empresa").hide();
+                $("#part_empresa_label").hide();
+            } else {
+                $("#part_empresa").show();
+                $("#part_empresa_label").show();
+            }
 
 
             let name = document.getElementById('part_nombres').value;
@@ -512,8 +568,10 @@ $paises = $pais->getData();
             let email_old = document.getElementById('part_correo_old').value;
             let city = document.getElementById('part_ciudad').value;
             let position = document.getElementById('part_cargo').value;
+            let empresa = document.getElementById('part_empresa').value;
+            let invitado = document.getElementById('part_invitado').checked;
             let valid = true;
-
+            
             if (dni != dni_old) {
                 if (workers.filter(element => element.dni == dni).length > 0) {
                     Swal.fire({
@@ -560,6 +618,8 @@ $paises = $pais->getData();
                     "email": email,
                     "city": city,
                     "position": position,
+                    "empresa": empresa,
+                    "invitado": invitado
 
                 });
                 setTable();
@@ -570,11 +630,7 @@ $paises = $pais->getData();
             $('#editarParticipante').hide();
             $('#guardarParticipante').show();
         });
-    document.getElementById('total_modal').innerText = document.getElementById('total').value;
 
-document.getElementById('total').addEventListener('change', ()=>{
-    document.getElementById('total_modal').innerText = document.getElementById('total').value;
-});
     var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 
     var form = document.getElementById('form-empresa');
@@ -606,7 +662,15 @@ document.getElementById('total').addEventListener('change', ()=>{
         console.log('NUM VOUCHER', num_voucher);
         if (bank && reference && num_voucher) {
             console.log('crear company');
-            companyCreate(bank, reference, num_voucher);
+            let id = bank = document.getElementById('id_company').value;
+            $(".loader").show();
+            if(id === ''){
+                companyCreate(bank, reference, num_voucher);
+            } else {
+                companyUpdate(bank, reference, num_voucher);
+            }
+            $(".loader").hide();
+            
         } else {
             if (!bank) {
                 Swal.fire({
@@ -654,6 +718,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 'billing': document.getElementById('billing').value,
                 'total': document.getElementById('total').value,
                 'documentType': '2',
+                'email_contable':document.getElementById('email_contable').value,
                 're_nombres': document.getElementById('re_nombres').value,
                 're_apellidos': document.getElementById('re_apellidos').value,
                 're_dni': document.getElementById('re_dni').value,
@@ -699,13 +764,6 @@ document.getElementById('total').addEventListener('change', ()=>{
                 method: 'POST',
                 body: formData
             });
-
-
-            modalPaymentDepositSuccess.show();
-
-
-            document.getElementById('bodyWorkers').innerHTML = '';
-            myModal.hide();
             let headers = new Headers();
             headers.append('Accept', 'application/json');
             headers.append('Content-Type', 'application/json');
@@ -714,17 +772,23 @@ document.getElementById('total').addEventListener('change', ()=>{
                 headers: headers,
                 body: JSON.stringify({name: document.getElementById('re_nombres').value,email: document.getElementById('re_correo').value , participantes : workers})
             });
-            workers = [];
-            formCompany[0].reset()
+          
             var formpayment = $("#payment");
             formpayment[0].reset()
+
+            modalPaymentDepositSuccess.show();
+            formCompany[0].reset()
+            workers = [];
+            document.getElementById('bodyWorkers').innerHTML = '';
+            myModal.hide();
+            
         }
 
 
     }
 
     // Pagos
-  /*  paymentTdd.addEventListener("click", (e) => {
+ /*   paymentTdd.addEventListener("click", (e) => {
         console.log('Click')
         e.preventDefault();
         if (!formCompany.valid()) {
@@ -808,9 +872,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                         'total': document.getElementById('total').value,
                         'activity': document.getElementById('activity').value,
                         'country': document.getElementById('country').value,
-                        'email_contable':document.getElementById('email_contable').value,
                         'billing': document.getElementById('billing').value
-
                     })
                 });
                 if (response.status == 200) {

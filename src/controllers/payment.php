@@ -30,6 +30,7 @@ if ($persona) {
     $bank = $person['entidad_bancaria'];
     $reference = $person['reference'];
     $voucher = $person['voucher'];
+    echo json_encode(['error' => $person['voucher'], 'success' => 'Se guardo exitosamente']);
     $sql = '';
     if (!empty($email)) {
         $persona_id = $persona['id'];

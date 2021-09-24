@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $worker->setInvitado($item->invitado);
                         
                    
-                        $persona->postCreatePerson($worker);
+                        $persona->postCreateRepresentante($worker);
                         $findWorker = $persona->getPersonDocumentNumber($item->dni, $item->email);
                         $company->postCreateRelCompanyPerson($findCompany["id"], $findWorker["id"]);
                     }

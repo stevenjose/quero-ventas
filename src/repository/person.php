@@ -110,6 +110,17 @@ class Person
         }
     }
 
+    public function deletePerson($id) {
+        $sql = "DELETE person, company_person_rel FROM person 
+        JOIN company_person_rel  ON company_person_rel.id_person = person.id AND company_person_rel.id_company ='$id'
+        WHERE  person.id_person_type = 3 ";
+        try {
+            $this->db->executeInstruction($sql);
+            return ["error" => "false", "message" => "Se registro el estudiante exitosamente!"];
+        } catch (Exception $e) {
+            return ["error" => "true", "message" => $sql];
+        }
+    }
     public function postCreateRepresentante(PersonDTO $person)
     {
         //INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `document_number`, `phone_number`, `id_document_type`,
@@ -139,6 +150,47 @@ class Person
         } catch (Exception $e) {
             return ["error" => "true", "message" => $sql];
         }
+    }
+
+    public function postUpdatePerson(PersonDTO $person, $id) {
+        //INSERT INTO `person` (`id`, `name`, `last_name`, `email`, `document_number`, `phone_number`, `id_document_type`,
+        // `position`, `column_9`, `company_name`, `id_person_type`, `total`)
+        // VALUES (NULL, 'ASD', 'ASD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        
+        $name=$person->getName();
+        $last_name=$person->getLastName();
+        $email = $person->getEmail();
+        $document = $person->getDocumentNumber();
+        $phone = $person->getPhoneNumer();
+        $city = $person->getCity();
+        $total = $person->getTotal();
+        $documentType = $person->getIdDocumentType();
+        $position = $person->getPosition();
+        $id_person_type = $person->getIdPersonType();
+        $company_name = $person->getCompanyName();
+        $invitado = $person->getInvitado();
+        $centro = $person->getCentro();
+        $codigo_estudiante = $person->getCodigoEstudiante();
+        $canUpdate = true;
+        
+        
+        
+        if($canUpdate){
+            $sql = "UPDATE person t SET t.last_name = '$last_name', t.email = '$email', 
+            t.name ='$name', t.document_number= '$document', t.phone_number='$phone', t.city='$city',
+             t.position='$position', t.company_name ='$company_name',t.guest='$invitado', t.centro='$centro',
+              t.codigo_estudiante = '$codigo_estudiante' WHERE t.id = '$id'";
+
+            try {
+                $this->db->executeInstruction($sql);
+                return ["error" => "false", "message"=>"Se registro exitoso!"];
+            }catch (Exception $e){
+                return ["error" => "true", "message"=>"error registrando persona", "sql"=> $sql];
+            }
+        }else{
+            return ["error" => "true", "message"=>"Error ya se encuentra registrado el Correo o Dni."];
+        }
+
     }
 
 
