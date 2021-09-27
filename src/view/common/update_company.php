@@ -75,7 +75,7 @@ if (resp && resp['success'] == "false") {
         entidad_bancaria: document.getElementById('entidad_bancaria').value,
         reference: document.getElementById('reference').value,
         voucher: fileInput.files[0].name,
-        ruc: document.getElementById('ruc').value
+        id: document.getElementById('id_company').value,
     };
     const formData = new FormData();
     formData.append("json", JSON.stringify(payload));
@@ -100,7 +100,8 @@ if (resp && resp['success'] == "false") {
 
     modalPaymentDepositSuccess.show();
     myModal.hide();
-    
+    await new Promise(r => setTimeout(r, 2000));
+    window.location.href = "https://registroempresas.avemperu.com";
 
     
 }

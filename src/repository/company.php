@@ -43,7 +43,8 @@ class Company {
            try {
               // echo json_encode($sql);
                $this->db->executeInstruction($sql);
-               return ["error" => "false", "message"=>"Se registro la empresa exitosamente!"];
+               $last_id = $this->db->getConnect()->insert_id;
+               return ["error" => "false", "message"=>"Se registro la empresa exitosamente!", "id"=> $last_id];
            }catch (Exception $e){
                return ["error" => "true", "message"=>"Error al guardar la empresa!"];
            }

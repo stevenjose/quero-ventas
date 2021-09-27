@@ -101,9 +101,10 @@ class Person
 
             try {
                 $this->db->executeInstruction($sql);
-                return ["error" => "false", "message" => "Se registro el estudiante exitosamente!"];
+                $last_id = $this->db->getConnect()->insert_id;
+                return ["error" => "false", "message" => "Se registro el estudiante exitosamente!", "id"=> $last_id];
             } catch (Exception $e) {
-                return ["error" => "true", "message" => $sql];
+                return ["error" => "true", "message" => "Error en el Servidor"];
             }
         } else {
             return ["error" => "true", "message" => "Error ya se encuentra registrado el Correo o Dni."];
@@ -146,9 +147,10 @@ class Person
 
         try {
             $this->db->executeInstruction($sql);
-            return ["error" => "false", "message" => "Se registro el estudiante exitosamente!"];
+            $last_id = $this->db->getConnect()->insert_id;
+            return ["error" => "false", "message" => "Se registro el estudiante exitosamente!", "id"=> $last_id];
         } catch (Exception $e) {
-            return ["error" => "true", "message" => $sql];
+            return ["error" => "true", "message" => "Error al registrar!"];
         }
     }
 

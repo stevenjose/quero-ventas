@@ -30,14 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($save && $save['error'] == 'false'){
             $error = '';
             $success = $save['message'];
-            echo json_encode([ 'error' => $error, 'success'=>$success]);
+            $id =$save['id'];
+            echo json_encode([ 'error' => $error, 'success'=>$success, "id" => $id ]);
         }else{
             $error = $save['message'];
             echo json_encode([ 'error' => $error, 'success'=>'false']);
         }
     }catch (Exception $e){
-        echo json_encode($e);
-        echo $e;
+        
     }
 
 }

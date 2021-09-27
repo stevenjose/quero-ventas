@@ -647,6 +647,14 @@ document.getElementById('total').addEventListener('change', ()=>{
                 showConfirmButton: false,
                 timer: 2500
             });
+        } if(document.getElementById('participants_number').value != workers.length) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Debere registrar la cantidad de trabajadores indicados',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
         } else {
             myModal.show();
         }
@@ -663,13 +671,13 @@ document.getElementById('total').addEventListener('change', ()=>{
         if (bank && reference && num_voucher) {
             console.log('crear company');
             let id = bank = document.getElementById('id_company').value;
-            $(".loader").show();
+            $("#guardar").prop('disabled', true);
+
             if(id === ''){
                 companyCreate(bank, reference, num_voucher);
             } else {
                 companyUpdate(bank, reference, num_voucher);
             }
-            $(".loader").hide();
             
         } else {
             if (!bank) {
@@ -724,6 +732,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 're_dni': document.getElementById('re_dni').value,
                 're_correo': document.getElementById('re_correo').value,
                 're_celular': document.getElementById('re_celular').value,
+                
                 'position': document.getElementById('position').value,
                 'bank': bank,
                 'reference': reference,
@@ -746,7 +755,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 timer: 2500
             });
             console.error('Error', resp);
-        } else {
+        }  else {
             console.log('no hay error', resp);
             const fileInput = document.querySelector('#num_voucher');
             console.log(fileInput.files[0].name);
@@ -754,7 +763,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 entidad_bancaria: document.getElementById('entidad_bancaria').value,
                 reference: document.getElementById('reference').value,
                 voucher: fileInput.files[0].name,
-                ruc: document.getElementById('ruc').value
+                id: resp['id']
             };
             const formData = new FormData();
             formData.append("json", JSON.stringify(payload));
@@ -781,6 +790,8 @@ document.getElementById('total').addEventListener('change', ()=>{
             workers = [];
             document.getElementById('bodyWorkers').innerHTML = '';
             myModal.hide();
+            await new Promise(r => setTimeout(r, 3000));
+            window.location.href = "https://registroempresas.avemperu.com"; 
             
         }
 

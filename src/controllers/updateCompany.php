@@ -72,13 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $worker->setIdDocumentType('2');
                     $worker->setTotal(0);
                     $worker->setIdPersonType(3);
+                    $worker->setCity($item->city);
                     $worker->setCompanyName($item->empresa);
                     $worker->setInvitado($item->invitado);
 
 
-                    $persona->postCreateRepresentante($worker);
-                    $findWorker = $persona->getPersonDocumentNumber($item->dni, $item->email);
-                    $company->postCreateRelCompanyPerson($_POST['id'], $findWorker["id"]);
+                    $result = $persona->postCreateRepresentante($worker);
+                    $company->postCreateRelCompanyPerson($_POST['id'], $result["id"]);
                 }
                 $company->commitDB();
                 echo json_encode(array('error' => '', 'success' => 'true'));

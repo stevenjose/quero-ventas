@@ -607,8 +607,9 @@ input[type=number] {
             })
         });
         const resp = await response.json();
-
-        if(resp && resp['success'] == "false"){
+        console.log(resp);
+        id = resp["id"];
+        if(resp && resp['id'] == null){
             myModal.hide();
             Swal.fire({
                 title: 'Error!',
@@ -618,13 +619,14 @@ input[type=number] {
                 timer: 2500
             });
             console.error('Error', resp);
-        }else{
+        } else {
+            alert(id)
             const fileInput = document.querySelector('#num_voucher');
             let payload = {
                 entidad_bancaria: document.getElementById('entidad_bancaria').value,
                 reference: document.getElementById('reference').value,
                 voucher: fileInput.files[0].name,
-                email: document.getElementById('email').value
+                id: id
             };
             const formData = new FormData();
             formData.append( "json", JSON.stringify( payload));
@@ -649,6 +651,8 @@ input[type=number] {
             form.reset();
             const resp = await response.json();
             console.log(resp);
+            await new Promise(r => setTimeout(r, 3000));
+            window.location.href = "https://registroempresas.avemperu.com";
 
             
         }

@@ -6,7 +6,7 @@ require_once __DIR__ . "/../../repository/company.php";
 require_once __DIR__ . "/../../dto/CompanyDTO.php";
 
 $company = new Company();
-$companyData = $company->getCompanyUpdate($_GET["ruc"],2); 
+$companyData = $company->getCompanyUpdate($_GET["ruc"],1); 
 $representante = null;
 $workers = null;
 if($companyData != null) {
@@ -672,7 +672,15 @@ document.getElementById('total').addEventListener('change', ()=>{
                 showConfirmButton: false,
                 timer: 2500
             });
-        } else {
+        } if(document.getElementById('participants_number').value != workers.length) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Debere registrar la cantidad de trabajadores indicados',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
+        }else {
             myModal.show();
         }
     }
@@ -685,16 +693,17 @@ document.getElementById('total').addEventListener('change', ()=>{
         let reference = document.getElementById('reference').value;
         let num_voucher = document.getElementById('num_voucher').value;
         console.log('NUM VOUCHER', num_voucher);
+        
         if (bank && reference && num_voucher) {
             console.log('crear company');
             let id = bank = document.getElementById('id_company').value;
-            $(".loader").show();
+            $("#guardar").prop('disabled', true);
             if(id === ''){
                 companyCreate(bank, reference, num_voucher);
             } else {
                 companyUpdate(bank, reference, num_voucher);
             }
-            $(".loader").hide();
+           
         } else {
             if (!bank) {
                 Swal.fire({
@@ -778,7 +787,7 @@ document.getElementById('total').addEventListener('change', ()=>{
                 entidad_bancaria: document.getElementById('entidad_bancaria').value,
                 reference: document.getElementById('reference').value,
                 voucher: fileInput.files[0].name,
-                ruc: document.getElementById('ruc').value
+                id: resp['id']
             };
             const formData = new FormData();
             formData.append("json", JSON.stringify(payload));
@@ -805,6 +814,8 @@ document.getElementById('total').addEventListener('change', ()=>{
             workers = [];
             document.getElementById('bodyWorkers').innerHTML = '';
             myModal.hide();
+            await new Promise(r => setTimeout(r, 3000));
+            window.location.href = "https://registroempresas.avemperu.com";
         }
 
 

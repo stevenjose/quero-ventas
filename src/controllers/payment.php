@@ -10,10 +10,10 @@ $archivo = $_FILES['file'];
 //echo json_encode([ 'error' => 'false', 'success'=>'Se guardo exitosamente']);
 $repository = new Person();
 if (!empty($email)) {
-    $persona = $repository->getPersonCorreo($email);
+    $persona = $person['id'];
 } else {
     $company = new Company();
-    $persona = $company->getCompanyDocumentNumber($person['ruc']);
+    $persona = $person['id'];
 }
 
 $archivo = $_FILES['file'];
@@ -22,7 +22,7 @@ $archivo = $_FILES['file'];
 /*Subir la imagen en la uploads*/
 
 $target_path = $target_path . basename($_FILES['file']['name']);
-$resultado = move_uploaded_file($archivo["tmp_name"], __DIR__ . '/../../uploads/' . "ID" . $persona['id'] . '-' . $archivo["name"]);
+$resultado = move_uploaded_file($archivo["tmp_name"], __DIR__ . '/../../uploads/' . "ID" . $persona . '-' . $archivo["name"]);
 
 /* Buscar la persona creado por el correo */
 
@@ -33,11 +33,10 @@ if ($persona) {
     echo json_encode(['error' => $person['voucher'], 'success' => 'Se guardo exitosamente']);
     $sql = '';
     if (!empty($email)) {
-        $persona_id = $persona['id'];
-        $sql = "INSERT INTO payment (bank,reference,voucher,person_id) VALUES('$bank','$reference','$voucher','$persona_id')";
+        
+        $sql = "INSERT INTO payment (bank,reference,voucher,person_id) VALUES('$bank','$reference','$voucher','$persona')";
     } else {
-        $company_id = $persona['id'];
-        $sql = "INSERT INTO payment (bank,reference,voucher,company_id) VALUES('$bank','$reference','$voucher','$company_id')";
+        $sql = "INSERT INTO payment (bank,reference,voucher,company_id) VALUES('$bank','$reference','$voucher','$persona')";
     }
     try {
         $save = $repository->postCreatePayment($sql);

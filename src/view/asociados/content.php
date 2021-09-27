@@ -686,6 +686,14 @@ transaction.addEventListener('click', async ()=>{
                 showConfirmButton: false,
                 timer: 2500
             });
+        } if(document.getElementById('participants_number').value != workers.length) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Debere registrar la cantidad de trabajadores indicados',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2500
+            });
         } else {
             myModal.show();
         }
@@ -702,13 +710,13 @@ transaction.addEventListener('click', async ()=>{
         if (bank && reference && num_voucher) {
             console.log('crear company');
             let id = bank = document.getElementById('id_company').value;
-            $(".loader").show();
+            $("#guardar").prop('disabled', true);
             if(id === ''){
                 companyCreate(bank, reference, num_voucher,false);
             } else {
                 companyUpdate(bank, reference, num_voucher);
             }
-            $(".loader").hide();
+            
         } else {
             if (!bank) {
                 Swal.fire({
@@ -782,7 +790,7 @@ transaction.addEventListener('click', async ()=>{
                 timer: 2500
             });
             console.error('Error', resp);
-        } else {
+        }  else {
             console.log('no hay error', resp);
             if (!diferido) {
                 const fileInput = document.querySelector('#num_voucher');
@@ -791,7 +799,7 @@ transaction.addEventListener('click', async ()=>{
                     entidad_bancaria: document.getElementById('entidad_bancaria').value,
                     reference: document.getElementById('reference').value,
                     voucher: fileInput.files[0].name,
-                    ruc: document.getElementById('ruc').value
+                    id: resp['id']
                 };
                 const formData = new FormData();
                 formData.append("json", JSON.stringify(payload));
@@ -823,6 +831,8 @@ transaction.addEventListener('click', async ()=>{
             workers = [];
             document.getElementById('bodyWorkers').innerHTML = '';
             myModal.hide();
+            await new Promise(r => setTimeout(r, 3000));
+            window.location.href = "https://registroempresas.avemperu.com";
         }
 
 
@@ -841,13 +851,13 @@ transaction.addEventListener('click', async ()=>{
         } else {
             console.log('Modal pagos');
             let id = bank = document.getElementById('id_company').value;
-            $(".loader").show();
+            $("#guardar").prop('disabled', true);
             if(id === ''){
                 companyCreate(null, null, null, true);
             } else {
                 companyUpdate(null, null, null);
             }
-            $(".loader").hide();
+            
             
         }
     });

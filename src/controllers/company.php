@@ -36,8 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $companyDTO->setEmailContable($_POST['email_contable']);
         
         $save = $company->postCreateCompany($companyDTO);
+       
         if ($save && $save['error'] == 'false') {
-
+            $id = $save["id"];   
             
             $personaDTO = new PersonDTO();
             $personaDTO->setName($_POST['re_nombres']);
@@ -54,11 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $save = $persona->postCreateRepresentante($personaDTO);
 
+            
             if ($save && $save['error'] == 'false') {
-                $findPerson = $persona->getPersonDocumentNumber($_POST['re_dni'], $_POST['re_correo']);
-                $findCompany = $company->getCompanyDocumentNumber($_POST['ruc']);
-
-                $save = $company->postCreateRelCompanyPerson($findCompany["id"], $findPerson["id"]);
+                $id_res = $save["id"];               
+                
+                $save = $company->postCreateRelCompanyPerson($id, $id_res);
+                
                 if ($save && $save['error'] == 'false') {
                     
                     $workers = json_decode($_POST["workers"]);                    
@@ -75,15 +77,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $worker->setTotal(0);
                         $worker->setIdPersonType(3);
                         $worker->setCompanyName($item->empresa);
+                        $worker->setCity($item->city);
                         $worker->setInvitado($item->invitado);
                         
                    
-                        $persona->postCreateRepresentante($worker);
-                        $findWorker = $persona->getPersonDocumentNumber($item->dni, $item->email);
-                        $company->postCreateRelCompanyPerson($findCompany["id"], $findWorker["id"]);
+                        $result = $persona->postCreateRepresentante($worker);
+                    
+                        $company->postCreateRelCompanyPerson($id, $result["id"]);
+                        
                     }
                     $company->commitDB();
-                    echo json_encode(array('error' => '', 'success' => 'true'));
+                    echo json_encode(array('error' => '', 'success' => 'true',"id" =>$id));
                     
 
                 } else {

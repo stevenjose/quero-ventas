@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <tr class="tbl" style="border-radius-topright: 15px" >
                         <th scope="col">TIPO</th>
                         <th scope="col">INDIVIDUAL</th>
-                        <th scope="col">COPERATIVO**</th>
+                        <th scope="col">CORPORATIVO**</th>
                     </tr>
                     </thead>
                     <tbody>
