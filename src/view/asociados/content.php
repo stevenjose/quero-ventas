@@ -76,7 +76,7 @@ $paises = $pais->getData();
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
             <h3 class="text-center">
-                Para ventas corporativas (Empresas)
+                Ventas Corporativas (Empresas)
             </h3>
         </div>
     </div>

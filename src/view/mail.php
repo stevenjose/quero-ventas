@@ -59,12 +59,11 @@ class Email
             <h3>De nuestra mayor consideraci&oacute;n:</h3>
             <br>
             <p>
-                Expres&aacute;ndole nuestro m&aacute;s cordial saludo, nos es grato confirmar su participaci&oacute;n de'
-            .$cant_participantes.' ' .$colaborador. '.
+                Expres&aacute;ndole nuestro m&aacute;s cordial saludo, nos es grato confirmar la participaci&oacute;n de '
+            .$cant_participantes.' colaborador(es) al AVEM 2021.
             </p>
             <p>';
-
-        $this->mensaje .= $cant_participantes > 1 ?  $this->participantes($cant_participantes, $participantes) : '';
+        //$this->mensaje .= $cant_participantes > 1 ?  $this->participantes($cant_participantes, $participantes) : '';
 
 
         $this->mensaje .= '
@@ -126,11 +125,10 @@ class Email
             <h3>De nuestra mayor consideraci&oacute;n:</h3>
             <br>
             <p>
-                Expres&aacute;ndole nuestro m&aacute;s cordial saludo, nos es grato confirmar su participaci&oacute;n al Congreso Peruano de Avicultura AVEM PERÚ 2021.
+                Expres&aacute;ndole nuestro m&aacute;s cordial saludo, nos es grato confirmar su participaci&oacute;n en el AVEM 2021..
             </p>
             <p>';
 
-        
 
 
         $this->mensaje .= '
@@ -165,6 +163,53 @@ class Email
         }
     }
 
+    public function sendAdmin($numero)
+    {
+
+        $this->mensaje = '
+        <html>
+        <body style="color: #333333;
+                padding-left: 20%;
+                padding-right: 20%;">
+        
+        <div class="img-log">
+            <img class="log" src="https://firebasestorage.googleapis.com/v0/b/hosting-2cadf.appspot.com/o/avem.png?alt=media&token=3494d193-0ea4-45d7-a263-8560b16efe9a" style="display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;"/>
+        </div>
+        <div>
+            <h3>¡Hola!</h3>
+        </div>
+        <div>
+        </div>
+        
+        <div>
+            <br>
+            <p>
+            Hemos registrado una nueva inscripción correspondiente al pago de '.$numero.' persona(s).            </p>
+            
+            <br>
+            <p>
+            VENTAS AVEM 2021
+            </p>
+            
+            
+            ';
+
+
+
+        
+
+        try {
+            $this->mail->Subject = 'Congreso Peruano de Avicultura AVEM 2021';
+            $this->mail->Body    = $this->mensaje;
+            $this->mail->send();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+        }
+    }
+
     public function participantes($cant_participantes, $participantes) {
         if($cant_participantes > 1) {
             $part = "<ul>";
@@ -183,16 +228,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $data["name"];
     $email_person = $data["email"];
     $participantes = $data['participantes'];
-    $cant_participantes = count($participantes) == 0 ? 1 : count($participantes);
-    $colaborador = count($participantes) > 0 ? 'colaboradores' : 'colaborador';
-    // envio
-  // $email = new Email($email_person,$name);
-  //  $email->send($name, $participantes, $cant_participantes, $colaborador);
-    foreach ($participantes as $item) {   
-      //  $email = new Email($item["email"],$item['name']." ".$item["lastName"]);
-        //$email->sendParticioante($item['name']." ".$item["lastName"]);
+    if(!empty($data['isEstudiante'])) {
+        $email = new Email($email_person,$name);
+        $email->sendParticioante($name);
+        $apaeventos = new Email("apaeventos@apa.org.pe","apaeventos");
+        $apaeventos->sendAdmin(1);
+        
+        echo json_encode(['message' => 'Se envia el correo al estudiante correctamente', 'success' => 'true']);
+    } else {
+        $cant_participantes = count($participantes) == 0 ? 1 : count($participantes);
+        $colaborador = count($participantes) > 0 ? 'colaboradores' : 'colaborador';
+        // envio
+       $email = new Email($email_person,$name);
+        $email->send($name, $participantes, $cant_participantes, $colaborador);
+        foreach ($participantes as $item) {   
+            $email = new Email($item["email"],$item['name']." ".$item["lastName"]);
+            $email->sendParticioante($item['name']." ".$item["lastName"]);
+        }
+        $apaeventos = new Email("apaeventos@apa.org.pe","apaeventos");
+        $apaeventos->sendAdmin($cant_participantes);
+        echo json_encode(['message' => 'Se envia el correo al participante correctamente', 'success' => 'true']);
     }
-    echo json_encode(['message' => 'Se envia el correo al participante correctamente', 'success' => 'true']);
+    
 }
 
 //$email = new Email("lopezajoseg@gmail.com","jose");

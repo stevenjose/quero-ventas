@@ -534,6 +534,7 @@ input[type=number] {
 
         if(bank && reference && num_voucher){
             console.log('crear persona');
+            $("#guardar").prop('disabled', true);
             personCreate(bank, reference, num_voucher);
         }else{
             if(!bank){
@@ -620,13 +621,13 @@ input[type=number] {
             });
             console.error('Error', resp);
         } else {
-            alert(id)
             const fileInput = document.querySelector('#num_voucher');
             let payload = {
                 entidad_bancaria: document.getElementById('entidad_bancaria').value,
                 reference: document.getElementById('reference').value,
                 voucher: fileInput.files[0].name,
-                id: id
+                id: id,
+                isperson: true
             };
             const formData = new FormData();
             formData.append( "json", JSON.stringify( payload));
@@ -646,7 +647,7 @@ input[type=number] {
             const response = await fetch('../mail.php', {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify({name: document.getElementById('nombres').value,email: document.getElementById('email').value , participantes : []})
+                body: JSON.stringify({name: document.getElementById('nombres').value,email: document.getElementById('email').value ,isEstudiante:true, participantes : []})
             });
             form.reset();
             const resp = await response.json();

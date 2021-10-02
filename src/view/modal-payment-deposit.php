@@ -11,10 +11,10 @@
                         Datos de cuentas Bancarias Asociación Peruana de Avicultura
                     </div>
                     <div class="col-12 col-lg-12 col-md-12">
-                        BBVA Dólares: 125 25648 2683356 542
+                        INTERBANK Dólares: 417-3001348928
                     </div>
                     <div class="col-12 col-lg-12 col-md-12">
-                        CCI BBVA Dólares: 125 25648 2683356 542
+                        CCI INTERBANK Dólares: 003-417-3001348928-39
                     </div>
                 </div>
                 <form id="payment" enctype="multipart/form-data">

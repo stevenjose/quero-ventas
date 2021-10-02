@@ -5,11 +5,11 @@ require_once __DIR__ . "/../repository/company.php";
 $target_path = __DIR__ . "/";
 
 $person = json_decode($_POST['json'], true);
-$email = $person['email'];
+$isperson = $person['isperson'];
 $archivo = $_FILES['file'];
 //echo json_encode([ 'error' => 'false', 'success'=>'Se guardo exitosamente']);
 $repository = new Person();
-if (!empty($email)) {
+if (!empty($isperson)) {
     $persona = $person['id'];
 } else {
     $company = new Company();
@@ -30,9 +30,8 @@ if ($persona) {
     $bank = $person['entidad_bancaria'];
     $reference = $person['reference'];
     $voucher = $person['voucher'];
-    echo json_encode(['error' => $person['voucher'], 'success' => 'Se guardo exitosamente']);
     $sql = '';
-    if (!empty($email)) {
+    if (!empty($isperson)) {
         
         $sql = "INSERT INTO payment (bank,reference,voucher,person_id) VALUES('$bank','$reference','$voucher','$persona')";
     } else {

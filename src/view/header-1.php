@@ -9,25 +9,25 @@
             </ul>
             <ul class="nav navbar-nav ms-auto" style="margin-right: 100px">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">INICIO</a>
+                    <a class="nav-link active" aria-current="page" href="https://avemperu.com/es/avem-peru/">INICIO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">SOBRE EL EVENTO</a>
+                    <a class="nav-link" href="https://avemperu.com/es/avem-peru/#event">SOBRE EL EVENTO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">TEMAS</a>
+                    <a class="nav-link" href="https://avemperu.com/es/avem-peru/#thematic">TEMAS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">PONENTES</a>
+                    <a class="nav-link" href="https://avemperu.com/es/avem-peru/#speakers">PONENTES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">POGRAMACIÓN</a>
+                    <a class="nav-link" href="https://avemperu.com/es/avem-peru/#smart">POGRAMACIÓN</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">PATROCIANDORES</a>
+                    <a class="nav-link" href="https://avemperu.com/es/avem-peru/#sponsors">PATROCIANDORES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link form-control btn-navbar" href="#" tabindex="-1" aria-disabled="true">REGISTER</a>
+                    <a class="nav-link form-control btn-navbar" href="https://avemperu.com/es/avem-peru/register" tabindex="-1" aria-disabled="true">REGISTER</a>
                 </li>
             </ul>
         </div>

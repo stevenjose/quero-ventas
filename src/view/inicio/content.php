@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row mt-2">
         <div class="col-12 col-lg-12 col-md-12">
             <h3 class="text-center">
-                Para ventas corporativas (Empresas)
+            Ventas Corporativas (Empresas)
+
             </h3>
             <hr>
         </div>
@@ -126,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="color-tag">PRECIO INCLUIDO IGV</span>
             </div>
             <div class="col-12 precios-content">
-                <span class="tag-content"> *Precio de preventa hasta el 19/09/21, no aplica para empresas AVEM, Asociados APA y estudiantes</span><br>
+            <span class="tag-content"> *El precio preventa hasta: 25/09/21, no aplica para empresas AVEM, Asociados APA y estudiantes</span><br>
                 <span class="tag-content"> **Mínimo 5 inscripciones.</span>
             </div>
         </div>
